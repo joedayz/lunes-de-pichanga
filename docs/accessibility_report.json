@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-05T22:31:22.400Z",
+  "componentesAnalizados": [
+    "DashboardAdmin",
+    "RegistroForm"
+  ],
+  "atributosAplicados": [
+    {
+      "componente": "RegistroForm",
+      "atributo": "aria-label",
+      "valor": "RegistroForm",
+      "criterio": "WCAG 2.1 - 1.3.1 Info and Relationships (AA)"
+    }
+  ],
+  "nivelCumplimiento": "AA",
+  "advertencias": []
+}

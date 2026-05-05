@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-05-05T22:31:29.184Z",
+  "totalTests": 4,
+  "pasados": 4,
+  "fallidos": 0,
+  "omitidos": 0,
+  "cobertura": 100,
+  "coberturaCodigoNuevo": 100,
+  "rondasGeneracionCobertura": 0,
+  "resultados": [
+    {
+      "nombre": "validacion-schema-socios",
+      "estado": "PASADO",
+      "duracionMs": 43
+    },
+    {
+      "nombre": "endpoint-registro-socios",
+      "estado": "PASADO",
+      "duracionMs": 31
+    },
+    {
+      "nombre": "dashboard-resumen-mensual",
+      "estado": "PASADO",
+      "duracionMs": 8
+    },
+    {
+      "nombre": "calculo-cuota-socios-invitados",
+      "estado": "PASADO",
+      "duracionMs": 38
+    }
+  ],
+  "intentosCorrección": 1
+}
