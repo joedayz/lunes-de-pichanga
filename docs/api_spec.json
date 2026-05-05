@@ -1,0 +1,180 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API: una aplicación web",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/socios": {
+      "post": {
+        "summary": "Registrar un nuevo socio del grupo deportivo",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/invitados": {
+      "post": {
+        "summary": "Registrar un invitado que juega sin ser socio",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/movimientos": {
+      "post": {
+        "summary": "Registrar un movimiento (ingreso o gasto) del grupo",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reportes/resumen": {
+      "get": {
+        "summary": "Obtener resumen de ingresos y gastos por mes y año",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [
+          {
+            "name": "mes",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Mes (1-12)"
+          },
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reportes/socios/:socio-id": {
+      "get": {
+        "summary": "Obtener fondo anual y saldo de un socio específico",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [
+          {
+            "name": "socio-id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          },
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año para filtrar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reportes/canasta": {
+      "get": {
+        "summary": "Obtener saldo total de canasta y detalles de gastos e ingresos",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año para filtrar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}
