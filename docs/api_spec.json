@@ -5,7 +5,7 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/socios": {
+    "/api/socios": {
       "post": {
         "summary": "Registrar un nuevo socio del grupo deportivo",
         "tags": [
@@ -28,9 +28,32 @@
         }
       }
     },
-    "/invitados": {
+    "/api/cuotas": {
       "post": {
-        "summary": "Registrar un invitado que juega sin ser socio",
+        "summary": "Registrar pago de cuota mensual de socio (15 soles) o participación de invitado (5 soles)",
+        "tags": [
+          "una aplicación web"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transacciones": {
+      "post": {
+        "summary": "Registrar gasto (pelotas, chalecos) o ingreso extra (rifas, campeonatos)",
         "tags": [
           "una aplicación web"
         ],
@@ -48,29 +71,9 @@
         }
       }
     },
-    "/movimientos": {
-      "post": {
-        "summary": "Registrar un movimiento (ingreso o gasto) del grupo",
-        "tags": [
-          "una aplicación web"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/reportes/resumen": {
+    "/api/reportes/resumen": {
       "get": {
-        "summary": "Obtener resumen de ingresos y gastos por mes y año",
+        "summary": "Obtener resumen de ingresos y gastos por mes y año, con fondo anual por socio y saldo para canasta",
         "tags": [
           "una aplicación web"
         ],
@@ -82,16 +85,16 @@
             "schema": {
               "type": "number"
             },
-            "description": "Mes (1-12)"
+            "description": "Mes específico (1-12)"
           },
           {
             "name": "anio",
             "in": "path",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "number"
             },
-            "description": "Año"
+            "description": "Año del reporte"
           }
         ],
         "responses": {
@@ -107,9 +110,9 @@
         }
       }
     },
-    "/reportes/socios/:socio-id": {
+    "/api/socios/:socio-id/fondo": {
       "get": {
-        "summary": "Obtener fondo anual y saldo de un socio específico",
+        "summary": "Obtener fondo anual acumulado de un socio específico",
         "tags": [
           "una aplicación web"
         ],
@@ -126,11 +129,11 @@
           {
             "name": "anio",
             "in": "path",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar"
+            "description": "Año para calcular el fondo"
           }
         ],
         "responses": {
@@ -146,21 +149,39 @@
         }
       }
     },
-    "/reportes/canasta": {
+    "/api/reportes/detalles": {
       "get": {
-        "summary": "Obtener saldo total de canasta y detalles de gastos e ingresos",
+        "summary": "Obtener detalles de todas las transacciones (cuotas, gastos, ingresos) filtradas por período",
         "tags": [
           "una aplicación web"
         ],
         "parameters": [
           {
-            "name": "anio",
+            "name": "mes",
             "in": "path",
             "required": false,
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar"
+            "description": "Mes específico (1-12)"
+          },
+          {
+            "name": "anio",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año del reporte"
+          },
+          {
+            "name": "tipo",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por tipo: 'cuota', 'gasto', 'ingreso'"
           }
         ],
         "responses": {
