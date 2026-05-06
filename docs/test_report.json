@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-05-06T17:49:00.659Z",
-  "totalTests": 4,
-  "pasados": 4,
+  "timestamp": "2026-05-06T17:55:33.063Z",
+  "totalTests": 3,
+  "pasados": 3,
   "fallidos": 0,
   "omitidos": 0,
   "cobertura": 100,
@@ -9,22 +9,17 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "api-socios-endpoint-returns-array",
+      "nombre": "validacion-schema-socio",
+      "estado": "PASADO",
+      "duracionMs": 29
+    },
+    {
+      "nombre": "endpoint-get-socios",
       "estado": "PASADO",
       "duracionMs": 21
     },
     {
-      "nombre": "api-dashboard-resumen-returns-totals",
-      "estado": "PASADO",
-      "duracionMs": 21
-    },
-    {
-      "nombre": "frontend-pago-form-normaliza-respuesta",
-      "estado": "PASADO",
-      "duracionMs": 39
-    },
-    {
-      "nombre": "post-api-socios-valida-schema",
+      "nombre": "endpoint-post-socio",
       "estado": "PASADO",
       "duracionMs": 42
     }
