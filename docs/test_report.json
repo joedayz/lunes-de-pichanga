@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T13:50:53.431Z",
+  "timestamp": "2026-05-06T13:55:18.404Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -9,19 +9,19 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
+      "nombre": "validacion-schema-socios",
+      "estado": "PASADO",
+      "duracionMs": 12
+    },
+    {
+      "nombre": "validacion-schema-cuotas",
+      "estado": "PASADO",
+      "duracionMs": 14
+    },
+    {
       "nombre": "dashboard-admin-fetch",
       "estado": "PASADO",
-      "duracionMs": 16
-    },
-    {
-      "nombre": "form-registro-socio-validacion",
-      "estado": "PASADO",
-      "duracionMs": 43
-    },
-    {
-      "nombre": "api-socios-post-integracion",
-      "estado": "PASADO",
-      "duracionMs": 43
+      "duracionMs": 6
     }
   ],
   "intentosCorrección": 1
