@@ -7,7 +7,7 @@
   "paths": {
     "/api/anos-disponibles": {
       "get": {
-        "summary": "Obtiene lista de años con datos disponibles en el sistema. Siempre devuelve array JSON parseable de números.",
+        "summary": "Obtiene lista de años con datos disponibles en el sistema (p.ej. años con socios o cuotas registradas)",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
@@ -24,7 +24,7 @@
     },
     "/api/socios": {
       "get": {
-        "summary": "Obtiene lista de socios. Soporta filtro opcional por año. Devuelve array JSON directo (no envuelto en { data }).",
+        "summary": "Obtiene lista de socios, opcionalmente filtrada por año. Responde siempre como array JSON raíz para permitir .map() directo en frontend",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
@@ -36,7 +36,7 @@
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar socios (query param). Si no se proporciona, devuelve todos."
+            "description": "Año para filtrar socios (query param). Si no se proporciona, devuelve todos"
           }
         ],
         "responses": {
@@ -50,11 +50,29 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "post": {
+        "summary": "Crea un nuevo socio",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/api/invitados": {
       "get": {
-        "summary": "Obtiene lista de invitados filtrados por año. Devuelve array JSON directo.",
+        "summary": "Obtiene lista de invitados filtrada por año. Responde como array JSON raíz",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
@@ -82,39 +100,9 @@
         }
       }
     },
-    "/api/dashboard/cuotas": {
-      "get": {
-        "summary": "Obtiene lista de cuotas para el dashboard, filtradas por año. Devuelve array JSON directo.",
-        "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
-        ],
-        "parameters": [
-          {
-            "name": "anio",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año para filtrar cuotas"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/api/dashboard/resumen": {
       "get": {
-        "summary": "Obtiene resumen del dashboard para un año específico: total de socios, invitados y recaudado.",
+        "summary": "Obtiene resumen del dashboard para un año específico: total de socios, invitados y recaudado",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
@@ -142,9 +130,48 @@
         }
       }
     },
+    "/api/dashboard/cuotas": {
+      "get": {
+        "summary": "Obtiene lista de cuotas/pagos para un año específico. Responde como array JSON raíz",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año para filtrar cuotas"
+          },
+          {
+            "name": "mes",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Mes opcional para filtrar cuotas (1-12)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/pagos": {
       "post": {
-        "summary": "Registra un nuevo pago de cuota. Alias que delega a la lógica de POST /api/cuotas para compatibilidad con PagoForm.tsx.",
+        "summary": "Registra un nuevo pago/cuota. Alias que delega a la lógica de cuotas existente. Acepta el mismo schema que POST /api/cuotas",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
@@ -167,7 +194,7 @@
     },
     "/api/cuotas": {
       "post": {
-        "summary": "Registra una nueva cuota o pago. Endpoint principal que valida con Zod y persiste en BD.",
+        "summary": "Registra una nueva cuota (pago). Endpoint principal; POST /api/pagos delega aquí",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
@@ -179,20 +206,61 @@
           "400": {
             "description": "Bad Request"
           },
-          "422": {
-            "description": "Response"
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/socios/:id": {
       "get": {
-        "summary": "Obtiene lista de cuotas con filtros opcionales por año y estado.",
+        "summary": "Obtiene detalles de un socio específico por ID",
         "tags": [
           "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
         "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/dashboard/cuotas/:socioId": {
+      "get": {
+        "summary": "Obtiene historial de cuotas/pagos de un socio específico",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [
+          {
+            "name": "socioId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          },
           {
             "name": "anio",
             "in": "path",
@@ -200,24 +268,15 @@
             "schema": {
               "type": "number"
             },
-            "description": "Filtrar por año"
-          },
-          {
-            "name": "estado",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filtrar por estado: 'pendiente' | 'pagada' | 'vencida'"
+            "description": "Filtrar por año (query param)"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
