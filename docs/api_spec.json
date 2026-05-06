@@ -5,30 +5,41 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/build-status": {
+    "/api/socios": {
       "get": {
-        "summary": "Verifica el estado del build de Vite y retorna información sobre errores en la compilación del frontend",
+        "summary": "Obtener lista de todos los socios registrados",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
+        "parameters": [
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (activo, inactivo)"
           },
-          "500": {
-            "description": "Internal Server Error"
+          {
+            "name": "page",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página para paginación"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Cantidad de registros por página"
           }
-        }
-      }
-    },
-    "/api/components/una-aplicacin-web/validate": {
-      "get": {
-        "summary": "Valida la estructura del archivo index.tsx: imports únicos, BASE_URL declarado una sola vez, único export default",
-        "tags": [
-          "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -40,24 +51,22 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/components/una-aplicacin-web/fix": {
+      },
       "post": {
-        "summary": "Aplica correcciones automáticas al archivo index.tsx: reorganiza imports, consolida BASE_URL, asegura único export default",
+        "summary": "Registrar un nuevo socio y crear cuota inicial",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
           },
-          "422": {
-            "description": "Response"
+          "409": {
+            "description": "Conflict"
           },
           "500": {
             "description": "Internal Server Error"
@@ -65,13 +74,32 @@
         }
       }
     },
-    "/api/components/una-aplicacin-web/structure": {
+    "/api/socios/:id/cuotas": {
       "get": {
-        "summary": "Retorna la estructura actual del archivo index.tsx: imports, constantes, exports, componentes detectados",
+        "summary": "Obtener historial de cuotas de un socio específico",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (pendiente, pagada, vencida)"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -85,13 +113,23 @@
         }
       }
     },
-    "/api/components/extract": {
-      "post": {
-        "summary": "Extrae un componente del archivo index.tsx a un archivo separado manteniendo imports y dependencias",
+    "/api/cuotas/:id/pagar": {
+      "patch": {
+        "summary": "Registrar pago de una cuota",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la cuota"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -99,8 +137,8 @@
           "400": {
             "description": "Bad Request"
           },
-          "422": {
-            "description": "Response"
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -108,9 +146,9 @@
         }
       }
     },
-    "/api/dev-server/health": {
+    "/api/dashboard/resumen": {
       "get": {
-        "summary": "Verifica si el servidor de desarrollo (Vite) está corriendo correctamente en http://localhost:5173",
+        "summary": "Obtener resumen del dashboard administrativo (socios activos, cuotas pendientes, próximas pichangas)",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
@@ -121,9 +159,36 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socios/:id": {
+      "get": {
+        "summary": "Obtener detalles completos de un socio (perfil, cuotas, asistencias)",
+        "tags": [
+          "corregir el build del frontend en Vite"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
-          "503": {
-            "description": "Response"
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

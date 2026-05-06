@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-05-06T14:49:02.379Z",
+  "timestamp": "2026-05-06T15:00:14.305Z",
   "componentesAnalizados": [
-    "BuildStatusDashboard",
-    "FixBuildForm"
+    "DashboardAdmin",
+    "FormRegistroSocioYCuota"
   ],
   "atributosAplicados": [
     {
-      "componente": "FixBuildForm",
+      "componente": "FormRegistroSocioYCuota",
       "atributo": "aria-label",
-      "valor": "FixBuildForm",
+      "valor": "FormRegistroSocioYCuota",
       "criterio": "WCAG 2.1 - 1.3.1 Info and Relationships (AA)"
     }
   ],

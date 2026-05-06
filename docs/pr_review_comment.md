@@ -1,6 +1,6 @@
 ## Revisión automática (Agente_Revisor_PR)
 
-- **PR**: [#11](https://github.com/joedayz/lunes-de-pichanga/pull/11) (feature/b5ee27d0-611f-439d-b4db-fd6ca57a4806 → main)
+- **PR**: [#12](https://github.com/joedayz/lunes-de-pichanga/pull/12) (feature/c1d3c726-8fc3-446a-aac8-c6750a6d27fa → main)
 - **Decisión**: **CAMBIOS_SOLICITADOS**
 - **Diff Git analizado**: sí
 
@@ -11,26 +11,30 @@
 
 ### Hallazgos de calidad
 
-- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:5` — Columnas duplicadas en la definición de la tabla: 'pichanga_id' y 'socio_id' se declaran dos veces (líneas 6-7 y 12-13). Las referencias FOREIGN KEY deben estar en la definición de columna o como constraint separado, no ambas. _(criterio: Sintaxis SQL válida)_
-- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:12` — Constraint FOREIGN KEY incorrecto: falta la palabra clave 'CONSTRAINT' o debe ser una definición de constraint separada. Sintaxis: 'CONSTRAINT fk_name FOREIGN KEY (column) REFERENCES table(id)' _(criterio: Sintaxis SQL válida)_
-- **[ADVERTENCIA]** `db/schema_snapshot.json:126` — Inconsistencia en schema_snapshot.json: la entidad 'Usuario' fue insertada pero no existe migración correspondiente en el diff. Solo se ve 'participacionpichanga' y 'noop_conflicto'. Esto puede causar desincronización entre migraciones y snapshot. _(criterio: Consistencia entre migraciones y snapshots)_
-- **[ADVERTENCIA]** `db/schema_snapshot.json:158` — Cambio significativo en schema: la entidad 'AsistenciaPichanga' fue renombrada a 'ParticipacionPichanga' pero el snapshot muestra 'Pichanga' en su lugar. Las relaciones fueron eliminadas sin documentación de por qué. _(criterio: Trazabilidad de cambios de esquema)_
-- **[ADVERTENCIA]** `docs/api_spec.json:8` — Cambio de endpoint: '/api/socios' fue reemplazado por '/api/build-status'. Esto es un cambio de API que rompe compatibilidad hacia atrás. Debería estar documentado en notas de versión o deprecación. _(criterio: Versionado de API y compatibilidad hacia atrás)_
-- **[ADVERTENCIA]** `docs/api_spec.json:25` — Endpoint POST '/api/socios' fue eliminado del spec sin documentación de migración. Los clientes que usen este endpoint fallarán sin previo aviso. _(criterio: Documentación de cambios de API)_
-- **[ADVERTENCIA]** `docs/accessibility_report.json:4` — Componentes analizados cambiaron de 'DashboardAdmin' y 'FormRegistroSocioYCuota' a 'BuildStatusDashboard' y 'FixBuildForm'. Esto sugiere cambios significativos en la UI sin documentación de impacto en accesibilidad. _(criterio: Trazabilidad de cambios en componentes)_
-- **[SUGERENCIA]** `código TypeScript (routers):6` — TODO comentario sin asignar: 'implementar lógica de negocio' en GET /api/socios. Considera usar un sistema de tracking (Jira, GitHub Issues) en lugar de comentarios TODO. _(criterio: Buenas prácticas de desarrollo)_
-- **[SUGERENCIA]** `código TypeScript (routers):18` — Nombre de schema poco descriptivo: 'postApi_sociosSchema'. Considera usar convención más clara como 'CreateSocioSchema' o 'SocioCreatePayloadSchema'. _(criterio: Nomenclatura y legibilidad)_
-- **[ADVERTENCIA]** `código TypeScript (routers):30` — Manejo de errores genérico: catch(err) sin tipado. Debería ser 'catch(err: unknown)' o 'catch(err: Error)' para cumplir con TypeScript strict. _(criterio: Tipado estricto de TypeScript)_
-- **[SUGERENCIA]** `código TypeScript (routers):40` — Parámetro '_err' no utilizado en múltiples handlers. Si es intencional ignorar el error, usa 'catch (_err: unknown)' o mejor aún, loguea el error para debugging. _(criterio: Manejo de errores y debugging)_
-- **[SUGERENCIA]** `código TypeScript (routers):70` — Nombre de schema poco descriptivo: 'patchApi_cuotas_id_pagarSchema'. Considera 'PayCuotaSchema' o 'CuotaPaymentPayloadSchema'. _(criterio: Nomenclatura y legibilidad)_
-- **[ADVERTENCIA]** `código TypeScript (App component):1` — Imports con extensión '.js' en archivos TypeScript/JSX. Debería ser './DashboardAdmin' sin extensión para que TypeScript resuelva correctamente. _(criterio: Convenciones de imports en TypeScript)_
-- **[SUGERENCIA]** `código TypeScript (App component):5` — Componente App sin props tipadas. Considera definir interface Props aunque sea vacía, o usar 'React.FC<{}>()' para claridad. _(criterio: Tipado explícito en componentes React)_
+- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:5` — Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben ser constraints FOREIGN KEY separados, no redefiniciones de columnas. _(criterio: Sintaxis SQL válida)_
+- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:12` — Constraint FOREIGN KEY mal formado. Debería ser: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' en lugar de redefinir la columna. _(criterio: Sintaxis SQL válida)_
+- **[ADVERTENCIA]** `db/migrations/20260506144826_participacionpichanga.sql:4` — Falta 'ON DELETE CASCADE' o política de eliminación en las foreign keys. Considerar agregar para mantener integridad referencial. _(criterio: Buenas prácticas de diseño de BD)_
+- **[ADVERTENCIA]** `db/schema_snapshot.json:35` — Cambio de nombre de columna: 'fecha_registro' → 'fecha_ingreso' sin migración explícita. Esto puede causar inconsistencias si hay código que referencia el nombre anterior. _(criterio: Consistencia de esquema)_
+- **[ADVERTENCIA]** `db/schema_snapshot.json:126` — Cambio significativo en schema: tabla 'Pichanga' reemplazada por 'Usuario' y tabla 'AsistenciaPichanga' eliminada. Esto sugiere un cambio de modelo de datos importante sin documentación clara. _(criterio: Trazabilidad de cambios)_
+- **[ADVERTENCIA]** `docs/accessibility_report.json:4` — Componentes analizados cambiaron de 'DashboardAdmin' y 'FormRegistroSocioYCuota' a 'BuildStatusDashboard' y 'FixBuildForm'. Esto indica cambios de scope sin documentación de por qué. _(criterio: Consistencia de documentación)_
+- **[ADVERTENCIA]** `docs/api_spec.json:8` — Cambio radical en API spec: endpoints de '/api/socios' y '/api/cuotas' reemplazados por '/api/build-status' y '/api/components/una-aplicacin-web/*'. Esto sugiere scope creep o cambio de requisitos no documentado. _(criterio: Consistencia de especificación)_
+- **[SUGERENCIA]** `db/migrations/20260506145208_noop_conflicto_6c613554.sql:1` — Migración NO-OP detectada. Aunque válida, considerar si es necesaria o si puede consolidarse con otras migraciones para reducir ruido. _(criterio: Limpieza de migraciones)_
+- **[SUGERENCIA]** `db/migrations/20260506145453_noop_conflicto_79263199.sql:1` — Migración NO-OP detectada. Aunque válida, considerar si es necesaria o si puede consolidarse con otras migraciones para reducir ruido. _(criterio: Limpieza de migraciones)_
+- **[ADVERTENCIA]** `src/routes.ts:8` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios. _(criterio: Código incompleto)_
+- **[ADVERTENCIA]** `src/routes.ts:32` — TODO comentario sin resolver. Implementar lógica de negocio para POST /api/socios. _(criterio: Código incompleto)_
+- **[ADVERTENCIA]** `src/routes.ts:44` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios/:id/cuotas. _(criterio: Código incompleto)_
+- **[ADVERTENCIA]** `src/routes.ts:57` — TODO comentario sin resolver. Implementar lógica de negocio para PATCH /api/cuotas/:id/pagar. _(criterio: Código incompleto)_
+- **[ADVERTENCIA]** `src/routes.ts:71` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/dashboard/resumen. _(criterio: Código incompleto)_
+- **[ADVERTENCIA]** `src/routes.ts:80` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios/:id. _(criterio: Código incompleto)_
+- **[SUGERENCIA]** `src/routes.ts:6` — Considerar extraer schemas Zod a un archivo separado (ej: schemas.ts) para mejorar mantenibilidad y reutilización. _(criterio: Organización de código)_
+- **[SUGERENCIA]** `src/routes.ts:1` — Considerar agregar middleware de validación centralizado para reducir duplicación de try-catch y manejo de errores. _(criterio: DRY principle)_
+- **[ADVERTENCIA]** `src/App.tsx:1` — Imports con extensión .js en archivo TypeScript/TSX. Debería ser './DashboardAdmin' sin extensión para seguir convenciones de módulos ES. _(criterio: Convenciones de imports)_
 
 ### Recomendaciones
 
-- Revisar 7 advertencia(s) de calidad encontrada(s)
-- Considerar 5 sugerencia(s) de mejora
+- Revisar 12 advertencia(s) de calidad encontrada(s)
+- Considerar 4 sugerencia(s) de mejora
 
 ### Criterios incumplidos
-- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:5`: Columnas duplicadas en la definición de la tabla: 'pichanga_id' y 'socio_id' se declaran dos veces (líneas 6-7 y 12-13). Las referencias FOREIGN KEY deben estar en la definición de columna o como constraint separado, no ambas. (Sintaxis SQL válida)
-- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:12`: Constraint FOREIGN KEY incorrecto: falta la palabra clave 'CONSTRAINT' o debe ser una definición de constraint separada. Sintaxis: 'CONSTRAINT fk_name FOREIGN KEY (column) REFERENCES table(id)' (Sintaxis SQL válida)
+- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:5`: Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben ser constraints FOREIGN KEY separados, no redefiniciones de columnas. (Sintaxis SQL válida)
+- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:12`: Constraint FOREIGN KEY mal formado. Debería ser: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' en lugar de redefinir la columna. (Sintaxis SQL válida)

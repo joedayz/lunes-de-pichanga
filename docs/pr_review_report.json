@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-05-06T14:53:06.511Z",
+  "timestamp": "2026-05-06T14:55:43.428Z",
   "pullRequest": {
-    "numero": 11,
-    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/11",
+    "numero": 12,
+    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/12",
     "titulo": "feat: corregir el build del frontend en Vite",
-    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir el build del frontend en Vite, para poder ejecutar la UI.\n\nBug (actual):\n- Vite falla con errores por imports/const duplicados y múltiples default exports en:\n  `src/components/una-aplicacin-web/index.tsx`\n  (ejemplos vistos: \"Identifier 'React' has already been declared\", \"BASE_URL has already been declared\", \"Multiple exports with the same name default\").\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Vite muestra el error apuntando a `src/components/una-aplicacin-web/index.tsx`.\n\nFIX REQUERIDO (NO NEGOCIABLE):\n- Debes modificar EXACTAMENTE este archivo: `src/components/una-aplicacin-web/index.tsx`.\n- PROHIBIDO crear una carpeta o componente nuevo tipo `src/components/<slug>/...` para “resolver” el bug.\n- PROHIBIDO dejar el bug sin tocar en `una-aplicacin-web/index.tsx`.\n\nCambios concretos a aplicar:\n- En `src/components/una-aplicacin-web/index.tsx`:\n  1) Todos los `import ...` deben estar solo al inicio del archivo (líneas 1..N). No puede haber imports en medio.\n  2) Debe existir un único `const BASE_URL` (declarado una sola vez).\n  3) Debe existir un único `export default` en ese archivo.\n\nEstrategia recomendada (si hay 2 componentes pegados):\n- Extraer y crear estos archivos (si no existen):\n  - `src/components/una-aplicacin-web/DashboardAdmin.tsx`\n  - `src/components/una-aplicacin-web/FormRegistroSocioYCuota.tsx`\n- Luego dejar `src/components/una-aplicacin-web/index.tsx` como compositor:\n  - Imports al inicio\n  - `const BASE_URL` una sola vez (si aplica) o moverlo a un helper\n  - `export default function App(){ return (<><DashboardAdmin/><FormRegistroSocioYCuota/></>); }`\n\nValidación:\n- `npm run dev` debe levantar sin errores de Babel/Vite relacionados a `index.tsx`.\n- http://localhost:5173 debe cargar (sin pantalla en blanco)\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506145208_noop_conflicto_6c613554.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-el-build-del-frontend-en-vite.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/corregir-el-build-del-frontend-en-vite/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/b5ee27d0-611f-439d-b4db-fd6ca57a4806/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\n6c613554-db12-4de5-856b-8416fa121a0b",
-    "ramaOrigen": "feature/b5ee27d0-611f-439d-b4db-fd6ca57a4806",
+    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir el build del frontend en Vite, para poder ejecutar la UI.\n\nBug (actual):\n- Vite falla con errores por imports/const duplicados y múltiples default exports en:\n  `src/components/una-aplicacin-web/index.tsx`\n  (ejemplos vistos: \"Identifier 'React' has already been declared\", \"BASE_URL has already been declared\", \"Multiple exports with the same name default\").\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Vite muestra el error apuntando a `src/components/una-aplicacin-web/index.tsx`.\n\nFIX REQUERIDO (NO NEGOCIABLE):\n- Debes modificar EXACTAMENTE este archivo: `src/components/una-aplicacin-web/index.tsx`.\n- PROHIBIDO crear una carpeta o componente nuevo tipo `src/components/<slug>/...` para “resolver” el bug.\n- PROHIBIDO dejar el bug sin tocar en `una-aplicacin-web/index.tsx`.\n\nCambios concretos a aplicar:\n- En `src/components/una-aplicacin-web/index.tsx`:\n  1) Todos los `import ...` deben estar solo al inicio del archivo (líneas 1..N). No puede haber imports en medio.\n  2) Debe existir un único `const BASE_URL` (declarado una sola vez).\n  3) Debe existir un único `export default` en ese archivo.\n\nEstrategia recomendada (si hay 2 componentes pegados):\n- Extraer y crear estos archivos (si no existen):\n  - `src/components/una-aplicacin-web/DashboardAdmin.tsx`\n  - `src/components/una-aplicacin-web/FormRegistroSocioYCuota.tsx`\n- Luego dejar `src/components/una-aplicacin-web/index.tsx` como compositor:\n  - Imports al inicio\n  - `const BASE_URL` una sola vez (si aplica) o moverlo a un helper\n  - `export default function App(){ return (<><DashboardAdmin/><FormRegistroSocioYCuota/></>); }`\n\nValidación:\n- `npm run dev` debe levantar sin errores de Babel/Vite relacionados a `index.tsx`.\n- http://localhost:5173 debe cargar (sin pantalla en blanco)\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506145453_noop_conflicto_79263199.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-el-build-del-frontend-en-vite.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/una-aplicacin-web/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/c1d3c726-8fc3-446a-aac8-c6750a6d27fa/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\n79263199-2b3f-42ce-9e2c-1bd27a65d606",
+    "ramaOrigen": "feature/c1d3c726-8fc3-446a-aac8-c6750a6d27fa",
     "ramaDestino": "main",
     "estado": "CAMBIOS_SOLICITADOS",
-    "timestamp": "2026-05-06T14:52:50.683Z"
+    "timestamp": "2026-05-06T14:55:28.072Z"
   },
   "decision": "CAMBIOS_SOLICITADOS",
   "cobertura": 100,
@@ -20,107 +20,135 @@
       "archivo": "db/migrations/20260506144826_participacionpichanga.sql",
       "linea": 5,
       "tipo": "ERROR",
-      "mensaje": "Columnas duplicadas en la definición de la tabla: 'pichanga_id' y 'socio_id' se declaran dos veces (líneas 6-7 y 12-13). Las referencias FOREIGN KEY deben estar en la definición de columna o como constraint separado, no ambas.",
+      "mensaje": "Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben ser constraints FOREIGN KEY separados, no redefiniciones de columnas.",
       "criterio": "Sintaxis SQL válida"
     },
     {
       "archivo": "db/migrations/20260506144826_participacionpichanga.sql",
       "linea": 12,
       "tipo": "ERROR",
-      "mensaje": "Constraint FOREIGN KEY incorrecto: falta la palabra clave 'CONSTRAINT' o debe ser una definición de constraint separada. Sintaxis: 'CONSTRAINT fk_name FOREIGN KEY (column) REFERENCES table(id)'",
+      "mensaje": "Constraint FOREIGN KEY mal formado. Debería ser: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' en lugar de redefinir la columna.",
       "criterio": "Sintaxis SQL válida"
+    },
+    {
+      "archivo": "db/migrations/20260506144826_participacionpichanga.sql",
+      "linea": 4,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Falta 'ON DELETE CASCADE' o política de eliminación en las foreign keys. Considerar agregar para mantener integridad referencial.",
+      "criterio": "Buenas prácticas de diseño de BD"
+    },
+    {
+      "archivo": "db/schema_snapshot.json",
+      "linea": 35,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Cambio de nombre de columna: 'fecha_registro' → 'fecha_ingreso' sin migración explícita. Esto puede causar inconsistencias si hay código que referencia el nombre anterior.",
+      "criterio": "Consistencia de esquema"
     },
     {
       "archivo": "db/schema_snapshot.json",
       "linea": 126,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Inconsistencia en schema_snapshot.json: la entidad 'Usuario' fue insertada pero no existe migración correspondiente en el diff. Solo se ve 'participacionpichanga' y 'noop_conflicto'. Esto puede causar desincronización entre migraciones y snapshot.",
-      "criterio": "Consistencia entre migraciones y snapshots"
-    },
-    {
-      "archivo": "db/schema_snapshot.json",
-      "linea": 158,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Cambio significativo en schema: la entidad 'AsistenciaPichanga' fue renombrada a 'ParticipacionPichanga' pero el snapshot muestra 'Pichanga' en su lugar. Las relaciones fueron eliminadas sin documentación de por qué.",
-      "criterio": "Trazabilidad de cambios de esquema"
-    },
-    {
-      "archivo": "docs/api_spec.json",
-      "linea": 8,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Cambio de endpoint: '/api/socios' fue reemplazado por '/api/build-status'. Esto es un cambio de API que rompe compatibilidad hacia atrás. Debería estar documentado en notas de versión o deprecación.",
-      "criterio": "Versionado de API y compatibilidad hacia atrás"
-    },
-    {
-      "archivo": "docs/api_spec.json",
-      "linea": 25,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Endpoint POST '/api/socios' fue eliminado del spec sin documentación de migración. Los clientes que usen este endpoint fallarán sin previo aviso.",
-      "criterio": "Documentación de cambios de API"
+      "mensaje": "Cambio significativo en schema: tabla 'Pichanga' reemplazada por 'Usuario' y tabla 'AsistenciaPichanga' eliminada. Esto sugiere un cambio de modelo de datos importante sin documentación clara.",
+      "criterio": "Trazabilidad de cambios"
     },
     {
       "archivo": "docs/accessibility_report.json",
       "linea": 4,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Componentes analizados cambiaron de 'DashboardAdmin' y 'FormRegistroSocioYCuota' a 'BuildStatusDashboard' y 'FixBuildForm'. Esto sugiere cambios significativos en la UI sin documentación de impacto en accesibilidad.",
-      "criterio": "Trazabilidad de cambios en componentes"
+      "mensaje": "Componentes analizados cambiaron de 'DashboardAdmin' y 'FormRegistroSocioYCuota' a 'BuildStatusDashboard' y 'FixBuildForm'. Esto indica cambios de scope sin documentación de por qué.",
+      "criterio": "Consistencia de documentación"
     },
     {
-      "archivo": "código TypeScript (routers)",
+      "archivo": "docs/api_spec.json",
+      "linea": 8,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Cambio radical en API spec: endpoints de '/api/socios' y '/api/cuotas' reemplazados por '/api/build-status' y '/api/components/una-aplicacin-web/*'. Esto sugiere scope creep o cambio de requisitos no documentado.",
+      "criterio": "Consistencia de especificación"
+    },
+    {
+      "archivo": "db/migrations/20260506145208_noop_conflicto_6c613554.sql",
+      "linea": 1,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Migración NO-OP detectada. Aunque válida, considerar si es necesaria o si puede consolidarse con otras migraciones para reducir ruido.",
+      "criterio": "Limpieza de migraciones"
+    },
+    {
+      "archivo": "db/migrations/20260506145453_noop_conflicto_79263199.sql",
+      "linea": 1,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Migración NO-OP detectada. Aunque válida, considerar si es necesaria o si puede consolidarse con otras migraciones para reducir ruido.",
+      "criterio": "Limpieza de migraciones"
+    },
+    {
+      "archivo": "src/routes.ts",
+      "linea": 8,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios.",
+      "criterio": "Código incompleto"
+    },
+    {
+      "archivo": "src/routes.ts",
+      "linea": 32,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "TODO comentario sin resolver. Implementar lógica de negocio para POST /api/socios.",
+      "criterio": "Código incompleto"
+    },
+    {
+      "archivo": "src/routes.ts",
+      "linea": 44,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios/:id/cuotas.",
+      "criterio": "Código incompleto"
+    },
+    {
+      "archivo": "src/routes.ts",
+      "linea": 57,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "TODO comentario sin resolver. Implementar lógica de negocio para PATCH /api/cuotas/:id/pagar.",
+      "criterio": "Código incompleto"
+    },
+    {
+      "archivo": "src/routes.ts",
+      "linea": 71,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "TODO comentario sin resolver. Implementar lógica de negocio para GET /api/dashboard/resumen.",
+      "criterio": "Código incompleto"
+    },
+    {
+      "archivo": "src/routes.ts",
+      "linea": 80,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios/:id.",
+      "criterio": "Código incompleto"
+    },
+    {
+      "archivo": "src/routes.ts",
       "linea": 6,
       "tipo": "SUGERENCIA",
-      "mensaje": "TODO comentario sin asignar: 'implementar lógica de negocio' en GET /api/socios. Considera usar un sistema de tracking (Jira, GitHub Issues) en lugar de comentarios TODO.",
-      "criterio": "Buenas prácticas de desarrollo"
+      "mensaje": "Considerar extraer schemas Zod a un archivo separado (ej: schemas.ts) para mejorar mantenibilidad y reutilización.",
+      "criterio": "Organización de código"
     },
     {
-      "archivo": "código TypeScript (routers)",
-      "linea": 18,
+      "archivo": "src/routes.ts",
+      "linea": 1,
       "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de schema poco descriptivo: 'postApi_sociosSchema'. Considera usar convención más clara como 'CreateSocioSchema' o 'SocioCreatePayloadSchema'.",
-      "criterio": "Nomenclatura y legibilidad"
+      "mensaje": "Considerar agregar middleware de validación centralizado para reducir duplicación de try-catch y manejo de errores.",
+      "criterio": "DRY principle"
     },
     {
-      "archivo": "código TypeScript (routers)",
-      "linea": 30,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Manejo de errores genérico: catch(err) sin tipado. Debería ser 'catch(err: unknown)' o 'catch(err: Error)' para cumplir con TypeScript strict.",
-      "criterio": "Tipado estricto de TypeScript"
-    },
-    {
-      "archivo": "código TypeScript (routers)",
-      "linea": 40,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Parámetro '_err' no utilizado en múltiples handlers. Si es intencional ignorar el error, usa 'catch (_err: unknown)' o mejor aún, loguea el error para debugging.",
-      "criterio": "Manejo de errores y debugging"
-    },
-    {
-      "archivo": "código TypeScript (routers)",
-      "linea": 70,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de schema poco descriptivo: 'patchApi_cuotas_id_pagarSchema'. Considera 'PayCuotaSchema' o 'CuotaPaymentPayloadSchema'.",
-      "criterio": "Nomenclatura y legibilidad"
-    },
-    {
-      "archivo": "código TypeScript (App component)",
+      "archivo": "src/App.tsx",
       "linea": 1,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Imports con extensión '.js' en archivos TypeScript/JSX. Debería ser './DashboardAdmin' sin extensión para que TypeScript resuelva correctamente.",
-      "criterio": "Convenciones de imports en TypeScript"
-    },
-    {
-      "archivo": "código TypeScript (App component)",
-      "linea": 5,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Componente App sin props tipadas. Considera definir interface Props aunque sea vacía, o usar 'React.FC<{}>()' para claridad.",
-      "criterio": "Tipado explícito en componentes React"
+      "mensaje": "Imports con extensión .js en archivo TypeScript/TSX. Debería ser './DashboardAdmin' sin extensión para seguir convenciones de módulos ES.",
+      "criterio": "Convenciones de imports"
     }
   ],
   "recomendaciones": [
-    "Revisar 7 advertencia(s) de calidad encontrada(s)",
-    "Considerar 5 sugerencia(s) de mejora"
+    "Revisar 12 advertencia(s) de calidad encontrada(s)",
+    "Considerar 4 sugerencia(s) de mejora"
   ],
-  "resumen": "❌ Cambios solicitados. Razones: 2 error(es) de calidad, 7 advertencia(s).",
-  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#11](https://github.com/joedayz/lunes-de-pichanga/pull/11) (feature/b5ee27d0-611f-439d-b4db-fd6ca57a4806 → main)\n- **Decisión**: **CAMBIOS_SOLICITADOS**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:5` — Columnas duplicadas en la definición de la tabla: 'pichanga_id' y 'socio_id' se declaran dos veces (líneas 6-7 y 12-13). Las referencias FOREIGN KEY deben estar en la definición de columna o como constraint separado, no ambas. _(criterio: Sintaxis SQL válida)_\n- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:12` — Constraint FOREIGN KEY incorrecto: falta la palabra clave 'CONSTRAINT' o debe ser una definición de constraint separada. Sintaxis: 'CONSTRAINT fk_name FOREIGN KEY (column) REFERENCES table(id)' _(criterio: Sintaxis SQL válida)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:126` — Inconsistencia en schema_snapshot.json: la entidad 'Usuario' fue insertada pero no existe migración correspondiente en el diff. Solo se ve 'participacionpichanga' y 'noop_conflicto'. Esto puede causar desincronización entre migraciones y snapshot. _(criterio: Consistencia entre migraciones y snapshots)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:158` — Cambio significativo en schema: la entidad 'AsistenciaPichanga' fue renombrada a 'ParticipacionPichanga' pero el snapshot muestra 'Pichanga' en su lugar. Las relaciones fueron eliminadas sin documentación de por qué. _(criterio: Trazabilidad de cambios de esquema)_\n- **[ADVERTENCIA]** `docs/api_spec.json:8` — Cambio de endpoint: '/api/socios' fue reemplazado por '/api/build-status'. Esto es un cambio de API que rompe compatibilidad hacia atrás. Debería estar documentado en notas de versión o deprecación. _(criterio: Versionado de API y compatibilidad hacia atrás)_\n- **[ADVERTENCIA]** `docs/api_spec.json:25` — Endpoint POST '/api/socios' fue eliminado del spec sin documentación de migración. Los clientes que usen este endpoint fallarán sin previo aviso. _(criterio: Documentación de cambios de API)_\n- **[ADVERTENCIA]** `docs/accessibility_report.json:4` — Componentes analizados cambiaron de 'DashboardAdmin' y 'FormRegistroSocioYCuota' a 'BuildStatusDashboard' y 'FixBuildForm'. Esto sugiere cambios significativos en la UI sin documentación de impacto en accesibilidad. _(criterio: Trazabilidad de cambios en componentes)_\n- **[SUGERENCIA]** `código TypeScript (routers):6` — TODO comentario sin asignar: 'implementar lógica de negocio' en GET /api/socios. Considera usar un sistema de tracking (Jira, GitHub Issues) en lugar de comentarios TODO. _(criterio: Buenas prácticas de desarrollo)_\n- **[SUGERENCIA]** `código TypeScript (routers):18` — Nombre de schema poco descriptivo: 'postApi_sociosSchema'. Considera usar convención más clara como 'CreateSocioSchema' o 'SocioCreatePayloadSchema'. _(criterio: Nomenclatura y legibilidad)_\n- **[ADVERTENCIA]** `código TypeScript (routers):30` — Manejo de errores genérico: catch(err) sin tipado. Debería ser 'catch(err: unknown)' o 'catch(err: Error)' para cumplir con TypeScript strict. _(criterio: Tipado estricto de TypeScript)_\n- **[SUGERENCIA]** `código TypeScript (routers):40` — Parámetro '_err' no utilizado en múltiples handlers. Si es intencional ignorar el error, usa 'catch (_err: unknown)' o mejor aún, loguea el error para debugging. _(criterio: Manejo de errores y debugging)_\n- **[SUGERENCIA]** `código TypeScript (routers):70` — Nombre de schema poco descriptivo: 'patchApi_cuotas_id_pagarSchema'. Considera 'PayCuotaSchema' o 'CuotaPaymentPayloadSchema'. _(criterio: Nomenclatura y legibilidad)_\n- **[ADVERTENCIA]** `código TypeScript (App component):1` — Imports con extensión '.js' en archivos TypeScript/JSX. Debería ser './DashboardAdmin' sin extensión para que TypeScript resuelva correctamente. _(criterio: Convenciones de imports en TypeScript)_\n- **[SUGERENCIA]** `código TypeScript (App component):5` — Componente App sin props tipadas. Considera definir interface Props aunque sea vacía, o usar 'React.FC<{}>()' para claridad. _(criterio: Tipado explícito en componentes React)_\n\n### Recomendaciones\n\n- Revisar 7 advertencia(s) de calidad encontrada(s)\n- Considerar 5 sugerencia(s) de mejora\n\n### Criterios incumplidos\n- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:5`: Columnas duplicadas en la definición de la tabla: 'pichanga_id' y 'socio_id' se declaran dos veces (líneas 6-7 y 12-13). Las referencias FOREIGN KEY deben estar en la definición de columna o como constraint separado, no ambas. (Sintaxis SQL válida)\n- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:12`: Constraint FOREIGN KEY incorrecto: falta la palabra clave 'CONSTRAINT' o debe ser una definición de constraint separada. Sintaxis: 'CONSTRAINT fk_name FOREIGN KEY (column) REFERENCES table(id)' (Sintaxis SQL válida)",
+  "resumen": "❌ Cambios solicitados. Razones: 2 error(es) de calidad, 12 advertencia(s).",
+  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#12](https://github.com/joedayz/lunes-de-pichanga/pull/12) (feature/c1d3c726-8fc3-446a-aac8-c6750a6d27fa → main)\n- **Decisión**: **CAMBIOS_SOLICITADOS**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:5` — Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben ser constraints FOREIGN KEY separados, no redefiniciones de columnas. _(criterio: Sintaxis SQL válida)_\n- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:12` — Constraint FOREIGN KEY mal formado. Debería ser: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' en lugar de redefinir la columna. _(criterio: Sintaxis SQL válida)_\n- **[ADVERTENCIA]** `db/migrations/20260506144826_participacionpichanga.sql:4` — Falta 'ON DELETE CASCADE' o política de eliminación en las foreign keys. Considerar agregar para mantener integridad referencial. _(criterio: Buenas prácticas de diseño de BD)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:35` — Cambio de nombre de columna: 'fecha_registro' → 'fecha_ingreso' sin migración explícita. Esto puede causar inconsistencias si hay código que referencia el nombre anterior. _(criterio: Consistencia de esquema)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:126` — Cambio significativo en schema: tabla 'Pichanga' reemplazada por 'Usuario' y tabla 'AsistenciaPichanga' eliminada. Esto sugiere un cambio de modelo de datos importante sin documentación clara. _(criterio: Trazabilidad de cambios)_\n- **[ADVERTENCIA]** `docs/accessibility_report.json:4` — Componentes analizados cambiaron de 'DashboardAdmin' y 'FormRegistroSocioYCuota' a 'BuildStatusDashboard' y 'FixBuildForm'. Esto indica cambios de scope sin documentación de por qué. _(criterio: Consistencia de documentación)_\n- **[ADVERTENCIA]** `docs/api_spec.json:8` — Cambio radical en API spec: endpoints de '/api/socios' y '/api/cuotas' reemplazados por '/api/build-status' y '/api/components/una-aplicacin-web/*'. Esto sugiere scope creep o cambio de requisitos no documentado. _(criterio: Consistencia de especificación)_\n- **[SUGERENCIA]** `db/migrations/20260506145208_noop_conflicto_6c613554.sql:1` — Migración NO-OP detectada. Aunque válida, considerar si es necesaria o si puede consolidarse con otras migraciones para reducir ruido. _(criterio: Limpieza de migraciones)_\n- **[SUGERENCIA]** `db/migrations/20260506145453_noop_conflicto_79263199.sql:1` — Migración NO-OP detectada. Aunque válida, considerar si es necesaria o si puede consolidarse con otras migraciones para reducir ruido. _(criterio: Limpieza de migraciones)_\n- **[ADVERTENCIA]** `src/routes.ts:8` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios. _(criterio: Código incompleto)_\n- **[ADVERTENCIA]** `src/routes.ts:32` — TODO comentario sin resolver. Implementar lógica de negocio para POST /api/socios. _(criterio: Código incompleto)_\n- **[ADVERTENCIA]** `src/routes.ts:44` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios/:id/cuotas. _(criterio: Código incompleto)_\n- **[ADVERTENCIA]** `src/routes.ts:57` — TODO comentario sin resolver. Implementar lógica de negocio para PATCH /api/cuotas/:id/pagar. _(criterio: Código incompleto)_\n- **[ADVERTENCIA]** `src/routes.ts:71` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/dashboard/resumen. _(criterio: Código incompleto)_\n- **[ADVERTENCIA]** `src/routes.ts:80` — TODO comentario sin resolver. Implementar lógica de negocio para GET /api/socios/:id. _(criterio: Código incompleto)_\n- **[SUGERENCIA]** `src/routes.ts:6` — Considerar extraer schemas Zod a un archivo separado (ej: schemas.ts) para mejorar mantenibilidad y reutilización. _(criterio: Organización de código)_\n- **[SUGERENCIA]** `src/routes.ts:1` — Considerar agregar middleware de validación centralizado para reducir duplicación de try-catch y manejo de errores. _(criterio: DRY principle)_\n- **[ADVERTENCIA]** `src/App.tsx:1` — Imports con extensión .js en archivo TypeScript/TSX. Debería ser './DashboardAdmin' sin extensión para seguir convenciones de módulos ES. _(criterio: Convenciones de imports)_\n\n### Recomendaciones\n\n- Revisar 12 advertencia(s) de calidad encontrada(s)\n- Considerar 4 sugerencia(s) de mejora\n\n### Criterios incumplidos\n- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:5`: Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben ser constraints FOREIGN KEY separados, no redefiniciones de columnas. (Sintaxis SQL válida)\n- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:12`: Constraint FOREIGN KEY mal formado. Debería ser: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' en lugar de redefinir la columna. (Sintaxis SQL válida)",
   "publicacionComentario": {
     "intentado": true,
     "exito": true
