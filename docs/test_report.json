@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T19:01:49.827Z",
+  "timestamp": "2026-05-06T19:03:18.168Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -11,17 +11,17 @@
     {
       "nombre": "validacion-schema-pago",
       "estado": "PASADO",
-      "duracionMs": 6
+      "duracionMs": 46
     },
     {
-      "nombre": "endpoint-crear-pago",
+      "nombre": "endpoint-crear-pago-y-refrescar-recaudacion",
       "estado": "PASADO",
-      "duracionMs": 47
+      "duracionMs": 44
     },
     {
-      "nombre": "refresco-recaudacion-post-pago",
+      "nombre": "manejo-errores-endpoint-pagos",
       "estado": "PASADO",
-      "duracionMs": 17
+      "duracionMs": 35
     }
   ],
   "intentosCorrección": 1

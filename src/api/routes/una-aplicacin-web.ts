@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 const router = Router();
 
-router.get("/api/grupos/:grupoId/recaudacion", async (req: Request, res: Response) => {
+router.get("/api/grupos-deportivos/:grupoId/recaudacion", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
@@ -12,7 +12,16 @@ router.get("/api/grupos/:grupoId/recaudacion", async (req: Request, res: Respons
   }
 });
 
-const postApi_grupos_grupoId_pagosSchema = z.object({
+router.get("/api/grupos-deportivos/:grupoId/recaudacion-por-anio", async (req: Request, res: Response) => {
+  try {
+    // TODO: implementar lógica de negocio
+    res.status(200).json({ mensaje: 'OK' });
+  } catch (_err) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+const postApi_grupos_deportivos_grupoId_pagosSchema = z.object({
   socio_id: z.string(),
   monto: z.number(),
   concepto: z.string(),
@@ -20,9 +29,9 @@ const postApi_grupos_grupoId_pagosSchema = z.object({
   anio: z.number().optional(),
 });
 
-router.post("/api/grupos/:grupoId/pagos", async (req: Request, res: Response) => {
+router.post("/api/grupos-deportivos/:grupoId/pagos", async (req: Request, res: Response) => {
   try {
-    const datos = postApi_grupos_grupoId_pagosSchema.parse(req.body);
+    const datos = postApi_grupos_deportivos_grupoId_pagosSchema.parse(req.body);
     // TODO: implementar lógica de negocio
     res.status(201).json({ datos, mensaje: 'OK' });
   } catch (err) {
@@ -34,7 +43,7 @@ router.post("/api/grupos/:grupoId/pagos", async (req: Request, res: Response) =>
   }
 });
 
-router.get("/api/grupos/:grupoId/pagos", async (req: Request, res: Response) => {
+router.get("/api/grupos-deportivos/:grupoId/pagos", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
@@ -43,24 +52,15 @@ router.get("/api/grupos/:grupoId/pagos", async (req: Request, res: Response) => 
   }
 });
 
-router.get("/api/grupos/:grupoId/resumen-anual", async (req: Request, res: Response) => {
-  try {
-    // TODO: implementar lógica de negocio
-    res.status(200).json({ mensaje: 'OK' });
-  } catch (_err) {
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-});
-
-const putApi_grupos_grupoId_pagos_pagoIdSchema = z.object({
+const patchApi_grupos_deportivos_grupoId_pagos_pagoIdSchema = z.object({
   monto: z.number().optional(),
   concepto: z.string().optional(),
   fecha_pago: z.string().optional(),
 });
 
-router.put("/api/grupos/:grupoId/pagos/:pagoId", async (req: Request, res: Response) => {
+router.patch("/api/grupos-deportivos/:grupoId/pagos/:pagoId", async (req: Request, res: Response) => {
   try {
-    const datos = putApi_grupos_grupoId_pagos_pagoIdSchema.parse(req.body);
+    const datos = patchApi_grupos_deportivos_grupoId_pagos_pagoIdSchema.parse(req.body);
     // TODO: implementar lógica de negocio
     res.status(200).json({ datos, mensaje: 'OK' });
   } catch (err) {
@@ -72,7 +72,16 @@ router.put("/api/grupos/:grupoId/pagos/:pagoId", async (req: Request, res: Respo
   }
 });
 
-router.delete("/api/grupos/:grupoId/pagos/:pagoId", async (req: Request, res: Response) => {
+router.delete("/api/grupos-deportivos/:grupoId/pagos/:pagoId", async (req: Request, res: Response) => {
+  try {
+    // TODO: implementar lógica de negocio
+    res.status(200).json({ mensaje: 'OK' });
+  } catch (_err) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.get("/api/grupos-deportivos/:grupoId/dashboard-resumen", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });

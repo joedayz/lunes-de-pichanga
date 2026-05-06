@@ -1,9 +1,9 @@
 {
-  "version": "20260506190109",
-  "timestamp": "2026-05-06T19:01:09.924Z",
+  "version": "20260506190238",
+  "timestamp": "2026-05-06T19:02:38.954Z",
   "entidades": [
     {
-      "nombre": "Grupo",
+      "nombre": "GrupoDeportivo",
       "atributos": [
         {
           "nombre": "id",

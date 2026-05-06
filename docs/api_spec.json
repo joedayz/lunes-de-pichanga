@@ -5,9 +5,9 @@
     "version": "1.0.0"
   },
   "paths": {
-    "/api/grupos/:grupoId/recaudacion": {
+    "/api/grupos-deportivos/:grupoId/recaudacion": {
       "get": {
-        "summary": "Obtiene el total de recaudación del grupo para el año seleccionado. Usado para refrescar las tarjetas superiores sin F5.",
+        "summary": "Obtiene el total de recaudación para un grupo y año específico. Usado para refrescar las tarjetas superiores sin F5.",
         "tags": [
           "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
@@ -38,9 +38,42 @@
         }
       }
     },
-    "/api/grupos/:grupoId/pagos": {
+    "/api/grupos-deportivos/:grupoId/recaudacion-por-anio": {
+      "get": {
+        "summary": "Obtiene recaudación desglosada por año para el grupo. Permite al cliente saber totales de años anteriores sin cambiar manualmente.",
+        "tags": [
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+        ],
+        "parameters": [
+          {
+            "name": "grupoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del grupo deportivo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/grupos-deportivos/:grupoId/pagos": {
       "post": {
-        "summary": "Registra un nuevo pago en el sistema. Retorna el pago creado y el total de recaudación actualizado para el año.",
+        "summary": "Registra un nuevo pago y retorna la recaudación actualizada del año actual para refrescar tarjetas sin F5.",
         "tags": [
           "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
@@ -71,7 +104,7 @@
         }
       },
       "get": {
-        "summary": "Lista todos los pagos del grupo filtrados por año. Soporta paginación y búsqueda.",
+        "summary": "Lista pagos del grupo filtrados por año. Soporta paginación y búsqueda.",
         "tags": [
           "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
@@ -102,42 +135,9 @@
         }
       }
     },
-    "/api/grupos/:grupoId/resumen-anual": {
-      "get": {
-        "summary": "Obtiene el resumen de recaudación por año. Usado para mostrar las tarjetas superiores con totales por año.",
-        "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
-        ],
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del grupo deportivo"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/grupos/:grupoId/pagos/:pagoId": {
-      "put": {
-        "summary": "Actualiza un pago existente y retorna la recaudación actualizada del año.",
+    "/api/grupos-deportivos/:grupoId/pagos/:pagoId": {
+      "patch": {
+        "summary": "Edita un pago existente y retorna la recaudación actualizada del año.",
         "tags": [
           "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
@@ -158,7 +158,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID del pago a actualizar"
+            "description": "ID del pago a editar"
           }
         ],
         "responses": {
@@ -199,6 +199,39 @@
               "type": "string"
             },
             "description": "ID del pago a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/grupos-deportivos/:grupoId/dashboard-resumen": {
+      "get": {
+        "summary": "Obtiene el resumen de tarjetas superiores (recaudación, socios, invitados) para el año actual. Endpoint único para refrescar todo sin múltiples llamadas.",
+        "tags": [
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+        ],
+        "parameters": [
+          {
+            "name": "grupoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del grupo deportivo"
           }
         ],
         "responses": {
