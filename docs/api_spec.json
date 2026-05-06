@@ -1,144 +1,20 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: corregir el build del frontend en Vite",
+    "title": "API: que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)",
     "version": "1.0.0"
   },
   "paths": {
     "/api/socios": {
       "get": {
-        "summary": "Obtener lista de todos los socios registrados",
+        "summary": "Obtiene la lista de todos los socios del repositorio. Endpoint de prueba para validar que la conexión a http://localhost:4000 funciona correctamente.",
         "tags": [
-          "corregir el build del frontend en Vite"
-        ],
-        "parameters": [
-          {
-            "name": "estado",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filtrar por estado (activo, inactivo)"
-          },
-          {
-            "name": "page",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Número de página para paginación"
-          },
-          {
-            "name": "limit",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Cantidad de registros por página"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Registrar un nuevo socio y crear cuota inicial",
-        "tags": [
-          "corregir el build del frontend en Vite"
+          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
         ],
         "parameters": [],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "409": {
-            "description": "Conflict"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/socios/:id/cuotas": {
-      "get": {
-        "summary": "Obtener historial de cuotas de un socio específico",
-        "tags": [
-          "corregir el build del frontend en Vite"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del socio"
-          },
-          {
-            "name": "estado",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filtrar por estado (pendiente, pagada, vencida)"
-          }
-        ],
-        "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/cuotas/:id/pagar": {
-      "patch": {
-        "summary": "Registrar pago de una cuota",
-        "tags": [
-          "corregir el build del frontend en Vite"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID de la cuota"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -148,9 +24,43 @@
     },
     "/api/dashboard/resumen": {
       "get": {
-        "summary": "Obtener resumen del dashboard administrativo (socios activos, cuotas pendientes, próximas pichangas)",
+        "summary": "Obtiene el resumen del dashboard con estadísticas generales. Endpoint de prueba para validar que la URL base de la API está correctamente configurada en el cliente.",
         "tags": [
-          "corregir el build del frontend en Vite"
+          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Endpoint de salud para verificar que el servidor Express en http://localhost:4000 está activo y accesible desde el cliente Vite/React.",
+        "tags": [
+          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/config": {
+      "get": {
+        "summary": "Retorna la configuración de la API (incluyendo la URL base) para que el cliente pueda validar que está usando la URL correcta. Útil para debugging de errores de conexión.",
+        "tags": [
+          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
         ],
         "parameters": [],
         "responses": {
@@ -165,9 +75,9 @@
     },
     "/api/socios/:id": {
       "get": {
-        "summary": "Obtener detalles completos de un socio (perfil, cuotas, asistencias)",
+        "summary": "Obtiene los detalles de un socio específico por su ID.",
         "tags": [
-          "corregir el build del frontend en Vite"
+          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
         ],
         "parameters": [
           {
@@ -177,7 +87,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID del socio"
+            "description": "ID único del socio"
           }
         ],
         "responses": {
@@ -186,6 +96,36 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/dashboard/resumen/:periodo": {
+      "get": {
+        "summary": "Obtiene el resumen del dashboard filtrado por un período específico (mes, trimestre, año).",
+        "tags": [
+          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+        ],
+        "parameters": [
+          {
+            "name": "periodo",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Período de consulta: 'mes', 'trimestre' o 'año'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
