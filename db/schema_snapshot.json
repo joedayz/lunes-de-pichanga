@@ -1,6 +1,6 @@
 {
-  "version": "20260506140415",
-  "timestamp": "2026-05-06T14:04:15.824Z",
+  "version": "20260506141420",
+  "timestamp": "2026-05-06T14:14:20.975Z",
   "entidades": [
     {
       "nombre": "Socio",
@@ -114,7 +114,7 @@
       ]
     },
     {
-      "nombre": "Usuario",
+      "nombre": "Pichanga",
       "atributos": [
         {
           "nombre": "id",
@@ -123,22 +123,70 @@
           "primaryKey": true
         },
         {
-          "nombre": "email",
+          "nombre": "fecha",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "ubicacion",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "password_hash",
+          "nombre": "hora_inicio",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "rol",
+          "nombre": "hora_fin",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "estado",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "activo",
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "ONE_TO_MANY",
+          "entidadRelacionada": "AsistenciaPichanga",
+          "campoForeignKey": "pichanga_id"
+        }
+      ]
+    },
+    {
+      "nombre": "AsistenciaPichanga",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "pichanga_id",
+          "tipo": "UUID",
+          "nullable": false
+        },
+        {
+          "nombre": "socio_id",
+          "tipo": "UUID",
+          "nullable": false
+        },
+        {
+          "nombre": "asistio",
           "tipo": "BOOLEAN",
           "nullable": false
         },
@@ -153,7 +201,18 @@
           "nullable": false
         }
       ],
-      "relaciones": []
+      "relaciones": [
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Pichanga",
+          "campoForeignKey": "pichanga_id"
+        },
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Socio",
+          "campoForeignKey": "socio_id"
+        }
+      ]
     }
   ]
 }

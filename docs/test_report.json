@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T14:04:51.665Z",
+  "timestamp": "2026-05-06T14:14:51.895Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -11,17 +11,17 @@
     {
       "nombre": "una-aplicacin-web-index-imports",
       "estado": "PASADO",
-      "duracionMs": 9
+      "duracionMs": 21
     },
     {
       "nombre": "dashboard-admin-component",
       "estado": "PASADO",
-      "duracionMs": 51
+      "duracionMs": 33
     },
     {
-      "nombre": "api-socios-integration",
+      "nombre": "backend-socios-api-integration",
       "estado": "PASADO",
-      "duracionMs": 40
+      "duracionMs": 51
     }
   ],
   "intentosCorrección": 1
