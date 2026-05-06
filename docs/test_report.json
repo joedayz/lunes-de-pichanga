@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-05-06T17:07:01.436Z",
+  "totalTests": 3,
+  "pasados": 3,
+  "fallidos": 0,
+  "omitidos": 0,
+  "cobertura": 100,
+  "coberturaCodigoNuevo": 100,
+  "rondasGeneracionCobertura": 0,
+  "resultados": [
+    {
+      "nombre": "api-base-url-config",
+      "estado": "PASADO",
+      "duracionMs": 33
+    },
+    {
+      "nombre": "vite-config-env-injection",
+      "estado": "PASADO",
+      "duracionMs": 54
+    },
+    {
+      "nombre": "api-client-fetch-integration",
+      "estado": "PASADO",
+      "duracionMs": 46
+    }
+  ],
+  "intentosCorrección": 1
+}
