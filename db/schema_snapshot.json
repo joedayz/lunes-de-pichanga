@@ -1,9 +1,9 @@
 {
-  "version": "20260506144826",
-  "timestamp": "2026-05-06T14:48:26.143Z",
+  "version": "20260506145208",
+  "timestamp": "2026-05-06T14:52:08.181Z",
   "entidades": [
     {
-      "nombre": "ParticipacionPichanga",
+      "nombre": "Socio",
       "atributos": [
         {
           "nombre": "id",
@@ -12,9 +12,62 @@
           "primaryKey": true
         },
         {
-          "nombre": "pichanga_id",
-          "tipo": "UUID",
+          "nombre": "nombre",
+          "tipo": "TEXT",
           "nullable": false
+        },
+        {
+          "nombre": "apellido",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "telefono",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "fecha_registro",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "estado",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "ONE_TO_MANY",
+          "entidadRelacionada": "Cuota",
+          "campoForeignKey": "socio_id"
+        }
+      ]
+    },
+    {
+      "nombre": "Cuota",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
         },
         {
           "nombre": "socio_id",
@@ -22,13 +75,23 @@
           "nullable": false
         },
         {
-          "nombre": "equipo",
-          "tipo": "TEXT",
+          "nombre": "monto",
+          "tipo": "REAL",
+          "nullable": false
+        },
+        {
+          "nombre": "fecha_vencimiento",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "fecha_pago",
+          "tipo": "TIMESTAMP",
           "nullable": true
         },
         {
-          "nombre": "asistencia",
-          "tipo": "BOOLEAN",
+          "nombre": "estado",
+          "tipo": "TEXT",
           "nullable": false
         },
         {
@@ -45,15 +108,94 @@
       "relaciones": [
         {
           "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Pichanga",
-          "campoForeignKey": "pichanga_id"
-        },
-        {
-          "tipo": "MANY_TO_ONE",
           "entidadRelacionada": "Socio",
           "campoForeignKey": "socio_id"
         }
       ]
+    },
+    {
+      "nombre": "Usuario",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "password_hash",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "rol",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "activo",
+          "tipo": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": []
+    },
+    {
+      "nombre": "Pichanga",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "fecha",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "ubicacion",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "descripcion",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "estado",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": []
     }
   ]
 }

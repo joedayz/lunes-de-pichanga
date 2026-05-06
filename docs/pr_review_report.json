@@ -1,124 +1,137 @@
 {
-  "timestamp": "2026-05-06T14:34:45.548Z",
+  "timestamp": "2026-05-06T14:49:27.621Z",
   "pullRequest": {
-    "numero": 731,
-    "url": "https://github.com/org/repo/pull/731",
+    "numero": 10,
+    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/10",
     "titulo": "feat: corregir el build del frontend en Vite",
-    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir el build del frontend en Vite, para poder ejecutar la UI.\n\nBug (actual):\n- Vite falla con errores por imports/const duplicados y múltiples default exports en:\n  `src/components/una-aplicacin-web/index.tsx`\n  (ejemplos vistos: \"Identifier 'React' has already been declared\", \"BASE_URL has already been declared\", \"Multiple exports with the same name default\").\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Vite muestra el error apuntando a `src/components/una-aplicacin-web/index.tsx`.\n\nFIX REQUERIDO (NO NEGOCIABLE):\n- Debes modificar EXACTAMENTE este archivo: `src/components/una-aplicacin-web/index.tsx`.\n- PROHIBIDO crear una carpeta o componente nuevo tipo `src/components/<slug>/...` para “resolver” el bug.\n- PROHIBIDO dejar el bug sin tocar en `una-aplicacin-web/index.tsx`.\n\nCambios concretos a aplicar:\n- En `src/components/una-aplicacin-web/index.tsx`:\n  1) Todos los `import ...` deben estar solo al inicio del archivo (líneas 1..N). No puede haber imports en medio.\n  2) Debe existir un único `const BASE_URL` (declarado una sola vez).\n  3) Debe existir un único `export default` en ese archivo.\n\nEstrategia recomendada (si hay 2 componentes pegados):\n- Extraer y crear estos archivos (si no existen):\n  - `src/components/una-aplicacin-web/DashboardAdmin.tsx`\n  - `src/components/una-aplicacin-web/FormRegistroSocioYCuota.tsx`\n- Luego dejar `src/components/una-aplicacin-web/index.tsx` como compositor:\n  - Imports al inicio\n  - `const BASE_URL` una sola vez (si aplica) o moverlo a un helper\n  - `export default function App(){ return (<><DashboardAdmin/><FormRegistroSocioYCuota/></>); }`\n\nValidación:\n- `npm run dev` debe levantar sin errores de Babel/Vite relacionados a `index.tsx`.\n- http://localhost:5173 debe cargar (sin pantalla en blanco)\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506143350_evento.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-el-build-del-frontend-en-vite.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/corregir-el-build-del-frontend-en-vite/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/b26c7d3a-65e1-461c-871e-08c446dde7f0/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\nbf5c68e8-4119-493d-bdf0-53dcc9c24b8c",
-    "ramaOrigen": "feature/b26c7d3a-65e1-461c-871e-08c446dde7f0",
+    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir el build del frontend en Vite, para poder ejecutar la UI.\n\nBug (actual):\n- Vite falla con errores por imports/const duplicados y múltiples default exports en:\n  `src/components/una-aplicacin-web/index.tsx`\n  (ejemplos vistos: \"Identifier 'React' has already been declared\", \"BASE_URL has already been declared\", \"Multiple exports with the same name default\").\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Vite muestra el error apuntando a `src/components/una-aplicacin-web/index.tsx`.\n\nFIX REQUERIDO (NO NEGOCIABLE):\n- Debes modificar EXACTAMENTE este archivo: `src/components/una-aplicacin-web/index.tsx`.\n- PROHIBIDO crear una carpeta o componente nuevo tipo `src/components/<slug>/...` para “resolver” el bug.\n- PROHIBIDO dejar el bug sin tocar en `una-aplicacin-web/index.tsx`.\n\nCambios concretos a aplicar:\n- En `src/components/una-aplicacin-web/index.tsx`:\n  1) Todos los `import ...` deben estar solo al inicio del archivo (líneas 1..N). No puede haber imports en medio.\n  2) Debe existir un único `const BASE_URL` (declarado una sola vez).\n  3) Debe existir un único `export default` en ese archivo.\n\nEstrategia recomendada (si hay 2 componentes pegados):\n- Extraer y crear estos archivos (si no existen):\n  - `src/components/una-aplicacin-web/DashboardAdmin.tsx`\n  - `src/components/una-aplicacin-web/FormRegistroSocioYCuota.tsx`\n- Luego dejar `src/components/una-aplicacin-web/index.tsx` como compositor:\n  - Imports al inicio\n  - `const BASE_URL` una sola vez (si aplica) o moverlo a un helper\n  - `export default function App(){ return (<><DashboardAdmin/><FormRegistroSocioYCuota/></>); }`\n\nValidación:\n- `npm run dev` debe levantar sin errores de Babel/Vite relacionados a `index.tsx`.\n- http://localhost:5173 debe cargar (sin pantalla en blanco)\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506144826_participacionpichanga.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-el-build-del-frontend-en-vite.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/corregir-el-build-del-frontend-en-vite/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/668aa7d5-c002-447c-ba5d-bc3e37ae8b66/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\n4c809b29-00f6-4e54-ab7c-77a64daf1d30",
+    "ramaOrigen": "feature/668aa7d5-c002-447c-ba5d-bc3e37ae8b66",
     "ramaDestino": "main",
-    "estado": "APROBADO",
-    "timestamp": "2026-05-06T14:34:37.630Z"
+    "estado": "CAMBIOS_SOLICITADOS",
+    "timestamp": "2026-05-06T14:49:14.180Z"
   },
-  "decision": "APROBADO",
+  "decision": "CAMBIOS_SOLICITADOS",
   "cobertura": 100,
   "coberturaCodigoNuevo": 100,
   "cumpleUmbralCobertura": true,
   "cumpleUmbralCoberturaNuevo": true,
   "hallazgos": [
     {
-      "archivo": "router.ts",
+      "archivo": "db/migrations/20260506144826_participacionpichanga.sql",
       "linea": 5,
+      "tipo": "ERROR",
+      "mensaje": "Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben eliminarse ya que son duplicados con referencias FOREIGN KEY.",
+      "criterio": "Integridad de esquema SQL - No duplicar columnas"
+    },
+    {
+      "archivo": "db/migrations/20260506144826_participacionpichanga.sql",
+      "linea": 12,
+      "tipo": "ERROR",
+      "mensaje": "Sintaxis SQL inválida: las restricciones FOREIGN KEY deben definirse como CONSTRAINT o al final de CREATE TABLE, no como columnas duplicadas. Usar: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)'",
+      "criterio": "Sintaxis SQL estándar"
+    },
+    {
+      "archivo": "db/migrations/20260506144826_participacionpichanga.sql",
+      "linea": 9,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Importación de 'z' de zod no se utiliza en las rutas GET iniciales. Considere importar solo lo necesario o reorganizar el código.",
-      "criterio": "Imports no utilizados / Tree-shaking"
+      "mensaje": "Columna 'equipo' es TEXT nullable pero no tiene valor por defecto. Considerar si debería ser NOT NULL o tener un DEFAULT.",
+      "criterio": "Diseño de esquema - Consistencia de nullable"
     },
     {
-      "archivo": "router.ts",
-      "linea": 7,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Ruta '/api/build-status' tiene TODO sin implementar. Considere usar un middleware de validación centralizado o completar la lógica.",
-      "criterio": "Código incompleto / Mantenibilidad"
+      "archivo": "db/schema_snapshot.json",
+      "linea": 1,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "El snapshot de esquema ha sido reemplazado completamente (Socio, Cuota, Pichanga, AsistenciaPichanga eliminados). Esto sugiere una migración destructiva. Verificar que esto es intencional y que no hay datos que preservar.",
+      "criterio": "Gestión de migraciones - Cambios destructivos"
     },
     {
-      "archivo": "router.ts",
-      "linea": 14,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Ruta '/api/components/una-aplicacin-web/validate' tiene TODO sin implementar.",
-      "criterio": "Código incompleto / Mantenibilidad"
+      "archivo": "docs/api_spec.json",
+      "linea": 1,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "El spec de API ha sido modificado significativamente (endpoints /api/socios y /api/cuotas removidos). Verificar que la documentación está sincronizada con la implementación real.",
+      "criterio": "Consistencia de documentación"
     },
     {
-      "archivo": "router.ts",
-      "linea": 23,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de variable 'postApi_components_una_aplicacin_web_refactorSchema' es muy largo y difícil de leer. Considere usar una nomenclatura más concisa (ej: 'refactorSchema' o agrupar en un objeto).",
-      "criterio": "Nomenclatura / Legibilidad"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 28,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Ruta '/api/components/una-aplicacin-web/refactor' tiene TODO sin implementar.",
-      "criterio": "Código incompleto / Mantenibilidad"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 40,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Ruta '/api/dev-server/status' tiene TODO sin implementar.",
-      "criterio": "Código incompleto / Mantenibilidad"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 47,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Ruta '/api/components/una-aplicacin-web/structure' tiene TODO sin implementar.",
-      "criterio": "Código incompleto / Mantenibilidad"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 54,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de variable 'postApi_vite_rebuildSchema' es muy largo. Considere usar 'rebuildSchema' o agrupar esquemas en un objeto centralizado.",
-      "criterio": "Nomenclatura / Legibilidad"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 59,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Ruta '/api/vite/rebuild' tiene TODO sin implementar.",
-      "criterio": "Código incompleto / Mantenibilidad"
-    },
-    {
-      "archivo": "router.ts",
+      "archivo": "docs/accessibility_report.json",
       "linea": 1,
       "tipo": "SUGERENCIA",
-      "mensaje": "Considere extraer la lógica de manejo de errores repetida (try-catch) en un middleware centralizado para reducir duplicación.",
-      "criterio": "DRY (Don't Repeat Yourself) / Refactoring"
+      "mensaje": "El reporte de accesibilidad ha sido actualizado con nuevos componentes (BuildStatusDashboard, FixBuildForm). Asegurar que estos componentes cumplan con WCAG 2.1 AA.",
+      "criterio": "Accesibilidad - WCAG 2.1"
     },
     {
-      "archivo": "BuildStatusDashboard.tsx",
-      "linea": 48,
+      "archivo": "src/routes/api.ts",
+      "linea": 8,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Código truncado en la línea 48 ('Failed to fetc'). Asegúrese de que el código esté completo y sin errores de sintaxis.",
-      "criterio": "Integridad del código"
+      "mensaje": "Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita.",
+      "criterio": "ESLint - no-unused-vars"
     },
     {
-      "archivo": "BuildStatusDashboard.tsx",
-      "linea": 30,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Variable 'BASE_URL' se define en el componente. Considere moverla a un archivo de configuración centralizado (ej: config.ts o .env).",
-      "criterio": "Separación de responsabilidades / Configuración"
+      "archivo": "src/routes/api.ts",
+      "linea": 16,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita.",
+      "criterio": "ESLint - no-unused-vars"
     },
     {
-      "archivo": "BuildStatusDashboard.tsx",
-      "linea": 35,
+      "archivo": "src/routes/api.ts",
+      "linea": 24,
       "tipo": "SUGERENCIA",
-      "mensaje": "Múltiples interfaces de estado (BuildStatus, ValidationResult, FileStructure, DevServerStatus) podrían consolidarse en una interfaz unificada o en un contexto para mejorar mantenibilidad.",
-      "criterio": "Refactoring / Mantenibilidad"
+      "mensaje": "Nombre de variable 'postApi_components_una_aplicacin_web_fixSchema' es muy largo y difícil de leer. Considerar: 'fixComponentSchema' o similar.",
+      "criterio": "Nomenclatura - Legibilidad"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 28,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Ruta '/api/components/una-aplicacin-web/fix' contiene caracteres especiales (ó). Considerar usar 'una-aplicacion-web' (sin tilde) para mejor compatibilidad URL.",
+      "criterio": "Convenciones REST API"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 40,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Nombre de variable 'postApi_components_extractSchema' sigue patrón inconsistente. Usar camelCase consistente: 'extractComponentSchema'.",
+      "criterio": "Nomenclatura - Consistencia"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 60,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita.",
+      "criterio": "ESLint - no-unused-vars"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 68,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita.",
+      "criterio": "ESLint - no-unused-vars"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 1,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Múltiples endpoints con lógica TODO sin implementar. Considerar agregar comentarios de prioridad o tickets asociados.",
+      "criterio": "Documentación - TODOs"
+    },
+    {
+      "archivo": "src/App.tsx",
+      "linea": 1,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Imports con extensión '.js' explícita en archivos TypeScript/TSX. Verificar configuración de moduleResolution en tsconfig.json; generalmente no es necesario especificar extensión.",
+      "criterio": "Convenciones TypeScript"
     }
   ],
   "recomendaciones": [
-    "Revisar 2 advertencia(s) de calidad encontrada(s)",
-    "Considerar 11 sugerencia(s) de mejora"
+    "Revisar 7 advertencia(s) de calidad encontrada(s)",
+    "Considerar 6 sugerencia(s) de mejora"
   ],
-  "resumen": "✅ PR aprobado. Cobertura: 100%; código nuevo 100%. Sin errores de calidad.",
-  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#731](https://github.com/org/repo/pull/731) (feature/b26c7d3a-65e1-461c-871e-08c446dde7f0 → main)\n- **Decisión**: **APROBADO**\n- **Diff Git analizado**: no (rama ausente o repo no disponible)\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `router.ts:5` — Importación de 'z' de zod no se utiliza en las rutas GET iniciales. Considere importar solo lo necesario o reorganizar el código. _(criterio: Imports no utilizados / Tree-shaking)_\n- **[SUGERENCIA]** `router.ts:7` — Ruta '/api/build-status' tiene TODO sin implementar. Considere usar un middleware de validación centralizado o completar la lógica. _(criterio: Código incompleto / Mantenibilidad)_\n- **[SUGERENCIA]** `router.ts:14` — Ruta '/api/components/una-aplicacin-web/validate' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_\n- **[SUGERENCIA]** `router.ts:23` — Nombre de variable 'postApi_components_una_aplicacin_web_refactorSchema' es muy largo y difícil de leer. Considere usar una nomenclatura más concisa (ej: 'refactorSchema' o agrupar en un objeto). _(criterio: Nomenclatura / Legibilidad)_\n- **[SUGERENCIA]** `router.ts:28` — Ruta '/api/components/una-aplicacin-web/refactor' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_\n- **[SUGERENCIA]** `router.ts:40` — Ruta '/api/dev-server/status' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_\n- **[SUGERENCIA]** `router.ts:47` — Ruta '/api/components/una-aplicacin-web/structure' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_\n- **[SUGERENCIA]** `router.ts:54` — Nombre de variable 'postApi_vite_rebuildSchema' es muy largo. Considere usar 'rebuildSchema' o agrupar esquemas en un objeto centralizado. _(criterio: Nomenclatura / Legibilidad)_\n- **[SUGERENCIA]** `router.ts:59` — Ruta '/api/vite/rebuild' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_\n- **[SUGERENCIA]** `router.ts:1` — Considere extraer la lógica de manejo de errores repetida (try-catch) en un middleware centralizado para reducir duplicación. _(criterio: DRY (Don't Repeat Yourself) / Refactoring)_\n- **[ADVERTENCIA]** `BuildStatusDashboard.tsx:48` — Código truncado en la línea 48 ('Failed to fetc'). Asegúrese de que el código esté completo y sin errores de sintaxis. _(criterio: Integridad del código)_\n- **[SUGERENCIA]** `BuildStatusDashboard.tsx:30` — Variable 'BASE_URL' se define en el componente. Considere moverla a un archivo de configuración centralizado (ej: config.ts o .env). _(criterio: Separación de responsabilidades / Configuración)_\n- **[SUGERENCIA]** `BuildStatusDashboard.tsx:35` — Múltiples interfaces de estado (BuildStatus, ValidationResult, FileStructure, DevServerStatus) podrían consolidarse en una interfaz unificada o en un contexto para mejorar mantenibilidad. _(criterio: Refactoring / Mantenibilidad)_\n\n### Recomendaciones\n\n- Revisar 2 advertencia(s) de calidad encontrada(s)\n- Considerar 11 sugerencia(s) de mejora\n\n### Criterios incumplidos\n_Ninguno — listo para revisión humana._",
+  "resumen": "❌ Cambios solicitados. Razones: 2 error(es) de calidad, 7 advertencia(s).",
+  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#10](https://github.com/joedayz/lunes-de-pichanga/pull/10) (feature/668aa7d5-c002-447c-ba5d-bc3e37ae8b66 → main)\n- **Decisión**: **CAMBIOS_SOLICITADOS**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:5` — Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben eliminarse ya que son duplicados con referencias FOREIGN KEY. _(criterio: Integridad de esquema SQL - No duplicar columnas)_\n- **[ERROR]** `db/migrations/20260506144826_participacionpichanga.sql:12` — Sintaxis SQL inválida: las restricciones FOREIGN KEY deben definirse como CONSTRAINT o al final de CREATE TABLE, no como columnas duplicadas. Usar: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' _(criterio: Sintaxis SQL estándar)_\n- **[ADVERTENCIA]** `db/migrations/20260506144826_participacionpichanga.sql:9` — Columna 'equipo' es TEXT nullable pero no tiene valor por defecto. Considerar si debería ser NOT NULL o tener un DEFAULT. _(criterio: Diseño de esquema - Consistencia de nullable)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:1` — El snapshot de esquema ha sido reemplazado completamente (Socio, Cuota, Pichanga, AsistenciaPichanga eliminados). Esto sugiere una migración destructiva. Verificar que esto es intencional y que no hay datos que preservar. _(criterio: Gestión de migraciones - Cambios destructivos)_\n- **[ADVERTENCIA]** `docs/api_spec.json:1` — El spec de API ha sido modificado significativamente (endpoints /api/socios y /api/cuotas removidos). Verificar que la documentación está sincronizada con la implementación real. _(criterio: Consistencia de documentación)_\n- **[SUGERENCIA]** `docs/accessibility_report.json:1` — El reporte de accesibilidad ha sido actualizado con nuevos componentes (BuildStatusDashboard, FixBuildForm). Asegurar que estos componentes cumplan con WCAG 2.1 AA. _(criterio: Accesibilidad - WCAG 2.1)_\n- **[ADVERTENCIA]** `src/routes/api.ts:8` — Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita. _(criterio: ESLint - no-unused-vars)_\n- **[ADVERTENCIA]** `src/routes/api.ts:16` — Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita. _(criterio: ESLint - no-unused-vars)_\n- **[SUGERENCIA]** `src/routes/api.ts:24` — Nombre de variable 'postApi_components_una_aplicacin_web_fixSchema' es muy largo y difícil de leer. Considerar: 'fixComponentSchema' o similar. _(criterio: Nomenclatura - Legibilidad)_\n- **[SUGERENCIA]** `src/routes/api.ts:28` — Ruta '/api/components/una-aplicacin-web/fix' contiene caracteres especiales (ó). Considerar usar 'una-aplicacion-web' (sin tilde) para mejor compatibilidad URL. _(criterio: Convenciones REST API)_\n- **[SUGERENCIA]** `src/routes/api.ts:40` — Nombre de variable 'postApi_components_extractSchema' sigue patrón inconsistente. Usar camelCase consistente: 'extractComponentSchema'. _(criterio: Nomenclatura - Consistencia)_\n- **[ADVERTENCIA]** `src/routes/api.ts:60` — Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita. _(criterio: ESLint - no-unused-vars)_\n- **[ADVERTENCIA]** `src/routes/api.ts:68` — Parámetro '_err' no utilizado en catch. Usar 'err' o remover el parámetro si no se necesita. _(criterio: ESLint - no-unused-vars)_\n- **[SUGERENCIA]** `src/routes/api.ts:1` — Múltiples endpoints con lógica TODO sin implementar. Considerar agregar comentarios de prioridad o tickets asociados. _(criterio: Documentación - TODOs)_\n- **[SUGERENCIA]** `src/App.tsx:1` — Imports con extensión '.js' explícita en archivos TypeScript/TSX. Verificar configuración de moduleResolution en tsconfig.json; generalmente no es necesario especificar extensión. _(criterio: Convenciones TypeScript)_\n\n### Recomendaciones\n\n- Revisar 7 advertencia(s) de calidad encontrada(s)\n- Considerar 6 sugerencia(s) de mejora\n\n### Criterios incumplidos\n- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:5`: Definición duplicada de columnas: 'pichanga_id' y 'socio_id' aparecen dos veces (líneas 6-7 y 12-13). Las líneas 12-13 deben eliminarse ya que son duplicados con referencias FOREIGN KEY. (Integridad de esquema SQL - No duplicar columnas)\n- Error de calidad en `db/migrations/20260506144826_participacionpichanga.sql:12`: Sintaxis SQL inválida: las restricciones FOREIGN KEY deben definirse como CONSTRAINT o al final de CREATE TABLE, no como columnas duplicadas. Usar: 'CONSTRAINT fk_pichanga FOREIGN KEY (pichanga_id) REFERENCES pichanga(id)' (Sintaxis SQL estándar)",
   "publicacionComentario": {
     "intentado": true,
-    "exito": false,
-    "detalle": "HTTP 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/issues/comments#create-an-issue-comment\",\"status\":\"404\"}"
+    "exito": true
   },
-  "diffGitDisponible": false,
+  "diffGitDisponible": true,
   "fuenteDatosCobertura": "REPORTE_TESTS"
 }
