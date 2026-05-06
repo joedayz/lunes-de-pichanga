@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T17:55:33.063Z",
+  "timestamp": "2026-05-06T19:03:18.168Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -9,19 +9,19 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "validacion-schema-socio",
+      "nombre": "validacion-schema-pago",
       "estado": "PASADO",
-      "duracionMs": 29
+      "duracionMs": 46
     },
     {
-      "nombre": "endpoint-get-socios",
+      "nombre": "endpoint-crear-pago-y-refrescar-recaudacion",
       "estado": "PASADO",
-      "duracionMs": 21
+      "duracionMs": 44
     },
     {
-      "nombre": "endpoint-post-socio",
+      "nombre": "manejo-errores-endpoint-pagos",
       "estado": "PASADO",
-      "duracionMs": 42
+      "duracionMs": 35
     }
   ],
   "intentosCorrección": 1
