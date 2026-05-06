@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "entradas": [
+    {
+      "timestamp": "2026-05-06T13:18:31.059Z",
+      "tipo": "FALLO_PIPELINE",
+      "pipelineId": "583a5a67-51be-4b9c-b19d-4c6441d0eff7",
+      "etapaAgente": "BASE_DE_DATOS",
+      "detalle": "BASE_DE_DATOS — Conflicto de migraciones (req. 3.4): todas las entidades inferidas (Socio, Cuota, Participacion, Transaccion) ya tienen tabla en el repo (socio, cuota, participacion, transaccion). Revisa /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/db/migrations y el esquema existente."
+    },
+    {
+      "timestamp": "2026-05-06T13:20:51.192Z",
+      "tipo": "FALLO_PIPELINE",
+      "pipelineId": "35f0e120-c30f-46d7-90ed-ad34ce08cf09",
+      "etapaAgente": "BASE_DE_DATOS",
+      "detalle": "BASE_DE_DATOS — Conflicto de migraciones (req. 3.4): todas las entidades inferidas (Socio, Cuota, Participacion, Transaccion) ya tienen tabla en el repo (socio, cuota, participacion, transaccion). Revisa /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/db/migrations y el esquema existente."
+    }
+  ]
+}

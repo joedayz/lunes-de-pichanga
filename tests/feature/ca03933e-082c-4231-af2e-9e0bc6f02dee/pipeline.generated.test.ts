@@ -5,7 +5,7 @@ import { z } from 'zod';
 const postSociosSchema = z.object({
   nombre: z.string(),
   apellido: z.string(),
-  email: z.string(),
+  email: z.string().email(),
   telefono: z.string().optional(),
   fecha_inscripcion: z.string(),
 });
