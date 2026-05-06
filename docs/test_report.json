@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T17:43:38.767Z",
+  "timestamp": "2026-05-06T17:49:00.659Z",
   "totalTests": 4,
   "pasados": 4,
   "fallidos": 0,
@@ -9,24 +9,24 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "anos-disponibles-endpoint",
+      "nombre": "api-socios-endpoint-returns-array",
+      "estado": "PASADO",
+      "duracionMs": 21
+    },
+    {
+      "nombre": "api-dashboard-resumen-returns-totals",
+      "estado": "PASADO",
+      "duracionMs": 21
+    },
+    {
+      "nombre": "frontend-pago-form-normaliza-respuesta",
       "estado": "PASADO",
       "duracionMs": 39
     },
     {
-      "nombre": "socios-endpoint-format",
+      "nombre": "post-api-socios-valida-schema",
       "estado": "PASADO",
-      "duracionMs": 51
-    },
-    {
-      "nombre": "dashboard-endpoints-integration",
-      "estado": "PASADO",
-      "duracionMs": 33
-    },
-    {
-      "nombre": "pago-form-post-endpoint",
-      "estado": "PASADO",
-      "duracionMs": 34
+      "duracionMs": 42
     }
   ],
   "intentosCorrección": 1

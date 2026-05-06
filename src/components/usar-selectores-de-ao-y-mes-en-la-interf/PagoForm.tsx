@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { jsonArray } from './normalize-api-response.js';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
@@ -38,9 +39,10 @@ const PagoForm: React.FC<PagoFormProps> = ({ globalYear = new Date().getFullYear
 
         if (!sociosRes.ok || !yearsRes.ok) throw new Error('Error cargando datos');
 
-        setSocios(await sociosRes.json());
+        const sociosJson = await sociosRes.json();
+        setSocios(jsonArray<Socio>(sociosJson));
         const years = await yearsRes.json();
-        setAvailableYears(Array.isArray(years) ? years : []);
+        setAvailableYears(jsonArray<number>(years));
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error desconocido');
       }

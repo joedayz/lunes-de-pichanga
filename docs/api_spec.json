@@ -1,15 +1,15 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000",
+    "title": "API: que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter",
     "version": "1.0.0"
   },
   "paths": {
     "/api/anos-disponibles": {
       "get": {
-        "summary": "Obtiene lista de años con datos disponibles en el sistema (p.ej. años con socios o cuotas registradas)",
+        "summary": "Obtiene lista de años disponibles en el sistema (años únicos de socios, invitados y pagos)",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [],
         "responses": {
@@ -24,9 +24,9 @@
     },
     "/api/socios": {
       "get": {
-        "summary": "Obtiene lista de socios, opcionalmente filtrada por año. Responde siempre como array JSON raíz para permitir .map() directo en frontend",
+        "summary": "Obtiene lista de socios con filtro opcional por año",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [
           {
@@ -36,15 +36,12 @@
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar socios (query param). Si no se proporciona, devuelve todos"
+            "description": "Filtrar socios por año (opcional)"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -54,7 +51,7 @@
       "post": {
         "summary": "Crea un nuevo socio",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [],
         "responses": {
@@ -72,24 +69,39 @@
     },
     "/api/invitados": {
       "get": {
-        "summary": "Obtiene lista de invitados filtrada por año. Responde como array JSON raíz",
+        "summary": "Obtiene lista de invitados con filtro opcional por año",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [
           {
             "name": "anio",
             "in": "path",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar invitados"
+            "description": "Filtrar invitados por año (opcional)"
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crea un nuevo invitado",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
@@ -102,9 +114,9 @@
     },
     "/api/dashboard/resumen": {
       "get": {
-        "summary": "Obtiene resumen del dashboard para un año específico: total de socios, invitados y recaudado",
+        "summary": "Obtiene resumen del dashboard (totales) para un año específico",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [
           {
@@ -114,7 +126,7 @@
             "schema": {
               "type": "number"
             },
-            "description": "Año para calcular el resumen"
+            "description": "Año para el cual obtener el resumen"
           }
         ],
         "responses": {
@@ -132,9 +144,9 @@
     },
     "/api/dashboard/cuotas": {
       "get": {
-        "summary": "Obtiene lista de cuotas/pagos para un año específico. Responde como array JSON raíz",
+        "summary": "Obtiene lista de cuotas/pagos para un año específico",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [
           {
@@ -171,9 +183,9 @@
     },
     "/api/pagos": {
       "post": {
-        "summary": "Registra un nuevo pago/cuota. Alias que delega a la lógica de cuotas existente. Acepta el mismo schema que POST /api/cuotas",
+        "summary": "Registra un nuevo pago de cuota de un socio",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [],
         "responses": {
@@ -182,32 +194,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/cuotas": {
-      "post": {
-        "summary": "Registra una nueva cuota (pago). Endpoint principal; POST /api/pagos delega aquí",
-        "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -217,9 +203,9 @@
     },
     "/api/socios/:id": {
       "get": {
-        "summary": "Obtiene detalles de un socio específico por ID",
+        "summary": "Obtiene detalles de un socio específico",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [
           {
@@ -243,32 +229,199 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/dashboard/cuotas/:socioId": {
-      "get": {
-        "summary": "Obtiene historial de cuotas/pagos de un socio específico",
+      },
+      "put": {
+        "summary": "Actualiza datos de un socio",
         "tags": [
-          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
         ],
         "parameters": [
           {
-            "name": "socioId",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
             "description": "ID del socio"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina un socio",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [
           {
-            "name": "anio",
+            "name": "id",
             "in": "path",
-            "required": false,
+            "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             },
-            "description": "Filtrar por año (query param)"
+            "description": "ID del socio a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/invitados/:id": {
+      "get": {
+        "summary": "Obtiene detalles de un invitado específico",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del invitado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualiza datos de un invitado",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del invitado"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina un invitado",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del invitado a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/pagos/:id": {
+      "get": {
+        "summary": "Obtiene detalles de un pago específico",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina un pago registrado",
+        "tags": [
+          "que la aplicación no falle en blanco con \"socios.map is not a function\" y que la API montada desde src/server.ts devuelva el contrato real que esperan PagoForm y DashboardWithYearFilter"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago a eliminar"
           }
         ],
         "responses": {

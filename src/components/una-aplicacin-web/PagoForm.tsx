@@ -3,109 +3,124 @@ import React, { useState, useEffect } from 'react';
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 interface Socio {
-  id: string;
+  id: number;
   nombre: string;
   anio: number;
 }
 
+interface PagoFormData {
+  socio_id: number | '';
+  mes: number | '';
+  anio: number | '';
+  monto: number | '';
+  fecha: string;
+}
+
+const normalizeArray = (data: unknown): unknown[] => {
+  if (Array.isArray(data)) return data;
+  if (data && typeof data === 'object' && 'data' in data && Array.isArray((data as any).data)) {
+    return (data as any).data;
+  }
+  return [];
+};
+
 export default function PagoForm() {
   const [socios, setSocios] = useState<Socio[]>([]);
-  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
-  const [formData, setFormData] = useState({ socioId: '', monto: '', estado: 'pendiente' });
+  const [formData, setFormData] = useState<PagoFormData>({
+    socio_id: '',
+    mes: '',
+    anio: new Date().getFullYear(),
+    monto: '',
+    fecha: new Date().toISOString().split('T')[0],
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const fetchSocios = async () => {
       try {
-        setLoading(true);
-        const res = await fetch(`${BASE_URL}/api/socios?anio=${selectedYear}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const res = await fetch(`${BASE_URL}/api/socios`);
+        if (!res.ok) throw new Error('Error al cargar socios');
         const data = await res.json();
-        setSocios(Array.isArray(data) ? data : []);
+        const sociosArray = normalizeArray(data) as Socio[];
+        setSocios(sociosArray);
       } catch (err) {
-        setError(`Error cargando socios: ${err instanceof Error ? err.message : 'desconocido'}`);
-      } finally {
-        setLoading(false);
+        setError(err instanceof Error ? err.message : 'Error desconocido');
       }
     };
     fetchSocios();
-  }, [selectedYear]);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: ['socio_id', 'mes', 'anio', 'monto'].includes(name) ? (value ? Number(value) : '') : value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
+    setSuccess(false);
 
-    if (!formData.socioId || !formData.monto) {
-      setError('Por favor completa todos los campos');
+    if (!formData.socio_id || !formData.mes || !formData.anio || !formData.monto) {
+      setError('Todos los campos son requeridos');
       return;
     }
 
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await fetch(`${BASE_URL}/api/pagos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          socioId: formData.socioId,
-          monto: Number(formData.monto),
-          anio: selectedYear,
-          estado: formData.estado
-        })
+          socio_id: formData.socio_id,
+          mes: formData.mes,
+          anio: formData.anio,
+          monto: formData.monto,
+          fecha: formData.fecha,
+        }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setSuccess('Pago registrado exitosamente');
-      setFormData({ socioId: '', monto: '', estado: 'pendiente' });
+      if (!res.ok) throw new Error('Error al registrar pago');
+      setSuccess(true);
+      setFormData({
+        socio_id: '',
+        mes: '',
+        anio: new Date().getFullYear(),
+        monto: '',
+        fecha: new Date().toISOString().split('T')[0],
+      });
     } catch (err) {
-      setError(`Error registrando pago: ${err instanceof Error ? err.message : 'desconocido'}`);
+      setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-6 bg-white rounded-lg shadow max-w-md">
-      <h2 className="text-2xl font-bold mb-6">Registrar Pago</h2>
-      
-      {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>}
-      {success && <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">{success}</div>}
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow">
+      <h1 className="text-2xl font-bold mb-6">Registrar Pago</h1>
+
+      {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
+      {success && <div className="bg-green-100 text-green-700 p-3 rounded mb-4">Pago registrado exitosamente</div>}
 
       <form aria-label="PagoForm" onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="year" className="block text-sm font-medium mb-1">
-            Año
-          </label>
-          <input aria-label="campo de entrada"
-            id="year"
-            type="number"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(Number(e.target.value))}
-            className="w-full px-3 py-2 border rounded"
-            aria-label="Año del pago"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="socioId" className="block text-sm font-medium mb-1">
+          <label htmlFor="socio_id" className="block text-sm font-medium mb-1">
             Socio
           </label>
           <select
-            id="socioId"
-            name="socioId"
-            value={formData.socioId}
+            id="socio_id"
+            name="socio_id"
+            value={formData.socio_id}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded-lg"
             aria-label="Seleccionar socio"
-            disabled={loading}
+            required
           >
-            <option value="">-- Selecciona un socio --</option>
+            <option value="">-- Seleccionar --</option>
             {socios.map((socio) => (
               <option key={socio.id} value={socio.id}>
                 {socio.nombre}
@@ -115,44 +130,76 @@ export default function PagoForm() {
         </div>
 
         <div>
+          <label htmlFor="mes" className="block text-sm font-medium mb-1">
+            Mes
+          </label>
+          <input
+            id="mes"
+            type="number"
+            name="mes"
+            min="1"
+            max="12"
+            value={formData.mes}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg"
+            aria-label="Mes del pago"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="anio" className="block text-sm font-medium mb-1">
+            Año
+          </label>
+          <input
+            id="anio"
+            type="number"
+            name="anio"
+            value={formData.anio}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded-lg"
+            aria-label="Año del pago"
+            required
+          />
+        </div>
+
+        <div>
           <label htmlFor="monto" className="block text-sm font-medium mb-1">
-            Monto ($)
+            Monto
           </label>
           <input
             id="monto"
             type="number"
             name="monto"
+            step="0.01"
             value={formData.monto}
             onChange={handleChange}
-            step="0.01"
-            min="0"
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 border rounded-lg"
             aria-label="Monto del pago"
+            required
           />
         </div>
 
         <div>
-          <label htmlFor="estado" className="block text-sm font-medium mb-1">
-            Estado
+          <label htmlFor="fecha" className="block text-sm font-medium mb-1">
+            Fecha
           </label>
-          <select
-            id="estado"
-            name="estado"
-            value={formData.estado}
+          <input
+            id="fecha"
+            type="date"
+            name="fecha"
+            value={formData.fecha}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-            aria-label="Estado del pago"
-          >
-            <option value="pendiente">Pendiente</option>
-            <option value="pagado">Pagado</option>
-            <option value="cancelado">Cancelado</option>
-          </select>
+            className="w-full px-3 py-2 border rounded-lg"
+            aria-label="Fecha del pago"
+            required
+          />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
           aria-label="Enviar formulario de pago"
         >
           {loading ? 'Registrando...' : 'Registrar Pago'}
