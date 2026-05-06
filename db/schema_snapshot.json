@@ -1,43 +1,5 @@
 {
-  "version": "20260506190238",
-  "timestamp": "2026-05-06T19:02:38.954Z",
-  "entidades": [
-    {
-      "nombre": "GrupoDeportivo",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "nombre",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "recaudacion_total",
-          "tipo": "REAL",
-          "nullable": false
-        },
-        {
-          "nombre": "anio_actual",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": []
-    }
-  ]
+  "version": "20260506191700",
+  "timestamp": "2026-05-06T19:17:00.768Z",
+  "entidades": []
 }

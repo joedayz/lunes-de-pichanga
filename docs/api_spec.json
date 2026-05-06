@@ -1,25 +1,129 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año",
+    "title": "API: eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años",
     "version": "1.0.0"
   },
   "paths": {
-    "/api/grupos-deportivos/:grupoId/recaudacion": {
+    "/api/dashboard": {
       "get": {
-        "summary": "Obtiene el total de recaudación para un grupo y año específico. Usado para refrescar las tarjetas superiores sin F5.",
+        "summary": "Obtiene métricas del dashboard de la pichanga para un año específico",
         "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
         ],
         "parameters": [
           {
-            "name": "grupoId",
+            "name": "año",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año en formato YYYY (ej: 2024)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socios": {
+      "get": {
+        "summary": "Obtiene listado de socios con sus cuotas y participaciones para un año específico",
+        "tags": [
+          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+        ],
+        "parameters": [
+          {
+            "name": "año",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año en formato YYYY (ej: 2024)"
+          },
+          {
+            "name": "pagina",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página (default: 1)"
+          },
+          {
+            "name": "limite",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Registros por página (default: 20)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/años": {
+      "get": {
+        "summary": "Obtiene listado de años disponibles con datos de pichanga",
+        "tags": [
+          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socios/:id": {
+      "get": {
+        "summary": "Obtiene detalle de un socio específico para un año",
+        "tags": [
+          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+        ],
+        "parameters": [
+          {
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
-            "description": "ID del grupo deportivo"
+            "description": "ID del socio"
+          },
+          {
+            "name": "año",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año en formato YYYY"
           }
         ],
         "responses": {
@@ -38,21 +142,21 @@
         }
       }
     },
-    "/api/grupos-deportivos/:grupoId/recaudacion-por-anio": {
+    "/api/dashboard/pagos": {
       "get": {
-        "summary": "Obtiene recaudación desglosada por año para el grupo. Permite al cliente saber totales de años anteriores sin cambiar manualmente.",
+        "summary": "Obtiene métricas de pagos por mes para un año específico (evita NaN en DashboardPagos)",
         "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
         ],
         "parameters": [
           {
-            "name": "grupoId",
+            "name": "año",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "number"
             },
-            "description": "ID del grupo deportivo"
+            "description": "Año en formato YYYY"
           }
         ],
         "responses": {
@@ -61,188 +165,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/grupos-deportivos/:grupoId/pagos": {
-      "post": {
-        "summary": "Registra un nuevo pago y retorna la recaudación actualizada del año actual para refrescar tarjetas sin F5.",
-        "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
-        ],
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del grupo deportivo"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "summary": "Lista pagos del grupo filtrados por año. Soporta paginación y búsqueda.",
-        "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
-        ],
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del grupo deportivo"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/grupos-deportivos/:grupoId/pagos/:pagoId": {
-      "patch": {
-        "summary": "Edita un pago existente y retorna la recaudación actualizada del año.",
-        "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
-        ],
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del grupo deportivo"
-          },
-          {
-            "name": "pagoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del pago a editar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Elimina un pago y retorna la recaudación actualizada del año.",
-        "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
-        ],
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del grupo deportivo"
-          },
-          {
-            "name": "pagoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del pago a eliminar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/grupos-deportivos/:grupoId/dashboard-resumen": {
-      "get": {
-        "summary": "Obtiene el resumen de tarjetas superiores (recaudación, socios, invitados) para el año actual. Endpoint único para refrescar todo sin múltiples llamadas.",
-        "tags": [
-          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
-        ],
-        "parameters": [
-          {
-            "name": "grupoId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del grupo deportivo"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

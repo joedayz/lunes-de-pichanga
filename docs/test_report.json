@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T19:03:18.168Z",
+  "timestamp": "2026-05-06T19:17:37.538Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -9,19 +9,19 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "validacion-schema-pago",
+      "nombre": "dashboard-endpoint-con-año",
       "estado": "PASADO",
       "duracionMs": 46
     },
     {
-      "nombre": "endpoint-crear-pago-y-refrescar-recaudacion",
+      "nombre": "socios-endpoint-con-año",
       "estado": "PASADO",
-      "duracionMs": 44
+      "duracionMs": 21
     },
     {
-      "nombre": "manejo-errores-endpoint-pagos",
+      "nombre": "api-endpoints-integración",
       "estado": "PASADO",
-      "duracionMs": 35
+      "duracionMs": 34
     }
   ],
   "intentosCorrección": 1
