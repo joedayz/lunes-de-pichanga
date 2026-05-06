@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T17:24:59.181Z",
+  "timestamp": "2026-05-06T17:37:56.254Z",
   "totalTests": 4,
   "pasados": 4,
   "fallidos": 0,
@@ -9,24 +9,24 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "validacion-schema-socio-con-anio",
+      "nombre": "anos-disponibles-endpoint",
       "estado": "PASADO",
-      "duracionMs": 12
+      "duracionMs": 16
     },
     {
-      "nombre": "endpoint-post-socios-con-anio",
+      "nombre": "socios-endpoint-format",
       "estado": "PASADO",
-      "duracionMs": 9
+      "duracionMs": 16
     },
     {
-      "nombre": "filtro-anio-en-dashboard",
+      "nombre": "dashboard-endpoints-integration",
       "estado": "PASADO",
-      "duracionMs": 37
+      "duracionMs": 33
     },
     {
-      "nombre": "pago-form-mes-anio",
+      "nombre": "pago-form-post-endpoint",
       "estado": "PASADO",
-      "duracionMs": 22
+      "duracionMs": 44
     }
   ],
   "intentosCorrección": 1

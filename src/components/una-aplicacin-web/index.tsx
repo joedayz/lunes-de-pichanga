@@ -1,10 +1,12 @@
-import DashboardAdmin from './DashboardAdmin.js';
+import DashboardWithYearFilter from '../usar-selectores-de-ao-y-mes-en-la-interf/DashboardWithYearFilter.js';
+import PagoForm from '../usar-selectores-de-ao-y-mes-en-la-interf/PagoForm.js';
 import FormRegistroSocioYCuota from './FormRegistroSocioYCuota.js';
 
 export default function App() {
   return (
     <>
-      <DashboardAdmin />
+      <DashboardWithYearFilter />
+      <PagoForm />
       <FormRegistroSocioYCuota />
     </>
   );
