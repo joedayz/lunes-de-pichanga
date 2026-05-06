@@ -1,9 +1,9 @@
 {
-  "version": "20260506135443",
-  "timestamp": "2026-05-06T13:54:43.384Z",
+  "version": "20260506140415",
+  "timestamp": "2026-05-06T14:04:15.824Z",
   "entidades": [
     {
-      "nombre": "Pichanga",
+      "nombre": "Socio",
       "atributos": [
         {
           "nombre": "id",
@@ -12,24 +12,29 @@
           "primaryKey": true
         },
         {
-          "nombre": "fecha",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "ubicacion",
+          "nombre": "nombre",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "hora_inicio",
+          "nombre": "apellido",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "hora_fin",
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "telefono",
           "tipo": "TEXT",
           "nullable": true
+        },
+        {
+          "nombre": "fecha_registro",
+          "tipo": "TIMESTAMP",
+          "nullable": false
         },
         {
           "nombre": "estado",
@@ -50,13 +55,13 @@
       "relaciones": [
         {
           "tipo": "ONE_TO_MANY",
-          "entidadRelacionada": "AsistenciaPichanga",
-          "campoForeignKey": "pichanga_id"
+          "entidadRelacionada": "Cuota",
+          "campoForeignKey": "socio_id"
         }
       ]
     },
     {
-      "nombre": "AsistenciaPichanga",
+      "nombre": "Cuota",
       "atributos": [
         {
           "nombre": "id",
@@ -65,18 +70,28 @@
           "primaryKey": true
         },
         {
-          "nombre": "pichanga_id",
-          "tipo": "UUID",
-          "nullable": false
-        },
-        {
           "nombre": "socio_id",
           "tipo": "UUID",
           "nullable": false
         },
         {
-          "nombre": "asistio",
-          "tipo": "BOOLEAN",
+          "nombre": "monto",
+          "tipo": "REAL",
+          "nullable": false
+        },
+        {
+          "nombre": "fecha_vencimiento",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "fecha_pago",
+          "tipo": "TIMESTAMP",
+          "nullable": true
+        },
+        {
+          "nombre": "estado",
+          "tipo": "TEXT",
           "nullable": false
         },
         {
@@ -93,15 +108,52 @@
       "relaciones": [
         {
           "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Pichanga",
-          "campoForeignKey": "pichanga_id"
-        },
-        {
-          "tipo": "MANY_TO_ONE",
           "entidadRelacionada": "Socio",
           "campoForeignKey": "socio_id"
         }
       ]
+    },
+    {
+      "nombre": "Usuario",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "password_hash",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "rol",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "activo",
+          "tipo": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": []
     }
   ]
 }
