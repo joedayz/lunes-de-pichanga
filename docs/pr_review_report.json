@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-05-06T13:31:15.501Z",
+  "timestamp": "2026-05-06T13:42:43.236Z",
   "pullRequest": {
-    "numero": 37,
-    "url": "https://github.com/org/repo/pull/37",
-    "titulo": "feat: corregir un error de build en Vite/React",
-    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir un error de build en Vite/React, para poder ejecutar la UI sin fallos.\n\nBug:\n- Error: [plugin:vite:react-babel] /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/src/components/una-aplicacin-web/index.tsx: Identifier 'React' has already been declared. (174:7)\n- Detalle:\n/Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/src/components/una-aplicacin-web/index.tsx:174:7\n172|\n173|  // === FormRegistroSocioYCuota ===\n174|  import React, { useState } from 'react';\n   |         ^\n175|\n176|  const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Abrir http://localhost:5173.\n\nEsperado:\n- La app carga sin errores de Babel/React.\n- En cualquier archivo .tsx, los imports solo aparecen al inicio del módulo.\n- No hay `import React` duplicado ni redeclaraciones de `BASE_URL`.\n\nFix deseado:\n- Refactorizar `src/components/una-aplicacin-web/index.tsx` para que no contenga imports en medio del archivo.\n- Si el archivo contiene más de un componente concatenado, separarlo en archivos (`DashboardAdmin.tsx`, `FormRegistroSocioYCuota.tsx`) y que `index.tsx` exporte un único `default` que los componga\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506133023_repository_builderror_fix_componentfile.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-un-error-de-build-en-vitereact.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/corregir-un-error-de-build-en-vitereact/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/c981d380-4dc5-4638-9745-660ed759bf7b/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\ndab8e3dc-a33a-4978-a900-6639c5ba7f27",
-    "ramaOrigen": "feature/c981d380-4dc5-4638-9745-660ed759bf7b",
+    "numero": 4,
+    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/4",
+    "titulo": "feat: corregir el error de Vite/Babel por import duplicado",
+    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir el error de Vite/Babel por import duplicado, para poder ejecutar la UI.\n\nBug (actual):\n- Error: [plugin:vite:react-babel] /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/src/components/una-aplicacin-web/index.tsx: Identifier 'React' has already been declared. (174:7)\n- Contexto:\n/Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/src/components/una-aplicacin-web/index.tsx:174:7\n172|\n173|  // === FormRegistroSocioYCuota ===\n174|  import React, { useState } from 'react';\n   |         ^\n175|\n176|  const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Abrir http://localhost:5173.\n\nFix requerido (muy explícito):\n- Modificar EXACTAMENTE este archivo: `src/components/una-aplicacin-web/index.tsx`.\n- El archivo debe tener todos los `import ...` SOLO al inicio (líneas 1..N), y no debe haber imports en medio del archivo.\n- Debe existir un único `export default` en ese archivo.\n- Si hay dos componentes concatenados en el mismo archivo, separar en archivos:\n  - `src/components/una-aplicacin-web/DashboardAdmin.tsx`\n  - `src/components/una-aplicacin-web/FormRegistroSocioYCuota.tsx`\n  y dejar `src/components/una-aplicacin-web/index.tsx` como `export default function App(){ return <><DashboardAdmin/><FormRegistroSocioYCuota/></>; }`.\n\nValidación:\n- `npm run dev` (Vite) debe compilar sin el error \"Identifier 'React' has already been declared\".\n- La pantalla debe cargar (sin blanco) y sin errores en consola\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506134137_usuario.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-el-error-de-vitebabel-por-import-duplicad.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/corregir-el-error-de-vitebabel-por-impor/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/7614d428-9ecb-4c36-a25b-c41940b7e92d/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\ncef2a15a-796b-496d-ae73-2eab1d0036df",
+    "ramaOrigen": "feature/7614d428-9ecb-4c36-a25b-c41940b7e92d",
     "ramaDestino": "main",
     "estado": "APROBADO",
-    "timestamp": "2026-05-06T13:31:04.835Z"
+    "timestamp": "2026-05-06T13:42:18.621Z"
   },
   "decision": "APROBADO",
   "cobertura": 100,
@@ -17,143 +17,107 @@
   "cumpleUmbralCoberturaNuevo": true,
   "hallazgos": [
     {
-      "archivo": "router.ts",
+      "archivo": "db/migrations/20260506134137_usuario.sql",
+      "linea": 5,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "La tabla 'usuario' no define restricciones de unicidad en 'email'. Se recomienda agregar UNIQUE(email) para evitar duplicados y garantizar integridad de datos.",
+      "criterio": "Diseño de base de datos - Integridad referencial"
+    },
+    {
+      "archivo": "db/migrations/20260506134137_usuario.sql",
       "linea": 7,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Ruta GET sin validación de parámetros. Los parámetros ':owner' y ':name' no se validan con Zod antes de usarse.",
-      "criterio": "Validación de entrada consistente"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 14,
       "tipo": "SUGERENCIA",
-      "mensaje": "Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro si no se necesita.",
-      "criterio": "Código limpio - evitar variables no utilizadas"
+      "mensaje": "Considerar agregar una restricción CHECK o usar un tipo ENUM para 'rol' para limitar valores válidos (ej: 'admin', 'user', 'moderador').",
+      "criterio": "Diseño de base de datos - Validación de dominio"
     },
     {
-      "archivo": "router.ts",
-      "linea": 19,
+      "archivo": "db/schema_snapshot.json",
+      "linea": 6,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Ruta GET sin validación de parámetros. El parámetro ':owner' y ':name' no se validan.",
-      "criterio": "Validación de entrada consistente"
+      "mensaje": "El cambio de entidad 'Socio' a 'Usuario' y la eliminación de relaciones (ONE_TO_MANY con Cuota y Participacion) sugiere un cambio de modelo de datos significativo. Verificar que no hay datos huérfanos o migraciones de datos pendientes.",
+      "criterio": "Gestión de migraciones - Integridad de datos"
     },
     {
-      "archivo": "router.ts",
-      "linea": 26,
+      "archivo": "docs/api_spec.json",
+      "linea": 3,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro.",
-      "criterio": "Código limpio - evitar variables no utilizadas"
+      "mensaje": "El título de la API cambió a 'corregir el error de Vite/Babel por import duplicado', que parece ser un mensaje de error o nota temporal, no una descripción apropiada para documentación de API.",
+      "criterio": "Documentación - Claridad y profesionalismo"
     },
     {
-      "archivo": "router.ts",
-      "linea": 31,
+      "archivo": "docs/api_spec.json",
+      "linea": 8,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "El endpoint POST /api/socios fue reemplazado por GET. Esto es un cambio de contrato de API que puede romper clientes existentes. Verificar compatibilidad hacia atrás.",
+      "criterio": "Versionado de API - Cambios compatibles"
+    },
+    {
+      "archivo": "docs/api_spec.json",
+      "linea": 11,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Los tags de la API contienen el mismo mensaje de error ('corregir el error de Vite/Babel por import duplicado'). Usar tags descriptivos y consistentes.",
+      "criterio": "Documentación OpenAPI - Consistencia"
+    },
+    {
+      "archivo": "código TypeScript - Router",
+      "linea": 5,
       "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de schema muy largo y poco legible: 'postApi_build_errors_errorId_fixesSchema'. Considera usar un nombre más conciso o agrupar schemas en un objeto.",
-      "criterio": "Nomenclatura clara y mantenible"
+      "mensaje": "El endpoint GET /api/socios tiene un TODO sin implementación. Considerar agregar paginación (page, limit) como se documenta en api_spec.json.",
+      "criterio": "Completitud de implementación"
     },
     {
-      "archivo": "router.ts",
-      "linea": 32,
+      "archivo": "código TypeScript - Router",
+      "linea": 12,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Campo 'affected_files' es string pero el nombre sugiere múltiples archivos. Considera usar z.array(z.string()) o renombrar.",
-      "criterio": "Consistencia de tipos y nomenclatura"
+      "mensaje": "El schema 'postApi_sociosSchema' incluye 'monto_cuota' y 'fecha_pago', pero la nueva tabla 'usuario' no tiene estos campos. Hay desalineación entre el schema de validación y el modelo de datos.",
+      "criterio": "Consistencia entre capas - Modelo de datos"
     },
     {
-      "archivo": "router.ts",
-      "linea": 37,
+      "archivo": "código TypeScript - Router",
+      "linea": 20,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Parámetro ':errorId' no se valida. Considera validar que sea un formato válido (UUID, número, etc.).",
-      "criterio": "Validación de entrada consistente"
+      "mensaje": "El endpoint POST /api/socios devuelve los datos sin validación adicional ni persistencia. El TODO indica lógica incompleta. Implementar antes de producción.",
+      "criterio": "Completitud de implementación"
     },
     {
-      "archivo": "router.ts",
-      "linea": 48,
+      "archivo": "código TypeScript - Router",
+      "linea": 57,
       "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de schema muy largo: 'patchApi_component_files_fileId_refactorSchema'. Considera refactorizar la nomenclatura.",
-      "criterio": "Nomenclatura clara y mantenible"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 53,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Parámetro ':fileId' no se valida. Considera validar el formato.",
-      "criterio": "Validación de entrada consistente"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 65,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Parámetro ':errorId' no se valida.",
-      "criterio": "Validación de entrada consistente"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 72,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Parámetro '_err' no utilizado.",
-      "criterio": "Código limpio - evitar variables no utilizadas"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 77,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Nombre de schema muy largo: 'patchApi_build_errors_errorId_statusSchema'. Considera refactorizar.",
-      "criterio": "Nomenclatura clara y mantenible"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 78,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Campo 'status' es z.string() sin restricciones. Considera usar z.enum() con valores válidos ('open', 'fixed', 'in-progress').",
+      "mensaje": "El schema 'patchApi_cuotas_idSchema' permite campos opcionales pero no valida que al menos uno sea proporcionado. Considerar usar .refine() para validación condicional.",
       "criterio": "Validación robusta con Zod"
     },
     {
-      "archivo": "router.ts",
-      "linea": 82,
+      "archivo": "código TypeScript - DashboardAdmin",
+      "linea": 145,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Parámetro ':errorId' no se valida.",
-      "criterio": "Validación de entrada consistente"
+      "mensaje": "El componente realiza 3 llamadas fetch en paralelo sin manejo de errores granular. Si una falla, el estado de error es genérico. Considerar manejo individual por endpoint.",
+      "criterio": "Manejo de errores - Granularidad"
     },
     {
-      "archivo": "router.ts",
-      "linea": 1,
+      "archivo": "código TypeScript - DashboardAdmin",
+      "linea": 155,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "El código está incompleto (corte en línea 155). El bloque finally no cierra correctamente. Verificar que el archivo esté completo.",
+      "criterio": "Integridad del código"
+    },
+    {
+      "archivo": "código TypeScript - DashboardAdmin",
+      "linea": 130,
       "tipo": "SUGERENCIA",
-      "mensaje": "Código duplicado: manejadores de errores Zod se repiten en múltiples rutas. Considera extraer a middleware o función auxiliar.",
-      "criterio": "DRY - Don't Repeat Yourself"
-    },
-    {
-      "archivo": "BuildErrorDashboard.tsx",
-      "linea": 29,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "useEffect sin dependencias especificadas. Falta el array de dependencias, lo que causará ejecución en cada render.",
-      "criterio": "Hooks de React - dependencias explícitas"
-    },
-    {
-      "archivo": "BuildErrorDashboard.tsx",
-      "linea": 29,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Métodos 'fetchBuildErrors' y 'fetchComponentFiles' no están definidos en el fragmento. Asegúrate de que estén definidos y manejen errores correctamente.",
-      "criterio": "Completitud del código"
-    },
-    {
-      "archivo": "BuildErrorDashboard.tsx",
-      "linea": 5,
-      "tipo": "SUGERENCIA",
-      "mensaje": "BASE_URL se define en el componente. Considera moverlo a un archivo de configuración centralizado.",
-      "criterio": "Separación de responsabilidades"
+      "mensaje": "BASE_URL se obtiene de variable de entorno pero sin validación. Considerar usar una función de configuración centralizada o validar que la URL sea válida.",
+      "criterio": "Configuración - Robustez"
     }
   ],
   "recomendaciones": [
-    "Revisar 12 advertencia(s) de calidad encontrada(s)",
-    "Considerar 6 sugerencia(s) de mejora"
+    "Revisar 9 advertencia(s) de calidad encontrada(s)",
+    "Considerar 4 sugerencia(s) de mejora"
   ],
   "resumen": "✅ PR aprobado. Cobertura: 100%; código nuevo 100%. Sin errores de calidad.",
-  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#37](https://github.com/org/repo/pull/37) (feature/c981d380-4dc5-4638-9745-660ed759bf7b → main)\n- **Decisión**: **APROBADO**\n- **Diff Git analizado**: no (rama ausente o repo no disponible)\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `router.ts:7` — Ruta GET sin validación de parámetros. Los parámetros ':owner' y ':name' no se validan con Zod antes de usarse. _(criterio: Validación de entrada consistente)_\n- **[SUGERENCIA]** `router.ts:14` — Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro si no se necesita. _(criterio: Código limpio - evitar variables no utilizadas)_\n- **[ADVERTENCIA]** `router.ts:19` — Ruta GET sin validación de parámetros. El parámetro ':owner' y ':name' no se validan. _(criterio: Validación de entrada consistente)_\n- **[ADVERTENCIA]** `router.ts:26` — Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro. _(criterio: Código limpio - evitar variables no utilizadas)_\n- **[SUGERENCIA]** `router.ts:31` — Nombre de schema muy largo y poco legible: 'postApi_build_errors_errorId_fixesSchema'. Considera usar un nombre más conciso o agrupar schemas en un objeto. _(criterio: Nomenclatura clara y mantenible)_\n- **[ADVERTENCIA]** `router.ts:32` — Campo 'affected_files' es string pero el nombre sugiere múltiples archivos. Considera usar z.array(z.string()) o renombrar. _(criterio: Consistencia de tipos y nomenclatura)_\n- **[ADVERTENCIA]** `router.ts:37` — Parámetro ':errorId' no se valida. Considera validar que sea un formato válido (UUID, número, etc.). _(criterio: Validación de entrada consistente)_\n- **[SUGERENCIA]** `router.ts:48` — Nombre de schema muy largo: 'patchApi_component_files_fileId_refactorSchema'. Considera refactorizar la nomenclatura. _(criterio: Nomenclatura clara y mantenible)_\n- **[ADVERTENCIA]** `router.ts:53` — Parámetro ':fileId' no se valida. Considera validar el formato. _(criterio: Validación de entrada consistente)_\n- **[ADVERTENCIA]** `router.ts:65` — Parámetro ':errorId' no se valida. _(criterio: Validación de entrada consistente)_\n- **[ADVERTENCIA]** `router.ts:72` — Parámetro '_err' no utilizado. _(criterio: Código limpio - evitar variables no utilizadas)_\n- **[SUGERENCIA]** `router.ts:77` — Nombre de schema muy largo: 'patchApi_build_errors_errorId_statusSchema'. Considera refactorizar. _(criterio: Nomenclatura clara y mantenible)_\n- **[ADVERTENCIA]** `router.ts:78` — Campo 'status' es z.string() sin restricciones. Considera usar z.enum() con valores válidos ('open', 'fixed', 'in-progress'). _(criterio: Validación robusta con Zod)_\n- **[ADVERTENCIA]** `router.ts:82` — Parámetro ':errorId' no se valida. _(criterio: Validación de entrada consistente)_\n- **[SUGERENCIA]** `router.ts:1` — Código duplicado: manejadores de errores Zod se repiten en múltiples rutas. Considera extraer a middleware o función auxiliar. _(criterio: DRY - Don't Repeat Yourself)_\n- **[ADVERTENCIA]** `BuildErrorDashboard.tsx:29` — useEffect sin dependencias especificadas. Falta el array de dependencias, lo que causará ejecución en cada render. _(criterio: Hooks de React - dependencias explícitas)_\n- **[ADVERTENCIA]** `BuildErrorDashboard.tsx:29` — Métodos 'fetchBuildErrors' y 'fetchComponentFiles' no están definidos en el fragmento. Asegúrate de que estén definidos y manejen errores correctamente. _(criterio: Completitud del código)_\n- **[SUGERENCIA]** `BuildErrorDashboard.tsx:5` — BASE_URL se define en el componente. Considera moverlo a un archivo de configuración centralizado. _(criterio: Separación de responsabilidades)_\n\n### Recomendaciones\n\n- Revisar 12 advertencia(s) de calidad encontrada(s)\n- Considerar 6 sugerencia(s) de mejora\n\n### Criterios incumplidos\n_Ninguno — listo para revisión humana._",
+  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#4](https://github.com/joedayz/lunes-de-pichanga/pull/4) (feature/7614d428-9ecb-4c36-a25b-c41940b7e92d → main)\n- **Decisión**: **APROBADO**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `db/migrations/20260506134137_usuario.sql:5` — La tabla 'usuario' no define restricciones de unicidad en 'email'. Se recomienda agregar UNIQUE(email) para evitar duplicados y garantizar integridad de datos. _(criterio: Diseño de base de datos - Integridad referencial)_\n- **[SUGERENCIA]** `db/migrations/20260506134137_usuario.sql:7` — Considerar agregar una restricción CHECK o usar un tipo ENUM para 'rol' para limitar valores válidos (ej: 'admin', 'user', 'moderador'). _(criterio: Diseño de base de datos - Validación de dominio)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:6` — El cambio de entidad 'Socio' a 'Usuario' y la eliminación de relaciones (ONE_TO_MANY con Cuota y Participacion) sugiere un cambio de modelo de datos significativo. Verificar que no hay datos huérfanos o migraciones de datos pendientes. _(criterio: Gestión de migraciones - Integridad de datos)_\n- **[ADVERTENCIA]** `docs/api_spec.json:3` — El título de la API cambió a 'corregir el error de Vite/Babel por import duplicado', que parece ser un mensaje de error o nota temporal, no una descripción apropiada para documentación de API. _(criterio: Documentación - Claridad y profesionalismo)_\n- **[ADVERTENCIA]** `docs/api_spec.json:8` — El endpoint POST /api/socios fue reemplazado por GET. Esto es un cambio de contrato de API que puede romper clientes existentes. Verificar compatibilidad hacia atrás. _(criterio: Versionado de API - Cambios compatibles)_\n- **[ADVERTENCIA]** `docs/api_spec.json:11` — Los tags de la API contienen el mismo mensaje de error ('corregir el error de Vite/Babel por import duplicado'). Usar tags descriptivos y consistentes. _(criterio: Documentación OpenAPI - Consistencia)_\n- **[SUGERENCIA]** `código TypeScript - Router:5` — El endpoint GET /api/socios tiene un TODO sin implementación. Considerar agregar paginación (page, limit) como se documenta en api_spec.json. _(criterio: Completitud de implementación)_\n- **[ADVERTENCIA]** `código TypeScript - Router:12` — El schema 'postApi_sociosSchema' incluye 'monto_cuota' y 'fecha_pago', pero la nueva tabla 'usuario' no tiene estos campos. Hay desalineación entre el schema de validación y el modelo de datos. _(criterio: Consistencia entre capas - Modelo de datos)_\n- **[ADVERTENCIA]** `código TypeScript - Router:20` — El endpoint POST /api/socios devuelve los datos sin validación adicional ni persistencia. El TODO indica lógica incompleta. Implementar antes de producción. _(criterio: Completitud de implementación)_\n- **[SUGERENCIA]** `código TypeScript - Router:57` — El schema 'patchApi_cuotas_idSchema' permite campos opcionales pero no valida que al menos uno sea proporcionado. Considerar usar .refine() para validación condicional. _(criterio: Validación robusta con Zod)_\n- **[ADVERTENCIA]** `código TypeScript - DashboardAdmin:145` — El componente realiza 3 llamadas fetch en paralelo sin manejo de errores granular. Si una falla, el estado de error es genérico. Considerar manejo individual por endpoint. _(criterio: Manejo de errores - Granularidad)_\n- **[ADVERTENCIA]** `código TypeScript - DashboardAdmin:155` — El código está incompleto (corte en línea 155). El bloque finally no cierra correctamente. Verificar que el archivo esté completo. _(criterio: Integridad del código)_\n- **[SUGERENCIA]** `código TypeScript - DashboardAdmin:130` — BASE_URL se obtiene de variable de entorno pero sin validación. Considerar usar una función de configuración centralizada o validar que la URL sea válida. _(criterio: Configuración - Robustez)_\n\n### Recomendaciones\n\n- Revisar 9 advertencia(s) de calidad encontrada(s)\n- Considerar 4 sugerencia(s) de mejora\n\n### Criterios incumplidos\n_Ninguno — listo para revisión humana._",
   "publicacionComentario": {
     "intentado": true,
-    "exito": false,
-    "detalle": "HTTP 404: {\"message\":\"Not Found\",\"documentation_url\":\"https://docs.github.com/rest/issues/comments#create-an-issue-comment\",\"status\":\"404\"}"
+    "exito": true
   },
-  "diffGitDisponible": false,
+  "diffGitDisponible": true,
   "fuenteDatosCobertura": "REPORTE_TESTS"
 }
