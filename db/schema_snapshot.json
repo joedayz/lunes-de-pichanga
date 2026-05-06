@@ -1,5 +1,43 @@
 {
-  "version": "20260506170625",
-  "timestamp": "2026-05-06T17:06:25.635Z",
-  "entidades": []
+  "version": "20260506171714",
+  "timestamp": "2026-05-06T17:17:14.993Z",
+  "entidades": [
+    {
+      "nombre": "Año",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "numero",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "descripcion",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "activo",
+          "tipo": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": []
+    }
+  ]
 }

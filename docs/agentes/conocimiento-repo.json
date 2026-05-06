@@ -21,6 +21,13 @@
       "pipelineId": "b7831362-5550-478c-8b3a-b9d873a2ad8f",
       "etapaAgente": "BASE_DE_DATOS",
       "detalle": "BASE_DE_DATOS — inferir esquema BD: agotados 3 intentos de parseo/validación. Último error: : Array must contain at least 1 element(s)"
+    },
+    {
+      "timestamp": "2026-05-06T17:12:30.178Z",
+      "tipo": "FALLO_PIPELINE",
+      "pipelineId": "3e600f84-84eb-4586-afaf-0e0bc21cf705",
+      "etapaAgente": "BACKEND",
+      "detalle": "BACKEND — generar endpoints API: agotados 3 intentos de parseo/validación. Último error: : Array must contain at most 6 element(s)"
     }
   ]
 }
