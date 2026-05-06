@@ -1,20 +1,51 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: corregir un error interno de Vite/Babel por import dentro del archivo",
+    "title": "API: corregir el build del frontend en Vite",
     "version": "1.0.0"
   },
   "paths": {
     "/api/socios": {
       "get": {
-        "summary": "Obtener lista de socios registrados",
+        "summary": "Obtener listado de todos los socios registrados",
         "tags": [
-          "corregir un error interno de Vite/Babel por import dentro del archivo"
+          "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (activo, inactivo, suspendido)"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página para paginación"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Cantidad de registros por página"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -22,9 +53,9 @@
         }
       },
       "post": {
-        "summary": "Registrar nuevo socio",
+        "summary": "Registrar un nuevo socio y crear su cuota inicial",
         "tags": [
-          "corregir un error interno de Vite/Babel por import dentro del archivo"
+          "corregir el build del frontend en Vite"
         ],
         "parameters": [],
         "responses": {
@@ -34,25 +65,8 @@
           "400": {
             "description": "Bad Request"
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/cuotas": {
-      "post": {
-        "summary": "Registrar cuota de socio",
-        "tags": [
-          "corregir un error interno de Vite/Babel por import dentro del archivo"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
+          "409": {
+            "description": "Conflict"
           },
           "500": {
             "description": "Internal Server Error"
@@ -60,11 +74,83 @@
         }
       }
     },
-    "/api/pichangas": {
+    "/api/socios/:id/cuotas": {
       "get": {
-        "summary": "Obtener lista de pichangas",
+        "summary": "Obtener todas las cuotas de un socio específico",
         "tags": [
-          "corregir un error interno de Vite/Babel por import dentro del archivo"
+          "corregir el build del frontend en Vite"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado de cuota (pendiente, pagada, vencida)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/cuotas/:id/pagar": {
+      "patch": {
+        "summary": "Registrar el pago de una cuota",
+        "tags": [
+          "corregir el build del frontend en Vite"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la cuota"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/dashboard/resumen": {
+      "get": {
+        "summary": "Obtener resumen del dashboard administrativo (total socios, cuotas pendientes, ingresos)",
+        "tags": [
+          "corregir el build del frontend en Vite"
         ],
         "parameters": [],
         "responses": {
@@ -77,32 +163,26 @@
         }
       }
     },
-    "/api/pichangas/:pichanga-id/asistencia": {
-      "post": {
-        "summary": "Registrar asistencia a pichanga",
+    "/api/dashboard/cuotas-vencidas": {
+      "get": {
+        "summary": "Obtener listado de cuotas vencidas para seguimiento administrativo",
         "tags": [
-          "corregir un error interno de Vite/Babel por import dentro del archivo"
+          "corregir el build del frontend en Vite"
         ],
         "parameters": [
           {
-            "name": "pichanga-id",
+            "name": "dias_atraso",
             "in": "path",
-            "required": true,
+            "required": false,
             "schema": {
-              "type": "string"
+              "type": "number"
             },
-            "description": "ID de la pichanga"
+            "description": "Filtrar cuotas con atraso mayor a N días"
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
+          "200": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
