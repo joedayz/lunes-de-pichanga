@@ -12,7 +12,9 @@ interface FormRegistroProps {
   onSuccess?: () => void;
 }
 
-export default function FormRegistroSocioYCuota({ baseUrl = 'http://localhost:3000', onSuccess }: FormRegistroProps) {
+export default function FormRegistroSocioYCuota(
+  { baseUrl = (process.env.REACT_APP_API_URL as string | undefined) ?? 'http://localhost:4000', onSuccess }: FormRegistroProps
+) {
   const [formData, setFormData] = useState<FormData>({
     nombre: '',
     email: '',
