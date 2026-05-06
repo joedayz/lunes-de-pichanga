@@ -3,17 +3,15 @@ import { z } from 'zod';
 
 const router = Router();
 
-const postSociosSchema = z.object({
+const postApi_sociosSchema = z.object({
   nombre: z.string(),
-  apellido: z.string(),
   email: z.string(),
-  telefono: z.string().optional(),
-  fecha_inscripcion: z.string(),
+  telefono: z.string(),
 });
 
-router.post("/socios", async (req: Request, res: Response) => {
+router.post("/api/socios", async (req: Request, res: Response) => {
   try {
-    const datos = postSociosSchema.parse(req.body);
+    const datos = postApi_sociosSchema.parse(req.body);
     // TODO: implementar lógica de negocio
     res.status(201).json({ datos, mensaje: 'OK' });
   } catch (err) {
@@ -25,39 +23,43 @@ router.post("/socios", async (req: Request, res: Response) => {
   }
 });
 
-const postInvitadosSchema = z.object({
-  nombre: z.string(),
-  apellido: z.string(),
-  telefono: z.string().optional(),
-  fecha_juego: z.string(),
-});
-
-router.post("/invitados", async (req: Request, res: Response) => {
-  try {
-    const datos = postInvitadosSchema.parse(req.body);
-    // TODO: implementar lógica de negocio
-    res.status(201).json({ datos, mensaje: 'OK' });
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      res.status(400).json({ error: 'Datos inválidos', detalles: err.errors });
-    } else {
-      res.status(500).json({ error: 'Error interno del servidor' });
-    }
-  }
-});
-
-const postMovimientosSchema = z.object({
+const postApi_cuotasSchema = z.object({
+  socio_id: z.string().optional(),
+  nombre_invitado: z.string().optional(),
   tipo: z.string(),
+  monto: z.number(),
+  mes: z.number(),
+  anio: z.number(),
+  fecha_pago: z.string(),
+});
+
+router.post("/api/cuotas", async (req: Request, res: Response) => {
+  try {
+    const datos = postApi_cuotasSchema.parse(req.body);
+    // TODO: implementar lógica de negocio
+    res.status(201).json({ datos, mensaje: 'OK' });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      res.status(400).json({ error: 'Datos inválidos', detalles: err.errors });
+    } else {
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  }
+});
+
+const postApi_transaccionesSchema = z.object({
+  tipo: z.string(),
+  categoria: z.string(),
   descripcion: z.string(),
   monto: z.number(),
-  categoria: z.string(),
-  fecha_movimiento: z.string(),
-  socio_id: z.string().optional(),
+  mes: z.number(),
+  anio: z.number(),
+  fecha_transaccion: z.string(),
 });
 
-router.post("/movimientos", async (req: Request, res: Response) => {
+router.post("/api/transacciones", async (req: Request, res: Response) => {
   try {
-    const datos = postMovimientosSchema.parse(req.body);
+    const datos = postApi_transaccionesSchema.parse(req.body);
     // TODO: implementar lógica de negocio
     res.status(201).json({ datos, mensaje: 'OK' });
   } catch (err) {
@@ -69,7 +71,7 @@ router.post("/movimientos", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/reportes/resumen", async (req: Request, res: Response) => {
+router.get("/api/reportes/resumen", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
@@ -78,7 +80,7 @@ router.get("/reportes/resumen", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/reportes/socios/:socio-id", async (req: Request, res: Response) => {
+router.get("/api/socios/:socio-id/fondo", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
@@ -87,7 +89,7 @@ router.get("/reportes/socios/:socio-id", async (req: Request, res: Response) => 
   }
 });
 
-router.get("/reportes/canasta", async (req: Request, res: Response) => {
+router.get("/api/reportes/detalles", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
