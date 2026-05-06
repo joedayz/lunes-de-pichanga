@@ -1,15 +1,55 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: una aplicación web",
+    "title": "API: corregir el error de Vite/Babel por import duplicado",
     "version": "1.0.0"
   },
   "paths": {
     "/api/socios": {
-      "post": {
-        "summary": "Registrar un nuevo socio del grupo deportivo",
+      "get": {
+        "summary": "Obtener lista de todos los socios registrados (para dashboard admin)",
         "tags": [
-          "una aplicación web"
+          "corregir el error de Vite/Babel por import duplicado"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página (default: 1)"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Cantidad de registros por página (default: 10)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo socio con su información y cuota inicial",
+        "tags": [
+          "corregir el error de Vite/Babel por import duplicado"
         ],
         "parameters": [],
         "responses": {
@@ -28,112 +68,21 @@
         }
       }
     },
-    "/api/cuotas": {
-      "post": {
-        "summary": "Registrar pago de cuota mensual de socio (15 soles) o participación de invitado (5 soles)",
-        "tags": [
-          "una aplicación web"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/transacciones": {
-      "post": {
-        "summary": "Registrar gasto (pelotas, chalecos) o ingreso extra (rifas, campeonatos)",
-        "tags": [
-          "una aplicación web"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/reportes/resumen": {
+    "/api/socios/:id": {
       "get": {
-        "summary": "Obtener resumen de ingresos y gastos por mes y año, con fondo anual por socio y saldo para canasta",
+        "summary": "Obtener detalles de un socio específico",
         "tags": [
-          "una aplicación web"
+          "corregir el error de Vite/Babel por import duplicado"
         ],
         "parameters": [
           {
-            "name": "mes",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Mes específico (1-12)"
-          },
-          {
-            "name": "anio",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año del reporte"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/socios/:socio-id/fondo": {
-      "get": {
-        "summary": "Obtener fondo anual acumulado de un socio específico",
-        "tags": [
-          "una aplicación web"
-        ],
-        "parameters": [
-          {
-            "name": "socio-id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
             "description": "ID del socio"
-          },
-          {
-            "name": "anio",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año para calcular el fondo"
           }
         ],
         "responses": {
@@ -149,39 +98,30 @@
         }
       }
     },
-    "/api/reportes/detalles": {
+    "/api/cuotas": {
       "get": {
-        "summary": "Obtener detalles de todas las transacciones (cuotas, gastos, ingresos) filtradas por período",
+        "summary": "Obtener lista de cuotas pendientes y pagadas (para dashboard admin)",
         "tags": [
-          "una aplicación web"
+          "corregir el error de Vite/Babel por import duplicado"
         ],
         "parameters": [
           {
-            "name": "mes",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Mes específico (1-12)"
-          },
-          {
-            "name": "anio",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año del reporte"
-          },
-          {
-            "name": "tipo",
+            "name": "estado",
             "in": "path",
             "required": false,
             "schema": {
               "type": "string"
             },
-            "description": "Filtrar por tipo: 'cuota', 'gasto', 'ingreso'"
+            "description": "Filtrar por estado: pendiente, pagada, vencida"
+          },
+          {
+            "name": "socio_id",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por ID de socio"
           }
         ],
         "responses": {
@@ -190,6 +130,62 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/cuotas/:id": {
+      "patch": {
+        "summary": "Actualizar estado de una cuota (marcar como pagada)",
+        "tags": [
+          "corregir el error de Vite/Babel por import duplicado"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la cuota"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/dashboard/resumen": {
+      "get": {
+        "summary": "Obtener resumen del dashboard admin (total socios, cuotas pendientes, ingresos)",
+        "tags": [
+          "corregir el error de Vite/Babel por import duplicado"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
