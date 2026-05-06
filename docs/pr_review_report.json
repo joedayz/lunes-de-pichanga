@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-05-05T22:21:38.281Z",
+  "timestamp": "2026-05-06T13:31:15.501Z",
   "pullRequest": {
-    "numero": 618,
-    "url": "https://github.com/org/repo/pull/554",
-    "titulo": "feat: una aplicación web",
-    "descripcion": "## Historia de Usuario\nComo administrador del grupo deportivo, quiero una aplicación web, para registrar socios e invitados, cobrar cuota de 15 soles mensuales a socios (con cupo de juego en cancha los lunes), cobrar 5 soles a invitados que juegan sin ser socios, registrar gastos del grupo (pelotas, chalecos) e ingresos extra (rifas, campeonatos), y ver ingresos/gastos por mes y año con fondo anual por socio y saldo para canasta\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260505222046_socio_cuota_participacion_transaccion.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/una-aplicacin-web.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/una-aplicacin-web/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/a7b6d6e3-5192-42c2-9fae-5a4093fc7ca4/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\nb7113281-46a8-4894-a3eb-04572b7754bb",
-    "ramaOrigen": "feature/a7b6d6e3-5192-42c2-9fae-5a4093fc7ca4",
+    "numero": 37,
+    "url": "https://github.com/org/repo/pull/37",
+    "titulo": "feat: corregir un error de build en Vite/React",
+    "descripcion": "## Historia de Usuario\nComo mantenedor del repo lunes-de-pichanga, quiero corregir un error de build en Vite/React, para poder ejecutar la UI sin fallos.\n\nBug:\n- Error: [plugin:vite:react-babel] /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/src/components/una-aplicacin-web/index.tsx: Identifier 'React' has already been declared. (174:7)\n- Detalle:\n/Users/josediaz/Projects/JoeDayz/lunes-de-pichanga/src/components/una-aplicacin-web/index.tsx:174:7\n172|\n173|  // === FormRegistroSocioYCuota ===\n174|  import React, { useState } from 'react';\n   |         ^\n175|\n176|  const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';\n\nRepro:\n- En /Users/josediaz/Projects/JoeDayz/lunes-de-pichanga ejecutar `npm run dev`.\n- Abrir http://localhost:5173.\n\nEsperado:\n- La app carga sin errores de Babel/React.\n- En cualquier archivo .tsx, los imports solo aparecen al inicio del módulo.\n- No hay `import React` duplicado ni redeclaraciones de `BASE_URL`.\n\nFix deseado:\n- Refactorizar `src/components/una-aplicacin-web/index.tsx` para que no contenga imports en medio del archivo.\n- Si el archivo contiene más de un componente concatenado, separarlo en archivos (`DashboardAdmin.tsx`, `FormRegistroSocioYCuota.tsx`) y que `index.tsx` exporte un único `default` que los componga\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506133023_repository_builderror_fix_componentfile.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/corregir-un-error-de-build-en-vitereact.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/corregir-un-error-de-build-en-vitereact/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/c981d380-4dc5-4638-9745-660ed759bf7b/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\ndab8e3dc-a33a-4978-a900-6639c5ba7f27",
+    "ramaOrigen": "feature/c981d380-4dc5-4638-9745-660ed759bf7b",
     "ramaDestino": "main",
     "estado": "APROBADO",
-    "timestamp": "2026-05-05T22:21:28.008Z"
+    "timestamp": "2026-05-06T13:31:04.835Z"
   },
   "decision": "APROBADO",
   "cobertura": 100,
@@ -18,137 +18,137 @@
   "hallazgos": [
     {
       "archivo": "router.ts",
-      "linea": 9,
+      "linea": 7,
       "tipo": "ADVERTENCIA",
-      "mensaje": "El schema 'postSociosSchema' no valida formato de email. Usar z.string().email() para validación de email",
-      "criterio": "Validación de datos con Zod"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 9,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "El schema 'postSociosSchema' no valida formato de teléfono. Considerar usar z.string().regex() o una librería de validación",
-      "criterio": "Validación de datos con Zod"
+      "mensaje": "Ruta GET sin validación de parámetros. Los parámetros ':owner' y ':name' no se validan con Zod antes de usarse.",
+      "criterio": "Validación de entrada consistente"
     },
     {
       "archivo": "router.ts",
       "linea": 14,
       "tipo": "SUGERENCIA",
-      "mensaje": "Considerar extraer el bloque try-catch repetido en múltiples rutas a un middleware de manejo de errores centralizado",
-      "criterio": "DRY (Don't Repeat Yourself)"
+      "mensaje": "Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro si no se necesita.",
+      "criterio": "Código limpio - evitar variables no utilizadas"
     },
     {
       "archivo": "router.ts",
-      "linea": 30,
+      "linea": 19,
       "tipo": "ADVERTENCIA",
-      "mensaje": "El schema 'postParticipacionesSchema' no valida el formato de fecha en 'fecha_juego'. Usar z.string().datetime() o z.coerce.date()",
-      "criterio": "Validación de datos con Zod"
+      "mensaje": "Ruta GET sin validación de parámetros. El parámetro ':owner' y ':name' no se validan.",
+      "criterio": "Validación de entrada consistente"
     },
     {
       "archivo": "router.ts",
-      "linea": 38,
+      "linea": 26,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Código duplicado: el bloque try-catch es idéntico al de '/socios'. Refactorizar a un middleware o función auxiliar",
-      "criterio": "DRY (Don't Repeat Yourself)"
+      "mensaje": "Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro.",
+      "criterio": "Código limpio - evitar variables no utilizadas"
     },
     {
       "archivo": "router.ts",
-      "linea": 50,
+      "linea": 31,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Nombre de schema muy largo y poco legible: 'postApi_build_errors_errorId_fixesSchema'. Considera usar un nombre más conciso o agrupar schemas en un objeto.",
+      "criterio": "Nomenclatura clara y mantenible"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 32,
       "tipo": "ADVERTENCIA",
-      "mensaje": "El schema 'postCuotasSchema' no valida el formato de fecha en 'fecha_pago'. Usar z.string().datetime() o z.coerce.date()",
-      "criterio": "Validación de datos con Zod"
+      "mensaje": "Campo 'affected_files' es string pero el nombre sugiere múltiples archivos. Considera usar z.array(z.string()) o renombrar.",
+      "criterio": "Consistencia de tipos y nomenclatura"
     },
     {
       "archivo": "router.ts",
-      "linea": 58,
+      "linea": 37,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Código duplicado: el bloque try-catch es idéntico. Refactorizar a un middleware centralizado",
-      "criterio": "DRY (Don't Repeat Yourself)"
+      "mensaje": "Parámetro ':errorId' no se valida. Considera validar que sea un formato válido (UUID, número, etc.).",
+      "criterio": "Validación de entrada consistente"
     },
     {
       "archivo": "router.ts",
-      "linea": 71,
+      "linea": 48,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Nombre de schema muy largo: 'patchApi_component_files_fileId_refactorSchema'. Considera refactorizar la nomenclatura.",
+      "criterio": "Nomenclatura clara y mantenible"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 53,
       "tipo": "ADVERTENCIA",
-      "mensaje": "El schema 'postTransaccionesSchema' no valida el formato de fecha en 'fecha_transaccion'. Usar z.string().datetime() o z.coerce.date()",
-      "criterio": "Validación de datos con Zod"
+      "mensaje": "Parámetro ':fileId' no se valida. Considera validar el formato.",
+      "criterio": "Validación de entrada consistente"
     },
     {
       "archivo": "router.ts",
-      "linea": 79,
+      "linea": 65,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Código duplicado: el bloque try-catch es idéntico. Refactorizar a un middleware centralizado",
-      "criterio": "DRY (Don't Repeat Yourself)"
+      "mensaje": "Parámetro ':errorId' no se valida.",
+      "criterio": "Validación de entrada consistente"
     },
     {
       "archivo": "router.ts",
-      "linea": 91,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Usar '_err' es una convención válida, pero considerar usar 'error' para consistencia si se necesita loguear",
-      "criterio": "Nomenclatura consistente"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 98,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Usar '_err' es una convención válida, pero considerar usar 'error' para consistencia si se necesita loguear",
-      "criterio": "Nomenclatura consistente"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 14,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Agregar validación adicional: 'nombre' y 'email' deberían tener longitud mínima. Usar z.string().min(1) o z.string().email().min(5)",
-      "criterio": "Validación robusta de datos"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 30,
-      "tipo": "SUGERENCIA",
-      "mensaje": "El campo 'tipo' en postParticipacionesSchema debería usar z.enum() para restringir a valores válidos en lugar de z.string()",
-      "criterio": "Validación robusta de datos"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 71,
-      "tipo": "SUGERENCIA",
-      "mensaje": "El campo 'tipo' en postTransaccionesSchema debería usar z.enum() para restringir a valores válidos en lugar de z.string()",
-      "criterio": "Validación robusta de datos"
-    },
-    {
-      "archivo": "router.ts",
-      "linea": 71,
-      "tipo": "SUGERENCIA",
-      "mensaje": "El campo 'categoria' en postTransaccionesSchema debería usar z.enum() para restringir a valores válidos en lugar de z.string()",
-      "criterio": "Validación robusta de datos"
-    },
-    {
-      "archivo": "DashboardAdmin.tsx",
-      "linea": 5,
+      "linea": 72,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Usar process.env.REACT_APP_API_URL sin validación. Considerar usar una variable de entorno con valor por defecto más seguro o validar en tiempo de compilación",
-      "criterio": "Configuración segura"
+      "mensaje": "Parámetro '_err' no utilizado.",
+      "criterio": "Código limpio - evitar variables no utilizadas"
     },
     {
-      "archivo": "DashboardAdmin.tsx",
-      "linea": 24,
+      "archivo": "router.ts",
+      "linea": 77,
       "tipo": "SUGERENCIA",
-      "mensaje": "El estado 'error' está incompleto (línea cortada). Asegurar que se inicialice correctamente como string o null",
+      "mensaje": "Nombre de schema muy largo: 'patchApi_build_errors_errorId_statusSchema'. Considera refactorizar.",
+      "criterio": "Nomenclatura clara y mantenible"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 78,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Campo 'status' es z.string() sin restricciones. Considera usar z.enum() con valores válidos ('open', 'fixed', 'in-progress').",
+      "criterio": "Validación robusta con Zod"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 82,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Parámetro ':errorId' no se valida.",
+      "criterio": "Validación de entrada consistente"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 1,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Código duplicado: manejadores de errores Zod se repiten en múltiples rutas. Considera extraer a middleware o función auxiliar.",
+      "criterio": "DRY - Don't Repeat Yourself"
+    },
+    {
+      "archivo": "BuildErrorDashboard.tsx",
+      "linea": 29,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "useEffect sin dependencias especificadas. Falta el array de dependencias, lo que causará ejecución en cada render.",
+      "criterio": "Hooks de React - dependencias explícitas"
+    },
+    {
+      "archivo": "BuildErrorDashboard.tsx",
+      "linea": 29,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Métodos 'fetchBuildErrors' y 'fetchComponentFiles' no están definidos en el fragmento. Asegúrate de que estén definidos y manejen errores correctamente.",
       "criterio": "Completitud del código"
     },
     {
-      "archivo": "DashboardAdmin.tsx",
-      "linea": 1,
+      "archivo": "BuildErrorDashboard.tsx",
+      "linea": 5,
       "tipo": "SUGERENCIA",
-      "mensaje": "Considerar agregar PropTypes o usar TypeScript más estrictamente para validar props si el componente los recibe",
-      "criterio": "Type safety"
+      "mensaje": "BASE_URL se define en el componente. Considera moverlo a un archivo de configuración centralizado.",
+      "criterio": "Separación de responsabilidades"
     }
   ],
   "recomendaciones": [
-    "Revisar 9 advertencia(s) de calidad encontrada(s)",
-    "Considerar 9 sugerencia(s) de mejora"
+    "Revisar 12 advertencia(s) de calidad encontrada(s)",
+    "Considerar 6 sugerencia(s) de mejora"
   ],
   "resumen": "✅ PR aprobado. Cobertura: 100%; código nuevo 100%. Sin errores de calidad.",
-  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#618](https://github.com/org/repo/pull/554) (feature/a7b6d6e3-5192-42c2-9fae-5a4093fc7ca4 → main)\n- **Decisión**: **APROBADO**\n- **Diff Git analizado**: no (rama ausente o repo no disponible)\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `router.ts:9` — El schema 'postSociosSchema' no valida formato de email. Usar z.string().email() para validación de email _(criterio: Validación de datos con Zod)_\n- **[ADVERTENCIA]** `router.ts:9` — El schema 'postSociosSchema' no valida formato de teléfono. Considerar usar z.string().regex() o una librería de validación _(criterio: Validación de datos con Zod)_\n- **[SUGERENCIA]** `router.ts:14` — Considerar extraer el bloque try-catch repetido en múltiples rutas a un middleware de manejo de errores centralizado _(criterio: DRY (Don't Repeat Yourself))_\n- **[ADVERTENCIA]** `router.ts:30` — El schema 'postParticipacionesSchema' no valida el formato de fecha en 'fecha_juego'. Usar z.string().datetime() o z.coerce.date() _(criterio: Validación de datos con Zod)_\n- **[ADVERTENCIA]** `router.ts:38` — Código duplicado: el bloque try-catch es idéntico al de '/socios'. Refactorizar a un middleware o función auxiliar _(criterio: DRY (Don't Repeat Yourself))_\n- **[ADVERTENCIA]** `router.ts:50` — El schema 'postCuotasSchema' no valida el formato de fecha en 'fecha_pago'. Usar z.string().datetime() o z.coerce.date() _(criterio: Validación de datos con Zod)_\n- **[ADVERTENCIA]** `router.ts:58` — Código duplicado: el bloque try-catch es idéntico. Refactorizar a un middleware centralizado _(criterio: DRY (Don't Repeat Yourself))_\n- **[ADVERTENCIA]** `router.ts:71` — El schema 'postTransaccionesSchema' no valida el formato de fecha en 'fecha_transaccion'. Usar z.string().datetime() o z.coerce.date() _(criterio: Validación de datos con Zod)_\n- **[ADVERTENCIA]** `router.ts:79` — Código duplicado: el bloque try-catch es idéntico. Refactorizar a un middleware centralizado _(criterio: DRY (Don't Repeat Yourself))_\n- **[SUGERENCIA]** `router.ts:91` — Usar '_err' es una convención válida, pero considerar usar 'error' para consistencia si se necesita loguear _(criterio: Nomenclatura consistente)_\n- **[SUGERENCIA]** `router.ts:98` — Usar '_err' es una convención válida, pero considerar usar 'error' para consistencia si se necesita loguear _(criterio: Nomenclatura consistente)_\n- **[SUGERENCIA]** `router.ts:14` — Agregar validación adicional: 'nombre' y 'email' deberían tener longitud mínima. Usar z.string().min(1) o z.string().email().min(5) _(criterio: Validación robusta de datos)_\n- **[SUGERENCIA]** `router.ts:30` — El campo 'tipo' en postParticipacionesSchema debería usar z.enum() para restringir a valores válidos en lugar de z.string() _(criterio: Validación robusta de datos)_\n- **[SUGERENCIA]** `router.ts:71` — El campo 'tipo' en postTransaccionesSchema debería usar z.enum() para restringir a valores válidos en lugar de z.string() _(criterio: Validación robusta de datos)_\n- **[SUGERENCIA]** `router.ts:71` — El campo 'categoria' en postTransaccionesSchema debería usar z.enum() para restringir a valores válidos en lugar de z.string() _(criterio: Validación robusta de datos)_\n- **[ADVERTENCIA]** `DashboardAdmin.tsx:5` — Usar process.env.REACT_APP_API_URL sin validación. Considerar usar una variable de entorno con valor por defecto más seguro o validar en tiempo de compilación _(criterio: Configuración segura)_\n- **[SUGERENCIA]** `DashboardAdmin.tsx:24` — El estado 'error' está incompleto (línea cortada). Asegurar que se inicialice correctamente como string o null _(criterio: Completitud del código)_\n- **[SUGERENCIA]** `DashboardAdmin.tsx:1` — Considerar agregar PropTypes o usar TypeScript más estrictamente para validar props si el componente los recibe _(criterio: Type safety)_\n\n### Recomendaciones\n\n- Revisar 9 advertencia(s) de calidad encontrada(s)\n- Considerar 9 sugerencia(s) de mejora\n\n### Criterios incumplidos\n_Ninguno — listo para revisión humana._",
+  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#37](https://github.com/org/repo/pull/37) (feature/c981d380-4dc5-4638-9745-660ed759bf7b → main)\n- **Decisión**: **APROBADO**\n- **Diff Git analizado**: no (rama ausente o repo no disponible)\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `router.ts:7` — Ruta GET sin validación de parámetros. Los parámetros ':owner' y ':name' no se validan con Zod antes de usarse. _(criterio: Validación de entrada consistente)_\n- **[SUGERENCIA]** `router.ts:14` — Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro si no se necesita. _(criterio: Código limpio - evitar variables no utilizadas)_\n- **[ADVERTENCIA]** `router.ts:19` — Ruta GET sin validación de parámetros. El parámetro ':owner' y ':name' no se validan. _(criterio: Validación de entrada consistente)_\n- **[ADVERTENCIA]** `router.ts:26` — Parámetro '_err' no utilizado. Considera usar 'err' o remover el parámetro. _(criterio: Código limpio - evitar variables no utilizadas)_\n- **[SUGERENCIA]** `router.ts:31` — Nombre de schema muy largo y poco legible: 'postApi_build_errors_errorId_fixesSchema'. Considera usar un nombre más conciso o agrupar schemas en un objeto. _(criterio: Nomenclatura clara y mantenible)_\n- **[ADVERTENCIA]** `router.ts:32` — Campo 'affected_files' es string pero el nombre sugiere múltiples archivos. Considera usar z.array(z.string()) o renombrar. _(criterio: Consistencia de tipos y nomenclatura)_\n- **[ADVERTENCIA]** `router.ts:37` — Parámetro ':errorId' no se valida. Considera validar que sea un formato válido (UUID, número, etc.). _(criterio: Validación de entrada consistente)_\n- **[SUGERENCIA]** `router.ts:48` — Nombre de schema muy largo: 'patchApi_component_files_fileId_refactorSchema'. Considera refactorizar la nomenclatura. _(criterio: Nomenclatura clara y mantenible)_\n- **[ADVERTENCIA]** `router.ts:53` — Parámetro ':fileId' no se valida. Considera validar el formato. _(criterio: Validación de entrada consistente)_\n- **[ADVERTENCIA]** `router.ts:65` — Parámetro ':errorId' no se valida. _(criterio: Validación de entrada consistente)_\n- **[ADVERTENCIA]** `router.ts:72` — Parámetro '_err' no utilizado. _(criterio: Código limpio - evitar variables no utilizadas)_\n- **[SUGERENCIA]** `router.ts:77` — Nombre de schema muy largo: 'patchApi_build_errors_errorId_statusSchema'. Considera refactorizar. _(criterio: Nomenclatura clara y mantenible)_\n- **[ADVERTENCIA]** `router.ts:78` — Campo 'status' es z.string() sin restricciones. Considera usar z.enum() con valores válidos ('open', 'fixed', 'in-progress'). _(criterio: Validación robusta con Zod)_\n- **[ADVERTENCIA]** `router.ts:82` — Parámetro ':errorId' no se valida. _(criterio: Validación de entrada consistente)_\n- **[SUGERENCIA]** `router.ts:1` — Código duplicado: manejadores de errores Zod se repiten en múltiples rutas. Considera extraer a middleware o función auxiliar. _(criterio: DRY - Don't Repeat Yourself)_\n- **[ADVERTENCIA]** `BuildErrorDashboard.tsx:29` — useEffect sin dependencias especificadas. Falta el array de dependencias, lo que causará ejecución en cada render. _(criterio: Hooks de React - dependencias explícitas)_\n- **[ADVERTENCIA]** `BuildErrorDashboard.tsx:29` — Métodos 'fetchBuildErrors' y 'fetchComponentFiles' no están definidos en el fragmento. Asegúrate de que estén definidos y manejen errores correctamente. _(criterio: Completitud del código)_\n- **[SUGERENCIA]** `BuildErrorDashboard.tsx:5` — BASE_URL se define en el componente. Considera moverlo a un archivo de configuración centralizado. _(criterio: Separación de responsabilidades)_\n\n### Recomendaciones\n\n- Revisar 12 advertencia(s) de calidad encontrada(s)\n- Considerar 6 sugerencia(s) de mejora\n\n### Criterios incumplidos\n_Ninguno — listo para revisión humana._",
   "publicacionComentario": {
     "intentado": true,
     "exito": false,
