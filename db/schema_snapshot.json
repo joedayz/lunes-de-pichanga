@@ -1,9 +1,9 @@
 {
-  "version": "20260506171714",
-  "timestamp": "2026-05-06T17:17:14.993Z",
+  "version": "20260506172406",
+  "timestamp": "2026-05-06T17:24:06.978Z",
   "entidades": [
     {
-      "nombre": "Año",
+      "nombre": "Socio",
       "atributos": [
         {
           "nombre": "id",
@@ -12,18 +12,61 @@
           "primaryKey": true
         },
         {
-          "nombre": "numero",
-          "tipo": "INTEGER",
+          "nombre": "nombre",
+          "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "descripcion",
+          "nombre": "email",
           "tipo": "TEXT",
           "nullable": true
         },
         {
-          "nombre": "activo",
-          "tipo": "BOOLEAN",
+          "nombre": "anio_ingreso",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "ONE_TO_MANY",
+          "entidadRelacionada": "Pago",
+          "campoForeignKey": "socio_id"
+        }
+      ]
+    },
+    {
+      "nombre": "Invitado",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "nombre",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "anio_registro",
+          "tipo": "INTEGER",
           "nullable": false
         },
         {
@@ -38,6 +81,59 @@
         }
       ],
       "relaciones": []
+    },
+    {
+      "nombre": "Pago",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "socio_id",
+          "tipo": "UUID",
+          "nullable": false
+        },
+        {
+          "nombre": "mes",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "anio",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "monto",
+          "tipo": "REAL",
+          "nullable": false
+        },
+        {
+          "nombre": "fecha_pago",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Socio",
+          "campoForeignKey": "socio_id"
+        }
+      ]
     }
   ]
 }

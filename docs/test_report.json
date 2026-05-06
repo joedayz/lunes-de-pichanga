@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-05-06T17:18:15.751Z",
-  "totalTests": 3,
-  "pasados": 3,
+  "timestamp": "2026-05-06T17:24:59.181Z",
+  "totalTests": 4,
+  "pasados": 4,
   "fallidos": 0,
   "omitidos": 0,
   "cobertura": 100,
@@ -9,19 +9,24 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "validacion-schema-anos",
+      "nombre": "validacion-schema-socio-con-anio",
       "estado": "PASADO",
-      "duracionMs": 30
+      "duracionMs": 12
     },
     {
-      "nombre": "endpoint-post-anos",
+      "nombre": "endpoint-post-socios-con-anio",
       "estado": "PASADO",
-      "duracionMs": 36
+      "duracionMs": 9
     },
     {
-      "nombre": "filtro-socios-por-ano",
+      "nombre": "filtro-anio-en-dashboard",
       "estado": "PASADO",
-      "duracionMs": 38
+      "duracionMs": 37
+    },
+    {
+      "nombre": "pago-form-mes-anio",
+      "estado": "PASADO",
+      "duracionMs": 22
     }
   ],
   "intentosCorrección": 1
