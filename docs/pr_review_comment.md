@@ -1,7 +1,7 @@
 ## Revisión automática (Agente_Revisor_PR)
 
-- **PR**: [#22](https://github.com/joedayz/lunes-de-pichanga/pull/22) (feature/eac3c48e-150b-4b82-b7f5-2c82c048fc5e → main)
-- **Decisión**: **CAMBIOS_SOLICITADOS**
+- **PR**: [#24](https://github.com/joedayz/lunes-de-pichanga/pull/24) (feature/a5fccc30-939d-49ec-b1a3-4ee04a927784 → main)
+- **Decisión**: **APROBADO**
 - **Diff Git analizado**: sí
 
 ### Cobertura de tests
@@ -11,32 +11,21 @@
 
 ### Hallazgos de calidad
 
-- **[ADVERTENCIA]** `db/migrations/20260506190109_grupo.sql:7` — Usar REAL para moneda (recaudacion_total) puede causar problemas de precisión. Considera usar DECIMAL o NUMERIC para valores monetarios. _(criterio: Buenas prácticas de bases de datos - tipos de datos para dinero)_
-- **[SUGERENCIA]** `db/schema_snapshot.json:1` — El snapshot de esquema fue reemplazado completamente. Considera documentar el cambio de entidades (Socio, Invitado, Pago → Grupo) en un archivo CHANGELOG o comentario de migración. _(criterio: Documentación y trazabilidad de cambios)_
-- **[ERROR]** `docs/api_spec.json:4` — El título de la API contiene una descripción de requisito muy larga y poco clara. Debe ser conciso: 'API: Gestión de Grupos y Pagos' o similar. _(criterio: OpenAPI 3.0.0 - claridad y profesionalismo en especificación)_
-- **[ERROR]** `docs/api_spec.json:12` — El tag contiene la misma descripción larga del requisito. Los tags deben ser cortos y categóricos (ej: 'Recaudación', 'Pagos'). _(criterio: OpenAPI 3.0.0 - estructura de tags)_
-- **[ERROR]** `docs/api_spec.json:85` — Descripción del parámetro 'grupoId' está incompleta (corte en la línea). Verifica que el JSON sea válido. _(criterio: Validez de JSON y completitud de especificación)_
-- **[ADVERTENCIA]** `src/routes/grupos.ts:6` — Ruta GET sin parámetros de query (año, paginación). Según la especificación API, debería soportar filtrado por año y paginación. _(criterio: Consistencia con especificación OpenAPI)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:6` — Falta validación de parámetro 'grupoId' (UUID). Considera agregar validación con Zod. _(criterio: Validación de entrada - parámetros de ruta)_
-- **[ADVERTENCIA]** `src/routes/grupos.ts:20` — Schema de validación 'postApi_grupos_grupoId_pagosSchema' incluye 'socio_id', pero la nueva tabla 'grupo' no tiene relación con 'socio'. Verifica si esta estructura es correcta tras el cambio de esquema. _(criterio: Coherencia con cambios de base de datos)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:28` — Falta validación de parámetro 'grupoId' en la ruta POST. Considera extraer y validar antes de parsear body. _(criterio: Validación completa de entrada)_
-- **[ADVERTENCIA]** `src/routes/grupos.ts:35` — Respuesta 201 devuelve 'datos' sin estructura clara. Según OpenAPI, debería retornar el pago creado con su ID y el total de recaudación actualizado. _(criterio: Consistencia con especificación OpenAPI)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:44` — Falta manejo de error 404 (grupo no encontrado). La especificación API incluye respuesta 404. _(criterio: Completitud de manejo de errores según especificación)_
-- **[ADVERTENCIA]** `src/routes/grupos.ts:50` — Ruta GET sin parámetros de query (año, paginación, búsqueda). Según especificación, debería soportar estos filtros. _(criterio: Consistencia con especificación OpenAPI)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:50` — Falta validación de parámetro 'grupoId' en ruta GET /pagos. _(criterio: Validación de entrada - parámetros de ruta)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:58` — Falta validación de parámetro 'grupoId' en ruta GET /resumen-anual. _(criterio: Validación de entrada - parámetros de ruta)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:67` — Schema PUT permite todos los campos opcionales. Considera si al menos uno debe ser requerido para una actualización válida. _(criterio: Validación de lógica de negocio)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:69` — Falta validación de parámetros 'grupoId' y 'pagoId' en ruta PUT. _(criterio: Validación de entrada - parámetros de ruta)_
-- **[SUGERENCIA]** `src/routes/grupos.ts:82` — Falta validación de parámetros 'grupoId' y 'pagoId' en ruta DELETE. _(criterio: Validación de entrada - parámetros de ruta)_
-- **[ADVERTENCIA]** `src/App.tsx:1` — Se importa 'PichangaDashboard' pero se renderiza sin usar. Verifica si es intencional o debe removerse. _(criterio: Código muerto - imports no utilizados)_
-- **[SUGERENCIA]** `src/App.tsx:5` — Componentes sin keys en fragmento. Si se renderizan múltiples componentes en un array, considera usar un contenedor con estructura clara. _(criterio: React best practices)_
+- **[ADVERTENCIA]** `router.ts:1` — Se importa 'z' de 'zod' pero nunca se utiliza. Eliminar importación no usada. _(criterio: No usar imports innecesarios)_
+- **[ADVERTENCIA]** `router.ts:6` — Ruta '/api/dashboard' no valida parámetros de query (año). Según api_spec.json, debe aceptar 'año' como parámetro requerido. _(criterio: Validación de entrada según especificación API)_
+- **[ADVERTENCIA]** `router.ts:13` — Ruta '/api/socios' no valida parámetros de query (año, pagina, limite). Según api_spec.json, debe aceptar estos parámetros. _(criterio: Validación de entrada según especificación API)_
+- **[SUGERENCIA]** `router.ts:20` — Ruta '/api/años' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria. _(criterio: Consistencia entre código y documentación)_
+- **[SUGERENCIA]** `router.ts:27` — Ruta '/api/socios/:id' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria. _(criterio: Consistencia entre código y documentación)_
+- **[SUGERENCIA]** `router.ts:34` — Ruta '/api/dashboard/pagos' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria. _(criterio: Consistencia entre código y documentación)_
+- **[ADVERTENCIA]** `router.ts:8` — Captura de error con '_err' sin usar. Considerar loguear el error o usar 'err' si se necesita en el futuro. _(criterio: Manejo explícito de errores)_
+- **[ADVERTENCIA]** `App.tsx:1` — Se importa 'PichangaDashboard' pero no se utiliza en el JSX. Eliminar importación no usada. _(criterio: No usar imports innecesarios)_
+- **[SUGERENCIA]** `App.tsx:7` — Indentación inconsistente en JSX. Las líneas 9-11 tienen indentación extra. Usar Prettier para formatear. _(criterio: Consistencia de formato (Prettier))_
+- **[ADVERTENCIA]** `db/schema_snapshot.json:1` — schema_snapshot.json se ha vaciado completamente (entidades: []). Verificar si esto es intencional o si hay un problema con la migración. _(criterio: Integridad de datos en snapshots)_
 
 ### Recomendaciones
 
 - Revisar 6 advertencia(s) de calidad encontrada(s)
-- Considerar 10 sugerencia(s) de mejora
+- Considerar 4 sugerencia(s) de mejora
 
 ### Criterios incumplidos
-- Error de calidad en `docs/api_spec.json:4`: El título de la API contiene una descripción de requisito muy larga y poco clara. Debe ser conciso: 'API: Gestión de Grupos y Pagos' o similar. (OpenAPI 3.0.0 - claridad y profesionalismo en especificación)
-- Error de calidad en `docs/api_spec.json:12`: El tag contiene la misma descripción larga del requisito. Los tags deben ser cortos y categóricos (ej: 'Recaudación', 'Pagos'). (OpenAPI 3.0.0 - estructura de tags)
-- Error de calidad en `docs/api_spec.json:85`: Descripción del parámetro 'grupoId' está incompleta (corte en la línea). Verifica que el JSON sea válido. (Validez de JSON y completitud de especificación)
+_Ninguno — listo para revisión humana._

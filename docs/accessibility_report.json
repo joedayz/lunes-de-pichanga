@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-05-06T19:17:31.698Z",
+  "timestamp": "2026-05-06T19:24:03.787Z",
   "componentesAnalizados": [
-    "DashboardPichanga",
-    "SociosList"
+    "DashboardPage",
+    "SociosListPage"
   ],
   "atributosAplicados": [],
   "nivelCumplimiento": "AA",

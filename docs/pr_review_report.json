@@ -1,161 +1,98 @@
 {
-  "timestamp": "2026-05-06T19:02:07.544Z",
+  "timestamp": "2026-05-06T19:17:48.387Z",
   "pullRequest": {
-    "numero": 22,
-    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/22",
-    "titulo": "feat: que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año",
-    "descripcion": "## Historia de Usuario\nComo administrador del grupo deportivo que usa la app «Lunes de Pichanga» (dashboard Socios / Invitados / Pagos), quiero que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año, para confiar en que la suma visible coincide con los pagos registrados para el año seleccionado y no operar sobre cifras desactualizadas\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506190109_grupo.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/una-aplicacin-web.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/una-aplicacin-web/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/eac3c48e-150b-4b82-b7f5-2c82c048fc5e/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\necb2ce55-f13c-4a7b-9225-f694e4fddb58",
-    "ramaOrigen": "feature/eac3c48e-150b-4b82-b7f5-2c82c048fc5e",
+    "numero": 24,
+    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/24",
+    "titulo": "feat: eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años",
+    "descripcion": "## Historia de Usuario\nComo desarrollador del repo lunes-de-pichanga ejecutando UI en localhost:5173 contra API en :4000, quiero eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años, para volver a ver métricas y listados de la Pichanga sin consola roja y sin selectores `<select>` rotos\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506191700_noop_sin_modelo_cf2d0861.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/una-aplicacin-web.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/una-aplicacin-web/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/a5fccc30-939d-49ec-b1a3-4ee04a927784/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\ncf2d0861-99ed-47ea-b59f-182ccec7446d",
+    "ramaOrigen": "feature/a5fccc30-939d-49ec-b1a3-4ee04a927784",
     "ramaDestino": "main",
-    "estado": "CAMBIOS_SOLICITADOS",
-    "timestamp": "2026-05-06T19:01:52.781Z"
+    "estado": "APROBADO",
+    "timestamp": "2026-05-06T19:17:40.637Z"
   },
-  "decision": "CAMBIOS_SOLICITADOS",
+  "decision": "APROBADO",
   "cobertura": 100,
   "coberturaCodigoNuevo": 100,
   "cumpleUmbralCobertura": true,
   "cumpleUmbralCoberturaNuevo": true,
   "hallazgos": [
     {
-      "archivo": "db/migrations/20260506190109_grupo.sql",
-      "linea": 7,
+      "archivo": "router.ts",
+      "linea": 1,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Usar REAL para moneda (recaudacion_total) puede causar problemas de precisión. Considera usar DECIMAL o NUMERIC para valores monetarios.",
-      "criterio": "Buenas prácticas de bases de datos - tipos de datos para dinero"
+      "mensaje": "Se importa 'z' de 'zod' pero nunca se utiliza. Eliminar importación no usada.",
+      "criterio": "No usar imports innecesarios"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 6,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Ruta '/api/dashboard' no valida parámetros de query (año). Según api_spec.json, debe aceptar 'año' como parámetro requerido.",
+      "criterio": "Validación de entrada según especificación API"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 13,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Ruta '/api/socios' no valida parámetros de query (año, pagina, limite). Según api_spec.json, debe aceptar estos parámetros.",
+      "criterio": "Validación de entrada según especificación API"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 20,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Ruta '/api/años' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria.",
+      "criterio": "Consistencia entre código y documentación"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 27,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Ruta '/api/socios/:id' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria.",
+      "criterio": "Consistencia entre código y documentación"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 34,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Ruta '/api/dashboard/pagos' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria.",
+      "criterio": "Consistencia entre código y documentación"
+    },
+    {
+      "archivo": "router.ts",
+      "linea": 8,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Captura de error con '_err' sin usar. Considerar loguear el error o usar 'err' si se necesita en el futuro.",
+      "criterio": "Manejo explícito de errores"
+    },
+    {
+      "archivo": "App.tsx",
+      "linea": 1,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Se importa 'PichangaDashboard' pero no se utiliza en el JSX. Eliminar importación no usada.",
+      "criterio": "No usar imports innecesarios"
+    },
+    {
+      "archivo": "App.tsx",
+      "linea": 7,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Indentación inconsistente en JSX. Las líneas 9-11 tienen indentación extra. Usar Prettier para formatear.",
+      "criterio": "Consistencia de formato (Prettier)"
     },
     {
       "archivo": "db/schema_snapshot.json",
       "linea": 1,
-      "tipo": "SUGERENCIA",
-      "mensaje": "El snapshot de esquema fue reemplazado completamente. Considera documentar el cambio de entidades (Socio, Invitado, Pago → Grupo) en un archivo CHANGELOG o comentario de migración.",
-      "criterio": "Documentación y trazabilidad de cambios"
-    },
-    {
-      "archivo": "docs/api_spec.json",
-      "linea": 4,
-      "tipo": "ERROR",
-      "mensaje": "El título de la API contiene una descripción de requisito muy larga y poco clara. Debe ser conciso: 'API: Gestión de Grupos y Pagos' o similar.",
-      "criterio": "OpenAPI 3.0.0 - claridad y profesionalismo en especificación"
-    },
-    {
-      "archivo": "docs/api_spec.json",
-      "linea": 12,
-      "tipo": "ERROR",
-      "mensaje": "El tag contiene la misma descripción larga del requisito. Los tags deben ser cortos y categóricos (ej: 'Recaudación', 'Pagos').",
-      "criterio": "OpenAPI 3.0.0 - estructura de tags"
-    },
-    {
-      "archivo": "docs/api_spec.json",
-      "linea": 85,
-      "tipo": "ERROR",
-      "mensaje": "Descripción del parámetro 'grupoId' está incompleta (corte en la línea). Verifica que el JSON sea válido.",
-      "criterio": "Validez de JSON y completitud de especificación"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 6,
       "tipo": "ADVERTENCIA",
-      "mensaje": "Ruta GET sin parámetros de query (año, paginación). Según la especificación API, debería soportar filtrado por año y paginación.",
-      "criterio": "Consistencia con especificación OpenAPI"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 6,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta validación de parámetro 'grupoId' (UUID). Considera agregar validación con Zod.",
-      "criterio": "Validación de entrada - parámetros de ruta"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 20,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Schema de validación 'postApi_grupos_grupoId_pagosSchema' incluye 'socio_id', pero la nueva tabla 'grupo' no tiene relación con 'socio'. Verifica si esta estructura es correcta tras el cambio de esquema.",
-      "criterio": "Coherencia con cambios de base de datos"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 28,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta validación de parámetro 'grupoId' en la ruta POST. Considera extraer y validar antes de parsear body.",
-      "criterio": "Validación completa de entrada"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 35,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Respuesta 201 devuelve 'datos' sin estructura clara. Según OpenAPI, debería retornar el pago creado con su ID y el total de recaudación actualizado.",
-      "criterio": "Consistencia con especificación OpenAPI"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 44,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta manejo de error 404 (grupo no encontrado). La especificación API incluye respuesta 404.",
-      "criterio": "Completitud de manejo de errores según especificación"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 50,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Ruta GET sin parámetros de query (año, paginación, búsqueda). Según especificación, debería soportar estos filtros.",
-      "criterio": "Consistencia con especificación OpenAPI"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 50,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta validación de parámetro 'grupoId' en ruta GET /pagos.",
-      "criterio": "Validación de entrada - parámetros de ruta"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 58,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta validación de parámetro 'grupoId' en ruta GET /resumen-anual.",
-      "criterio": "Validación de entrada - parámetros de ruta"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 67,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Schema PUT permite todos los campos opcionales. Considera si al menos uno debe ser requerido para una actualización válida.",
-      "criterio": "Validación de lógica de negocio"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 69,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta validación de parámetros 'grupoId' y 'pagoId' en ruta PUT.",
-      "criterio": "Validación de entrada - parámetros de ruta"
-    },
-    {
-      "archivo": "src/routes/grupos.ts",
-      "linea": 82,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Falta validación de parámetros 'grupoId' y 'pagoId' en ruta DELETE.",
-      "criterio": "Validación de entrada - parámetros de ruta"
-    },
-    {
-      "archivo": "src/App.tsx",
-      "linea": 1,
-      "tipo": "ADVERTENCIA",
-      "mensaje": "Se importa 'PichangaDashboard' pero se renderiza sin usar. Verifica si es intencional o debe removerse.",
-      "criterio": "Código muerto - imports no utilizados"
-    },
-    {
-      "archivo": "src/App.tsx",
-      "linea": 5,
-      "tipo": "SUGERENCIA",
-      "mensaje": "Componentes sin keys en fragmento. Si se renderizan múltiples componentes en un array, considera usar un contenedor con estructura clara.",
-      "criterio": "React best practices"
+      "mensaje": "schema_snapshot.json se ha vaciado completamente (entidades: []). Verificar si esto es intencional o si hay un problema con la migración.",
+      "criterio": "Integridad de datos en snapshots"
     }
   ],
   "recomendaciones": [
     "Revisar 6 advertencia(s) de calidad encontrada(s)",
-    "Considerar 10 sugerencia(s) de mejora"
+    "Considerar 4 sugerencia(s) de mejora"
   ],
-  "resumen": "❌ Cambios solicitados. Razones: 3 error(es) de calidad, 6 advertencia(s).",
-  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#22](https://github.com/joedayz/lunes-de-pichanga/pull/22) (feature/eac3c48e-150b-4b82-b7f5-2c82c048fc5e → main)\n- **Decisión**: **CAMBIOS_SOLICITADOS**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `db/migrations/20260506190109_grupo.sql:7` — Usar REAL para moneda (recaudacion_total) puede causar problemas de precisión. Considera usar DECIMAL o NUMERIC para valores monetarios. _(criterio: Buenas prácticas de bases de datos - tipos de datos para dinero)_\n- **[SUGERENCIA]** `db/schema_snapshot.json:1` — El snapshot de esquema fue reemplazado completamente. Considera documentar el cambio de entidades (Socio, Invitado, Pago → Grupo) en un archivo CHANGELOG o comentario de migración. _(criterio: Documentación y trazabilidad de cambios)_\n- **[ERROR]** `docs/api_spec.json:4` — El título de la API contiene una descripción de requisito muy larga y poco clara. Debe ser conciso: 'API: Gestión de Grupos y Pagos' o similar. _(criterio: OpenAPI 3.0.0 - claridad y profesionalismo en especificación)_\n- **[ERROR]** `docs/api_spec.json:12` — El tag contiene la misma descripción larga del requisito. Los tags deben ser cortos y categóricos (ej: 'Recaudación', 'Pagos'). _(criterio: OpenAPI 3.0.0 - estructura de tags)_\n- **[ERROR]** `docs/api_spec.json:85` — Descripción del parámetro 'grupoId' está incompleta (corte en la línea). Verifica que el JSON sea válido. _(criterio: Validez de JSON y completitud de especificación)_\n- **[ADVERTENCIA]** `src/routes/grupos.ts:6` — Ruta GET sin parámetros de query (año, paginación). Según la especificación API, debería soportar filtrado por año y paginación. _(criterio: Consistencia con especificación OpenAPI)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:6` — Falta validación de parámetro 'grupoId' (UUID). Considera agregar validación con Zod. _(criterio: Validación de entrada - parámetros de ruta)_\n- **[ADVERTENCIA]** `src/routes/grupos.ts:20` — Schema de validación 'postApi_grupos_grupoId_pagosSchema' incluye 'socio_id', pero la nueva tabla 'grupo' no tiene relación con 'socio'. Verifica si esta estructura es correcta tras el cambio de esquema. _(criterio: Coherencia con cambios de base de datos)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:28` — Falta validación de parámetro 'grupoId' en la ruta POST. Considera extraer y validar antes de parsear body. _(criterio: Validación completa de entrada)_\n- **[ADVERTENCIA]** `src/routes/grupos.ts:35` — Respuesta 201 devuelve 'datos' sin estructura clara. Según OpenAPI, debería retornar el pago creado con su ID y el total de recaudación actualizado. _(criterio: Consistencia con especificación OpenAPI)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:44` — Falta manejo de error 404 (grupo no encontrado). La especificación API incluye respuesta 404. _(criterio: Completitud de manejo de errores según especificación)_\n- **[ADVERTENCIA]** `src/routes/grupos.ts:50` — Ruta GET sin parámetros de query (año, paginación, búsqueda). Según especificación, debería soportar estos filtros. _(criterio: Consistencia con especificación OpenAPI)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:50` — Falta validación de parámetro 'grupoId' en ruta GET /pagos. _(criterio: Validación de entrada - parámetros de ruta)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:58` — Falta validación de parámetro 'grupoId' en ruta GET /resumen-anual. _(criterio: Validación de entrada - parámetros de ruta)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:67` — Schema PUT permite todos los campos opcionales. Considera si al menos uno debe ser requerido para una actualización válida. _(criterio: Validación de lógica de negocio)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:69` — Falta validación de parámetros 'grupoId' y 'pagoId' en ruta PUT. _(criterio: Validación de entrada - parámetros de ruta)_\n- **[SUGERENCIA]** `src/routes/grupos.ts:82` — Falta validación de parámetros 'grupoId' y 'pagoId' en ruta DELETE. _(criterio: Validación de entrada - parámetros de ruta)_\n- **[ADVERTENCIA]** `src/App.tsx:1` — Se importa 'PichangaDashboard' pero se renderiza sin usar. Verifica si es intencional o debe removerse. _(criterio: Código muerto - imports no utilizados)_\n- **[SUGERENCIA]** `src/App.tsx:5` — Componentes sin keys en fragmento. Si se renderizan múltiples componentes en un array, considera usar un contenedor con estructura clara. _(criterio: React best practices)_\n\n### Recomendaciones\n\n- Revisar 6 advertencia(s) de calidad encontrada(s)\n- Considerar 10 sugerencia(s) de mejora\n\n### Criterios incumplidos\n- Error de calidad en `docs/api_spec.json:4`: El título de la API contiene una descripción de requisito muy larga y poco clara. Debe ser conciso: 'API: Gestión de Grupos y Pagos' o similar. (OpenAPI 3.0.0 - claridad y profesionalismo en especificación)\n- Error de calidad en `docs/api_spec.json:12`: El tag contiene la misma descripción larga del requisito. Los tags deben ser cortos y categóricos (ej: 'Recaudación', 'Pagos'). (OpenAPI 3.0.0 - estructura de tags)\n- Error de calidad en `docs/api_spec.json:85`: Descripción del parámetro 'grupoId' está incompleta (corte en la línea). Verifica que el JSON sea válido. (Validez de JSON y completitud de especificación)",
+  "resumen": "✅ PR aprobado. Cobertura: 100%; código nuevo 100%. Sin errores de calidad.",
+  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#24](https://github.com/joedayz/lunes-de-pichanga/pull/24) (feature/a5fccc30-939d-49ec-b1a3-4ee04a927784 → main)\n- **Decisión**: **APROBADO**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ADVERTENCIA]** `router.ts:1` — Se importa 'z' de 'zod' pero nunca se utiliza. Eliminar importación no usada. _(criterio: No usar imports innecesarios)_\n- **[ADVERTENCIA]** `router.ts:6` — Ruta '/api/dashboard' no valida parámetros de query (año). Según api_spec.json, debe aceptar 'año' como parámetro requerido. _(criterio: Validación de entrada según especificación API)_\n- **[ADVERTENCIA]** `router.ts:13` — Ruta '/api/socios' no valida parámetros de query (año, pagina, limite). Según api_spec.json, debe aceptar estos parámetros. _(criterio: Validación de entrada según especificación API)_\n- **[SUGERENCIA]** `router.ts:20` — Ruta '/api/años' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria. _(criterio: Consistencia entre código y documentación)_\n- **[SUGERENCIA]** `router.ts:27` — Ruta '/api/socios/:id' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria. _(criterio: Consistencia entre código y documentación)_\n- **[SUGERENCIA]** `router.ts:34` — Ruta '/api/dashboard/pagos' no está documentada en api_spec.json. Considerar agregar documentación o revisar si es necesaria. _(criterio: Consistencia entre código y documentación)_\n- **[ADVERTENCIA]** `router.ts:8` — Captura de error con '_err' sin usar. Considerar loguear el error o usar 'err' si se necesita en el futuro. _(criterio: Manejo explícito de errores)_\n- **[ADVERTENCIA]** `App.tsx:1` — Se importa 'PichangaDashboard' pero no se utiliza en el JSX. Eliminar importación no usada. _(criterio: No usar imports innecesarios)_\n- **[SUGERENCIA]** `App.tsx:7` — Indentación inconsistente en JSX. Las líneas 9-11 tienen indentación extra. Usar Prettier para formatear. _(criterio: Consistencia de formato (Prettier))_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:1` — schema_snapshot.json se ha vaciado completamente (entidades: []). Verificar si esto es intencional o si hay un problema con la migración. _(criterio: Integridad de datos en snapshots)_\n\n### Recomendaciones\n\n- Revisar 6 advertencia(s) de calidad encontrada(s)\n- Considerar 4 sugerencia(s) de mejora\n\n### Criterios incumplidos\n_Ninguno — listo para revisión humana._",
   "publicacionComentario": {
     "intentado": true,
     "exito": true
