@@ -1,218 +1,34 @@
 {
-  "version": "20260506132425",
-  "timestamp": "2026-05-06T13:24:25.827Z",
+  "version": "20260506134137",
+  "timestamp": "2026-05-06T13:41:37.801Z",
   "entidades": [
     {
-      "nombre": "Socio",
+      "nombre": "Usuario",
       "atributos": [
         {
           "nombre": "id",
           "tipo": "UUID",
           "nullable": false,
           "primaryKey": true
-        },
-        {
-          "nombre": "nombre",
-          "tipo": "TEXT",
-          "nullable": false
         },
         {
           "nombre": "email",
           "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "telefono",
-          "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "fecha_ingreso",
-          "tipo": "TIMESTAMP",
           "nullable": false
         },
         {
-          "nombre": "estado",
+          "nombre": "password_hash",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "ONE_TO_MANY",
-          "entidadRelacionada": "Cuota",
-          "campoForeignKey": "socio_id"
-        },
-        {
-          "tipo": "ONE_TO_MANY",
-          "entidadRelacionada": "Participacion",
-          "campoForeignKey": "socio_id"
-        }
-      ]
-    },
-    {
-      "nombre": "Cuota",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "socio_id",
-          "tipo": "UUID",
-          "nullable": false
-        },
-        {
-          "nombre": "monto",
-          "tipo": "REAL",
-          "nullable": false
-        },
-        {
-          "nombre": "mes",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "anio",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "fecha_pago",
-          "tipo": "TIMESTAMP",
-          "nullable": true
-        },
-        {
-          "nombre": "estado",
+          "nombre": "rol",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Socio",
-          "campoForeignKey": "socio_id"
-        }
-      ]
-    },
-    {
-      "nombre": "Participacion",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "socio_id",
-          "tipo": "UUID",
-          "nullable": true
-        },
-        {
-          "nombre": "nombre_invitado",
-          "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "tipo",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "fecha_juego",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "monto_pagado",
-          "tipo": "REAL",
-          "nullable": false
-        },
-        {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Socio",
-          "campoForeignKey": "socio_id"
-        }
-      ]
-    },
-    {
-      "nombre": "Transaccion",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "tipo",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "categoria",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "descripcion",
-          "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "monto",
-          "tipo": "REAL",
-          "nullable": false
-        },
-        {
-          "nombre": "mes",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "anio",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "fecha_transaccion",
-          "tipo": "TIMESTAMP",
+          "nombre": "activo",
+          "tipo": "BOOLEAN",
           "nullable": false
         },
         {

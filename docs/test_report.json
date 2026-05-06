@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T13:25:07.725Z",
+  "timestamp": "2026-05-06T13:42:15.506Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -11,17 +11,17 @@
     {
       "nombre": "validacion-schema-socios",
       "estado": "PASADO",
-      "duracionMs": 7
+      "duracionMs": 33
     },
     {
-      "nombre": "validacion-schema-cuotas",
+      "nombre": "dashboard-admin-fetch",
       "estado": "PASADO",
-      "duracionMs": 51
+      "duracionMs": 31
     },
     {
-      "nombre": "dashboard-fetch-resumen",
+      "nombre": "api-socios-integracion",
       "estado": "PASADO",
-      "duracionMs": 40
+      "duracionMs": 39
     }
   ],
   "intentosCorrección": 1
