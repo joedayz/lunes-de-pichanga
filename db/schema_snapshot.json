@@ -1,6 +1,6 @@
 {
-  "version": "20260506174804",
-  "timestamp": "2026-05-06T17:48:04.901Z",
+  "version": "20260506175437",
+  "timestamp": "2026-05-06T17:54:37.310Z",
   "entidades": [
     {
       "nombre": "Socio",
@@ -17,7 +17,17 @@
           "nullable": false
         },
         {
-          "nombre": "anio",
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "telefono",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "año_afiliacion",
           "tipo": "INTEGER",
           "nullable": false
         },
@@ -55,7 +65,7 @@
           "nullable": false
         },
         {
-          "nombre": "anio",
+          "nombre": "año",
           "tipo": "INTEGER",
           "nullable": false
         },
@@ -87,12 +97,12 @@
           "nullable": false
         },
         {
-          "nombre": "mes",
+          "nombre": "año",
           "tipo": "INTEGER",
           "nullable": false
         },
         {
-          "nombre": "anio",
+          "nombre": "mes",
           "tipo": "INTEGER",
           "nullable": false
         },
@@ -102,7 +112,7 @@
           "nullable": false
         },
         {
-          "nombre": "fecha",
+          "nombre": "fecha_pago",
           "tipo": "TIMESTAMP",
           "nullable": false
         },
