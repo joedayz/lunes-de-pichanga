@@ -1,15 +1,15 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)",
+    "title": "API: registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)",
     "version": "1.0.0"
   },
   "paths": {
-    "/api/socios": {
+    "/api/v1/anos": {
       "get": {
-        "summary": "Obtiene la lista de todos los socios del repositorio. Endpoint de prueba para validar que la conexión a http://localhost:4000 funciona correctamente.",
+        "summary": "Listar todos los años registrados en el sistema",
         "tags": [
-          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
         ],
         "parameters": [],
         "responses": {
@@ -20,18 +20,22 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/dashboard/resumen": {
-      "get": {
-        "summary": "Obtiene el resumen del dashboard con estadísticas generales. Endpoint de prueba para validar que la URL base de la API está correctamente configurada en el cliente.",
+      },
+      "post": {
+        "summary": "Crear un nuevo año deportivo",
         "tags": [
-          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
         ],
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
           },
           "500": {
             "description": "Internal Server Error"
@@ -39,16 +43,68 @@
         }
       }
     },
-    "/api/health": {
+    "/api/v1/socios": {
       "get": {
-        "summary": "Endpoint de salud para verificar que el servidor Express en http://localhost:4000 está activo y accesible desde el cliente Vite/React.",
+        "summary": "Listar socios con filtro opcional por año",
         "tags": [
-          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar por año (default: año actual)"
+          },
+          {
+            "name": "pagina",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página (default: 1)"
+          },
+          {
+            "name": "limite",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Registros por página (default: 20)"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo socio con año de afiliación",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
           },
           "500": {
             "description": "Internal Server Error"
@@ -56,28 +112,11 @@
         }
       }
     },
-    "/api/config": {
+    "/api/v1/socios/:id": {
       "get": {
-        "summary": "Retorna la configuración de la API (incluyendo la URL base) para que el cliente pueda validar que está usando la URL correcta. Útil para debugging de errores de conexión.",
+        "summary": "Obtener detalles de un socio específico",
         "tags": [
-          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
-        ],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/socios/:id": {
-      "get": {
-        "summary": "Obtiene los detalles de un socio específico por su ID.",
-        "tags": [
-          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
         ],
         "parameters": [
           {
@@ -87,7 +126,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID único del socio"
+            "description": "ID del socio"
           }
         ],
         "responses": {
@@ -101,23 +140,324 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/dashboard/resumen/:periodo": {
-      "get": {
-        "summary": "Obtiene el resumen del dashboard filtrado por un período específico (mes, trimestre, año).",
+      },
+      "patch": {
+        "summary": "Actualizar datos de un socio",
         "tags": [
-          "que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)"
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
         ],
         "parameters": [
           {
-            "name": "periodo",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
-            "description": "Período de consulta: 'mes', 'trimestre' o 'año'"
+            "description": "ID del socio"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/invitados": {
+      "get": {
+        "summary": "Listar invitados con filtro opcional por año",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar por año (default: año actual)"
+          },
+          {
+            "name": "pagina",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página (default: 1)"
+          },
+          {
+            "name": "limite",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Registros por página (default: 20)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo invitado con año de participación",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cuotas": {
+      "get": {
+        "summary": "Listar cuotas/pagos con filtros por año, mes y socio",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar por año (default: año actual)"
+          },
+          {
+            "name": "mes",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar por mes (1-12)"
+          },
+          {
+            "name": "socio_id",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por ID de socio"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (pagado/pendiente)"
+          },
+          {
+            "name": "pagina",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página (default: 1)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar una cuota o pago mensual para un socio",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/cuotas/:id": {
+      "patch": {
+        "summary": "Actualizar estado o datos de una cuota",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID de la cuota"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/resumen": {
+      "get": {
+        "summary": "Obtener resumen del dashboard (cuotas pendientes, recaudos, totales por año y mes)",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año a consultar (default: año actual)"
+          },
+          {
+            "name": "mes",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Mes específico (1-12, opcional)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/cuotas-pendientes": {
+      "get": {
+        "summary": "Listar cuotas pendientes por mes y socio para un año específico",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año a consultar (default: año actual)"
+          },
+          {
+            "name": "mes",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar por mes específico (1-12)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/recaudos": {
+      "get": {
+        "summary": "Obtener reporte de recaudos por mes para un año específico",
+        "tags": [
+          "registrar socios e invitados asociados a un año (año deportivo o calendario) y registrar pagos mensuales (cuotas y cobros por mes)"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año a consultar (default: año actual)"
           }
         ],
         "responses": {

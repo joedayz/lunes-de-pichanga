@@ -1,0 +1,15 @@
+-- Migration: 20260506171714_año
+-- Generated: 2026-05-06T17:17:14.993Z
+
+-- UP
+CREATE TABLE IF NOT EXISTS año (
+  id UUID PRIMARY KEY,
+  numero INTEGER NOT NULL,
+  descripcion TEXT,
+  activo BOOLEAN NOT NULL,
+  created_at TIMESTAMP NOT NULL,
+  updated_at TIMESTAMP NOT NULL
+);
+
+-- DOWN
+DROP TABLE IF EXISTS año;

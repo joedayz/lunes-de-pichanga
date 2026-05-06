@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-05-06T17:07:14.478Z",
+  "pullRequest": {
+    "numero": 15,
+    "url": "https://github.com/joedayz/lunes-de-pichanga/pull/15",
+    "titulo": "feat: que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto)",
+    "descripcion": "## Historia de Usuario\nComo mantenedor del repositorio de la app, quiero que el frontend Vite/React use la URL base de la API en http://localhost:4000 (mismo puerto que Express del proyecto), para que las llamadas a /api/socios, /api/dashboard/resumen y el resto de rutas REST dejen de fallar con net::ERR_CONNECTION_REFUSED al apuntar por error a localhost:3000.\n\nContexto del bug:\n- En el navegador (p. ej. http://localhost:5173) las peticiones van a http://localhost:3000/api/... y la conexión es rechazada.\n- El servidor Express del proyecto escucha en PORT 4000 por convención del scaffold (o el valor de process.env.PORT si difiere).\n\nCambios requeridos:\n1) Actualizar vite.config.ts: usar loadEnv + define para inyectar en el cliente tanto process.env.REACT_APP_API_URL como import.meta.env.VITE_API_URL con el mismo valor (default http://localhost:4000 si no hay VITE_API_URL en .env).\n2) Revisar componentes/servicios: una sola constante de base (p. ej. API_BASE o BASE_URL) derivada de import.meta.env.VITE_API_URL ?? process.env.REACT_APP_API_URL ?? 'http://localhost:4000'; eliminar fallbacks que usen localhost:3000.\n3) Opcional: añadir .env.development con VITE_API_URL=http://localhost:4000 si el repo no lo tiene.\n4) No cambiar el puerto del servidor Express salvo que haya inconsistencia documentada en README\n\n## Artefactos generados\n- MIGRACION_SQL: db/migrations/20260506170625_noop_sin_modelo_0f71c550.sql\n- SNAPSHOT_ESQUEMA: db/schema_snapshot.json\n- CODIGO_BACKEND: src/api/routes/que-el-frontend-vitereact-use-la-url-base-de-la-ap.ts\n- SPEC_API: docs/api_spec.json\n- CODIGO_FRONTEND: src/components/que-el-frontend-vitereact-use-la-url-bas/index.tsx\n- REPORTE_ACCESIBILIDAD: docs/accessibility_report.json\n- CODIGO_TEST: tests/feature/cfa359c0-ef61-4448-ac89-0f2973830f52/\n- REPORTE_TESTS: docs/test_report.json\n\n## Pipeline ID\n0f71c550-dca3-474f-8728-6939a4b20b9e",
+    "ramaOrigen": "feature/cfa359c0-ef61-4448-ac89-0f2973830f52",
+    "ramaDestino": "main",
+    "estado": "CAMBIOS_SOLICITADOS",
+    "timestamp": "2026-05-06T17:07:04.567Z"
+  },
+  "decision": "CAMBIOS_SOLICITADOS",
+  "cobertura": 100,
+  "coberturaCodigoNuevo": 100,
+  "cumpleUmbralCobertura": true,
+  "cumpleUmbralCoberturaNuevo": true,
+  "hallazgos": [
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 8,
+      "tipo": "ERROR",
+      "mensaje": "Ruta duplicada '/api/socios' definida en líneas 8 y 57. Las rutas GET y GET con parámetro :id deben consolidarse o usar métodos HTTP diferentes.",
+      "criterio": "Evitar rutas duplicadas/conflictivas"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 12,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Parámetro '_err' no utilizado en el catch. Usar 'error' o remover el prefijo '_' si se intenta ignorar intencionalmente. Considerar loguear el error real.",
+      "criterio": "TypeScript strict mode / Manejo de errores"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 18,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Parámetro '_err' no utilizado. Mismo problema que línea 12. Afecta a todos los catch blocks del archivo.",
+      "criterio": "Consistencia y manejo de errores"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 8,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Código duplicado: 6 endpoints con estructura idéntica (try-catch con TODO y respuesta genérica). Refactorizar en middleware o función auxiliar.",
+      "criterio": "DRY (Don't Repeat Yourself)"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 1,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "Se importa 'z' de 'zod' pero nunca se utiliza. Remover importación no usada.",
+      "criterio": "Limpieza de imports"
+    },
+    {
+      "archivo": "src/routes/api.ts",
+      "linea": 12,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Los endpoints retornan respuestas genéricas sin datos reales. Implementar lógica de negocio o al menos retornar estructura consistente con el esquema esperado (ej: { data: [], status: 'ok' }).",
+      "criterio": "Completitud de implementación"
+    },
+    {
+      "archivo": "db/schema_snapshot.json",
+      "linea": 1,
+      "tipo": "ADVERTENCIA",
+      "mensaje": "El snapshot de esquema fue vaciado completamente (todas las entidades removidas). Verificar si esto es intencional o si hubo un error en la migración. El archivo ahora solo contiene versión y timestamp.",
+      "criterio": "Integridad de datos / Control de cambios"
+    },
+    {
+      "archivo": "src/App.tsx",
+      "linea": 5,
+      "tipo": "SUGERENCIA",
+      "mensaje": "Importaciones con extensión '.js' explícita en archivos TypeScript/JSX. Considerar remover la extensión o usar configuración consistente del proyecto (tsconfig.json).",
+      "criterio": "Convenciones de imports en TypeScript"
+    }
+  ],
+  "recomendaciones": [
+    "Revisar 5 advertencia(s) de calidad encontrada(s)",
+    "Considerar 2 sugerencia(s) de mejora"
+  ],
+  "resumen": "❌ Cambios solicitados. Razones: 1 error(es) de calidad, 5 advertencia(s).",
+  "comentarioEstructuradoMarkdown": "## Revisión automática (Agente_Revisor_PR)\n\n- **PR**: [#15](https://github.com/joedayz/lunes-de-pichanga/pull/15) (feature/cfa359c0-ef61-4448-ac89-0f2973830f52 → main)\n- **Decisión**: **CAMBIOS_SOLICITADOS**\n- **Diff Git analizado**: sí\n\n### Cobertura de tests\n- Global: **100%** (umbral 80%) ✓\n- Código nuevo: **100%** ✓\n- Origen de datos: artefacto **REPORTE_TESTS** (misma información que `docs/test_report.json`).\n\n### Hallazgos de calidad\n\n- **[ERROR]** `src/routes/api.ts:8` — Ruta duplicada '/api/socios' definida en líneas 8 y 57. Las rutas GET y GET con parámetro :id deben consolidarse o usar métodos HTTP diferentes. _(criterio: Evitar rutas duplicadas/conflictivas)_\n- **[ADVERTENCIA]** `src/routes/api.ts:12` — Parámetro '_err' no utilizado en el catch. Usar 'error' o remover el prefijo '_' si se intenta ignorar intencionalmente. Considerar loguear el error real. _(criterio: TypeScript strict mode / Manejo de errores)_\n- **[ADVERTENCIA]** `src/routes/api.ts:18` — Parámetro '_err' no utilizado. Mismo problema que línea 12. Afecta a todos los catch blocks del archivo. _(criterio: Consistencia y manejo de errores)_\n- **[ADVERTENCIA]** `src/routes/api.ts:8` — Código duplicado: 6 endpoints con estructura idéntica (try-catch con TODO y respuesta genérica). Refactorizar en middleware o función auxiliar. _(criterio: DRY (Don't Repeat Yourself))_\n- **[ADVERTENCIA]** `src/routes/api.ts:1` — Se importa 'z' de 'zod' pero nunca se utiliza. Remover importación no usada. _(criterio: Limpieza de imports)_\n- **[SUGERENCIA]** `src/routes/api.ts:12` — Los endpoints retornan respuestas genéricas sin datos reales. Implementar lógica de negocio o al menos retornar estructura consistente con el esquema esperado (ej: { data: [], status: 'ok' }). _(criterio: Completitud de implementación)_\n- **[ADVERTENCIA]** `db/schema_snapshot.json:1` — El snapshot de esquema fue vaciado completamente (todas las entidades removidas). Verificar si esto es intencional o si hubo un error en la migración. El archivo ahora solo contiene versión y timestamp. _(criterio: Integridad de datos / Control de cambios)_\n- **[SUGERENCIA]** `src/App.tsx:5` — Importaciones con extensión '.js' explícita en archivos TypeScript/JSX. Considerar remover la extensión o usar configuración consistente del proyecto (tsconfig.json). _(criterio: Convenciones de imports en TypeScript)_\n\n### Recomendaciones\n\n- Revisar 5 advertencia(s) de calidad encontrada(s)\n- Considerar 2 sugerencia(s) de mejora\n\n### Criterios incumplidos\n- Error de calidad en `src/routes/api.ts:8`: Ruta duplicada '/api/socios' definida en líneas 8 y 57. Las rutas GET y GET con parámetro :id deben consolidarse o usar métodos HTTP diferentes. (Evitar rutas duplicadas/conflictivas)",
+  "publicacionComentario": {
+    "intentado": true,
+    "exito": true
+  },
+  "diffGitDisponible": true,
+  "fuenteDatosCobertura": "REPORTE_TESTS"
+}

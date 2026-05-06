@@ -1,10 +1,17 @@
 {
-  "timestamp": "2026-05-06T17:06:56.065Z",
+  "timestamp": "2026-05-06T17:18:08.955Z",
   "componentesAnalizados": [
-    "DashboardPage",
-    "SociosListPage"
+    "DashboardAño",
+    "RegistroSocioInvitado"
   ],
-  "atributosAplicados": [],
+  "atributosAplicados": [
+    {
+      "componente": "RegistroSocioInvitado",
+      "atributo": "aria-label",
+      "valor": "RegistroSocioInvitado",
+      "criterio": "WCAG 2.1 - 1.3.1 Info and Relationships (AA)"
+    }
+  ],
   "nivelCumplimiento": "AA",
   "advertencias": []
 }
