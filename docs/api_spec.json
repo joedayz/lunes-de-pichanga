@@ -1,15 +1,32 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API",
+    "title": "API: quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000",
     "version": "1.0.0"
   },
   "paths": {
+    "/api/anos-disponibles": {
+      "get": {
+        "summary": "Obtiene lista de años con datos disponibles en el sistema. Siempre devuelve array JSON parseable de números.",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/socios": {
       "get": {
-        "summary": "Obtener lista de socios filtrada por año (opcional)",
+        "summary": "Obtiene lista de socios. Soporta filtro opcional por año. Devuelve array JSON directo (no envuelto en { data }).",
         "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
         "parameters": [
           {
@@ -19,30 +36,12 @@
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar socios por año de ingreso"
+            "description": "Año para filtrar socios (query param). Si no se proporciona, devuelve todos."
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Crear nuevo socio con año de ingreso",
-        "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
@@ -55,136 +54,19 @@
     },
     "/api/invitados": {
       "get": {
-        "summary": "Obtener lista de invitados filtrada por año (opcional)",
+        "summary": "Obtiene lista de invitados filtrados por año. Devuelve array JSON directo.",
         "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
         "parameters": [
           {
             "name": "anio",
             "in": "path",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "number"
             },
-            "description": "Año para filtrar invitados por año de registro"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Crear nuevo invitado con año de registro",
-        "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/pagos": {
-      "get": {
-        "summary": "Obtener lista de pagos filtrada por año y/o mes (opcionales)",
-        "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
-        ],
-        "parameters": [
-          {
-            "name": "anio",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año para filtrar pagos"
-          },
-          {
-            "name": "mes",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Mes (1-12) para filtrar pagos"
-          },
-          {
-            "name": "socio_id",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "ID del socio para filtrar sus pagos"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Registrar nuevo pago/cuota mensual para un socio",
-        "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/dashboard/resumen": {
-      "get": {
-        "summary": "Obtener resumen del dashboard filtrado por año (opcional)",
-        "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
-        ],
-        "parameters": [
-          {
-            "name": "anio",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año para filtrar datos del resumen"
+            "description": "Año para filtrar invitados"
           }
         ],
         "responses": {
@@ -202,15 +84,15 @@
     },
     "/api/dashboard/cuotas": {
       "get": {
-        "summary": "Obtener estado de cuotas mensuales filtrado por año (opcional)",
+        "summary": "Obtiene lista de cuotas para el dashboard, filtradas por año. Devuelve array JSON directo.",
         "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
         "parameters": [
           {
             "name": "anio",
             "in": "path",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "number"
             },
@@ -230,16 +112,112 @@
         }
       }
     },
-    "/api/anos-disponibles": {
+    "/api/dashboard/resumen": {
       "get": {
-        "summary": "Obtener lista de años disponibles en el sistema (para selector global)",
+        "summary": "Obtiene resumen del dashboard para un año específico: total de socios, invitados y recaudado.",
         "tags": [
-          "usar selectores de **año** y **mes** en la interfaz y formularios enlazados a la API"
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Año para calcular el resumen"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/pagos": {
+      "post": {
+        "summary": "Registra un nuevo pago de cuota. Alias que delega a la lógica de POST /api/cuotas para compatibilidad con PagoForm.tsx.",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/cuotas": {
+      "post": {
+        "summary": "Registra una nueva cuota o pago. Endpoint principal que valida con Zod y persiste en BD.",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "422": {
+            "description": "Response"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtiene lista de cuotas con filtros opcionales por año y estado.",
+        "tags": [
+          "quitar el formulario legacy inferior y evitar errores 404/formato incorrecto contra http://localhost:4000"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar por año"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado: 'pendiente' | 'pagada' | 'vencida'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
