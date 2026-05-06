@@ -1,5 +1,48 @@
 {
-  "version": "20260506191700",
-  "timestamp": "2026-05-06T19:17:00.768Z",
-  "entidades": []
+  "version": "20260506192321",
+  "timestamp": "2026-05-06T19:23:21.266Z",
+  "entidades": [
+    {
+      "nombre": "Dashboard",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "anio",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "total_socios",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "total_pagos",
+          "tipo": "REAL",
+          "nullable": false
+        },
+        {
+          "nombre": "total_invitados",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": []
+    }
+  ]
 }

@@ -1,25 +1,25 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años",
+    "title": "API: eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente",
     "version": "1.0.0"
   },
   "paths": {
     "/api/dashboard": {
       "get": {
-        "summary": "Obtiene métricas del dashboard de la pichanga para un año específico",
+        "summary": "Obtener resumen del dashboard para un año específico. Retorna totales de socios, pagos e invitados.",
         "tags": [
-          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
         ],
         "parameters": [
           {
-            "name": "año",
+            "name": "anio",
             "in": "path",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "number"
             },
-            "description": "Año en formato YYYY (ej: 2024)"
+            "description": "Año a consultar (ej: 2025). Si no se proporciona, usa el año actual."
           }
         ],
         "responses": {
@@ -37,37 +37,19 @@
     },
     "/api/socios": {
       "get": {
-        "summary": "Obtiene listado de socios con sus cuotas y participaciones para un año específico",
+        "summary": "Listar todos los socios. Opcionalmente filtrar por año.",
         "tags": [
-          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
         ],
         "parameters": [
           {
-            "name": "año",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año en formato YYYY (ej: 2024)"
-          },
-          {
-            "name": "pagina",
+            "name": "anio",
             "in": "path",
             "required": false,
             "schema": {
               "type": "number"
             },
-            "description": "Número de página (default: 1)"
-          },
-          {
-            "name": "limite",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Registros por página (default: 20)"
+            "description": "Filtrar socios por año de registro o actividad."
           }
         ],
         "responses": {
@@ -81,18 +63,19 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/años": {
-      "get": {
-        "summary": "Obtiene listado de años disponibles con datos de pichanga",
+      },
+      "post": {
+        "summary": "Crear un nuevo socio.",
         "tags": [
-          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
         ],
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -102,9 +85,9 @@
     },
     "/api/socios/:id": {
       "get": {
-        "summary": "Obtiene detalle de un socio específico para un año",
+        "summary": "Obtener detalles de un socio específico.",
         "tags": [
-          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
         ],
         "parameters": [
           {
@@ -114,16 +97,35 @@
             "schema": {
               "type": "string"
             },
-            "description": "ID del socio"
+            "description": "ID del socio."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar datos de un socio.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [
           {
-            "name": "año",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             },
-            "description": "Año en formato YYYY"
+            "description": "ID del socio."
           }
         ],
         "responses": {
@@ -140,23 +142,51 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/dashboard/pagos": {
-      "get": {
-        "summary": "Obtiene métricas de pagos por mes para un año específico (evita NaN en DashboardPagos)",
+      },
+      "delete": {
+        "summary": "Eliminar un socio.",
         "tags": [
-          "eliminar los 404 de `GET /api/dashboard` y `GET /api/socios` cuando el query lleva `año=YYYY` (o `año` URL-encoded) y los avisos de React «Received NaN for the value/children» en `DashboardPagos` al cargar años"
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
         ],
         "parameters": [
           {
-            "name": "año",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/invitados": {
+      "get": {
+        "summary": "Listar todos los invitados. Opcionalmente filtrar por año.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
               "type": "number"
             },
-            "description": "Año en formato YYYY"
+            "description": "Filtrar invitados por año."
           }
         ],
         "responses": {
@@ -165,6 +195,187 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo invitado.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/pagos": {
+      "get": {
+        "summary": "Listar todos los pagos. Opcionalmente filtrar por año y/o mes.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [
+          {
+            "name": "anio",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar pagos por año."
+          },
+          {
+            "name": "mes",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar pagos por mes (1-12)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Registrar un nuevo pago.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/pagos/:id": {
+      "get": {
+        "summary": "Obtener detalles de un pago específico.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un pago.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un pago.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Verificar estado de la API.",
+        "tags": [
+          "eliminar los **404** y los fallos tipo **«Error al crear socio»** haciendo que **`src/server.ts`** monte un único router coherente y que esa API devuelva **JSON real** (arrays/objetos) para todas las rutas que la pantalla está llamando, con query **`anio` y/o `año`** según cliente"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"
