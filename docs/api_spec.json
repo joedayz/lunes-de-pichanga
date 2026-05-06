@@ -11,10 +11,41 @@
         "tags": [
           "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (activo, inactivo)"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página para paginación"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Cantidad de registros por página"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -22,7 +53,7 @@
         }
       },
       "post": {
-        "summary": "Registrar un nuevo socio en el sistema",
+        "summary": "Registrar un nuevo socio y crear cuota inicial",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
@@ -43,44 +74,30 @@
         }
       }
     },
-    "/api/cuotas": {
-      "post": {
-        "summary": "Registrar una nueva cuota para un socio",
-        "tags": [
-          "corregir el build del frontend en Vite"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/socios/:socio-id/cuotas": {
+    "/api/socios/:id/cuotas": {
       "get": {
-        "summary": "Obtener todas las cuotas de un socio específico",
+        "summary": "Obtener historial de cuotas de un socio específico",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
         "parameters": [
           {
-            "name": "socio-id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
             "description": "ID del socio"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (pendiente, pagada, vencida)"
           }
         ],
         "responses": {
@@ -96,15 +113,15 @@
         }
       }
     },
-    "/api/cuotas/:cuota-id/pagar": {
+    "/api/cuotas/:id/pagar": {
       "patch": {
-        "summary": "Registrar el pago de una cuota",
+        "summary": "Registrar pago de una cuota",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
         "parameters": [
           {
-            "name": "cuota-id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -139,6 +156,36 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socios/:id": {
+      "get": {
+        "summary": "Obtener detalles completos de un socio (perfil, cuotas, asistencias)",
+        "tags": [
+          "corregir el build del frontend en Vite"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del socio"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
