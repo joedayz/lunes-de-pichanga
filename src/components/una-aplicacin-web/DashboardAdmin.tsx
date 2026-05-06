@@ -18,7 +18,9 @@ interface DashboardAdminProps {
   baseUrl?: string;
 }
 
-export default function DashboardAdmin({ baseUrl = 'http://localhost:3000' }: DashboardAdminProps) {
+export default function DashboardAdmin(
+  { baseUrl = (process.env.REACT_APP_API_URL as string | undefined) ?? 'http://localhost:4000' }: DashboardAdminProps
+) {
   const [resumen, setResumen] = useState<ResumenDashboard | null>(null);
   const [socios, setSocios] = useState<Socio[]>([]);
   const [loading, setLoading] = useState(true);

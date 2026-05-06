@@ -3,17 +3,37 @@ import { z } from 'zod';
 
 const router = Router();
 
+type Socio = {
+  id: string;
+  nombre: string;
+  email: string;
+  estado: 'activo' | 'inactivo';
+};
+
+// Demo-only: almacenamiento en memoria para que la UI funcione sin DB.
+const socios: Socio[] = [];
+
 const postApi_sociosSchema = z.object({
   nombre: z.string(),
   email: z.string(),
   telefono: z.string(),
 });
 
+router.get("/api/socios", async (_req: Request, res: Response) => {
+  res.status(200).json({ data: socios });
+});
+
 router.post("/api/socios", async (req: Request, res: Response) => {
   try {
     const datos = postApi_sociosSchema.parse(req.body);
-    // TODO: implementar lógica de negocio
-    res.status(201).json({ datos, mensaje: 'OK' });
+    const nuevo: Socio = {
+      id: String(Date.now()),
+      nombre: datos.nombre,
+      email: datos.email,
+      estado: 'activo',
+    };
+    socios.push(nuevo);
+    res.status(201).json({ datos: nuevo, mensaje: 'OK' });
   } catch (err) {
     if (err instanceof z.ZodError) {
       res.status(400).json({ error: 'Datos inválidos', detalles: err.errors });
@@ -21,6 +41,15 @@ router.post("/api/socios", async (req: Request, res: Response) => {
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   }
+});
+
+router.get("/api/dashboard/resumen", async (_req: Request, res: Response) => {
+  res.status(200).json({
+    sociosActivos: socios.filter((s) => s.estado === 'activo').length,
+    cuotasPendientes: 0,
+    proximasPichangas: 0,
+    recaudoTotal: 0,
+  });
 });
 
 const postApi_cuotasSchema = z.object({
