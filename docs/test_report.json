@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T14:14:51.895Z",
+  "timestamp": "2026-05-06T14:49:10.104Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -9,19 +9,19 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "una-aplicacin-web-index-imports",
+      "nombre": "una-aplicacin-web-imports-validation",
       "estado": "PASADO",
-      "duracionMs": 21
+      "duracionMs": 9
     },
     {
-      "nombre": "dashboard-admin-component",
+      "nombre": "build-status-api-endpoint",
       "estado": "PASADO",
-      "duracionMs": 33
+      "duracionMs": 35
     },
     {
-      "nombre": "backend-socios-api-integration",
+      "nombre": "fix-build-api-validation",
       "estado": "PASADO",
-      "duracionMs": 51
+      "duracionMs": 27
     }
   ],
   "intentosCorrección": 1

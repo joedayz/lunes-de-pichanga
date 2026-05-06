@@ -1,8 +1,8 @@
 ## Revisión automática (Agente_Revisor_PR)
 
-- **PR**: [#6](https://github.com/joedayz/lunes-de-pichanga/pull/6) (feature/cdf5f7ca-2ca7-476f-8a8d-2b6f5eb615ca → main)
-- **Decisión**: **CAMBIOS_SOLICITADOS**
-- **Diff Git analizado**: sí
+- **PR**: [#731](https://github.com/org/repo/pull/731) (feature/b26c7d3a-65e1-461c-871e-08c446dde7f0 → main)
+- **Decisión**: **APROBADO**
+- **Diff Git analizado**: no (rama ausente o repo no disponible)
 
 ### Cobertura de tests
 - Global: **100%** (umbral 80%) ✓
@@ -11,26 +11,24 @@
 
 ### Hallazgos de calidad
 
-- **[ERROR]** `db/migrations/20250506135443_pichanga_asistenciapichanga.sql:16` — Columna 'pichanga_id' declarada dos veces en la tabla 'asistenciapichanga' (líneas 16 y 22). La segunda declaración incluye la restricción FOREIGN KEY, pero la primera es redundante. _(criterio: Integridad de esquema SQL)_
-- **[ERROR]** `db/migrations/20250506135443_pichanga_asistenciapichanga.sql:17` — Columna 'socio_id' declarada dos veces en la tabla 'asistenciapichanga' (líneas 17 y 23). La segunda declaración incluye la restricción FOREIGN KEY, pero la primera es redundante. _(criterio: Integridad de esquema SQL)_
-- **[ADVERTENCIA]** `db/migrations/20250506135443_pichanga_asistenciapichanga.sql:22` — Falta agregar ON DELETE CASCADE o ON DELETE RESTRICT en la restricción FOREIGN KEY de 'pichanga_id' para definir el comportamiento al eliminar una pichanga. _(criterio: Integridad referencial)_
-- **[ADVERTENCIA]** `db/migrations/20250506135443_pichanga_asistenciapichanga.sql:23` — Falta agregar ON DELETE CASCADE o ON DELETE RESTRICT en la restricción FOREIGN KEY de 'socio_id' para definir el comportamiento al eliminar un socio. _(criterio: Integridad referencial)_
-- **[ADVERTENCIA]** `db/schema_snapshot.json:1` — El archivo schema_snapshot.json ha sido modificado manualmente. Debería ser generado automáticamente por herramientas de migración para evitar inconsistencias. _(criterio: Mantenibilidad de esquema)_
-- **[ADVERTENCIA]** `docs/api_spec.json:4` — El título de la API contiene texto confuso/técnico ('corregir un error interno de Vite/Babel...') que no describe el propósito real de la API. Debería ser descriptivo y profesional. _(criterio: Documentación de API)_
-- **[ADVERTENCIA]** `docs/api_spec.json:10` — El resumen del endpoint GET /api/socios es demasiado genérico. Debería especificar funcionalidades como paginación y filtros si están soportados. _(criterio: Documentación de API)_
-- **[ADVERTENCIA]** `docs/api_spec.json:12` — El tag del endpoint contiene texto confuso ('corregir un error interno de Vite/Babel...') que no categoriza correctamente el endpoint. Debería ser 'Socios' o similar. _(criterio: Documentación de API)_
-- **[SUGERENCIA]** `código TypeScript (Express routes):5` — El parámetro de ruta '/api/pichangas/:pichanga-id/asistencia' usa guión (-) en lugar de guion bajo (_). Considera usar ':pichanga_id' para consistencia con convenciones REST y variables de JavaScript. _(criterio: Convenciones de nomenclatura)_
-- **[ADVERTENCIA]** `código TypeScript (Express routes):47` — Los nombres de esquemas Zod son muy largos y poco mantenibles (ej: 'postApi_pichangas_pichanga_id_asistenciaSchema'). Considera usar nombres más cortos o agrupar esquemas en un objeto. _(criterio: Mantenibilidad de código)_
-- **[SUGERENCIA]** `código TypeScript (Express routes):1` — Falta validación de parámetros de ruta (ej: ':pichanga_id'). Considera agregar validación con Zod para los params además del body. _(criterio: Validación de entrada)_
-- **[ADVERTENCIA]** `código TypeScript (DashboardAdmin):30` — La respuesta de la API no está tipada. Los datos retornados por '/api/socios' y '/api/pichangas' deberían validarse contra interfaces esperadas para evitar errores en tiempo de ejecución. _(criterio: Type safety)_
-- **[SUGERENCIA]** `código TypeScript (DashboardAdmin):32` — Falta manejo de respuestas no-JSON. Si la API retorna un error HTML o texto, 'json()' fallará. Considera validar el Content-Type. _(criterio: Robustez)_
-- **[ADVERTENCIA]** `código TypeScript (DashboardAdmin):38` — Los datos de 'sociosData' y 'pichangasData' se asignan directamente sin validación. Debería usarse Zod o similar para validar la estructura antes de actualizar el estado. _(criterio: Type safety)_
+- **[ADVERTENCIA]** `router.ts:5` — Importación de 'z' de zod no se utiliza en las rutas GET iniciales. Considere importar solo lo necesario o reorganizar el código. _(criterio: Imports no utilizados / Tree-shaking)_
+- **[SUGERENCIA]** `router.ts:7` — Ruta '/api/build-status' tiene TODO sin implementar. Considere usar un middleware de validación centralizado o completar la lógica. _(criterio: Código incompleto / Mantenibilidad)_
+- **[SUGERENCIA]** `router.ts:14` — Ruta '/api/components/una-aplicacin-web/validate' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_
+- **[SUGERENCIA]** `router.ts:23` — Nombre de variable 'postApi_components_una_aplicacin_web_refactorSchema' es muy largo y difícil de leer. Considere usar una nomenclatura más concisa (ej: 'refactorSchema' o agrupar en un objeto). _(criterio: Nomenclatura / Legibilidad)_
+- **[SUGERENCIA]** `router.ts:28` — Ruta '/api/components/una-aplicacin-web/refactor' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_
+- **[SUGERENCIA]** `router.ts:40` — Ruta '/api/dev-server/status' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_
+- **[SUGERENCIA]** `router.ts:47` — Ruta '/api/components/una-aplicacin-web/structure' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_
+- **[SUGERENCIA]** `router.ts:54` — Nombre de variable 'postApi_vite_rebuildSchema' es muy largo. Considere usar 'rebuildSchema' o agrupar esquemas en un objeto centralizado. _(criterio: Nomenclatura / Legibilidad)_
+- **[SUGERENCIA]** `router.ts:59` — Ruta '/api/vite/rebuild' tiene TODO sin implementar. _(criterio: Código incompleto / Mantenibilidad)_
+- **[SUGERENCIA]** `router.ts:1` — Considere extraer la lógica de manejo de errores repetida (try-catch) en un middleware centralizado para reducir duplicación. _(criterio: DRY (Don't Repeat Yourself) / Refactoring)_
+- **[ADVERTENCIA]** `BuildStatusDashboard.tsx:48` — Código truncado en la línea 48 ('Failed to fetc'). Asegúrese de que el código esté completo y sin errores de sintaxis. _(criterio: Integridad del código)_
+- **[SUGERENCIA]** `BuildStatusDashboard.tsx:30` — Variable 'BASE_URL' se define en el componente. Considere moverla a un archivo de configuración centralizado (ej: config.ts o .env). _(criterio: Separación de responsabilidades / Configuración)_
+- **[SUGERENCIA]** `BuildStatusDashboard.tsx:35` — Múltiples interfaces de estado (BuildStatus, ValidationResult, FileStructure, DevServerStatus) podrían consolidarse en una interfaz unificada o en un contexto para mejorar mantenibilidad. _(criterio: Refactoring / Mantenibilidad)_
 
 ### Recomendaciones
 
-- Revisar 9 advertencia(s) de calidad encontrada(s)
-- Considerar 3 sugerencia(s) de mejora
+- Revisar 2 advertencia(s) de calidad encontrada(s)
+- Considerar 11 sugerencia(s) de mejora
 
 ### Criterios incumplidos
-- Error de calidad en `db/migrations/20250506135443_pichanga_asistenciapichanga.sql:16`: Columna 'pichanga_id' declarada dos veces en la tabla 'asistenciapichanga' (líneas 16 y 22). La segunda declaración incluye la restricción FOREIGN KEY, pero la primera es redundante. (Integridad de esquema SQL)
-- Error de calidad en `db/migrations/20250506135443_pichanga_asistenciapichanga.sql:17`: Columna 'socio_id' declarada dos veces en la tabla 'asistenciapichanga' (líneas 17 y 23). La segunda declaración incluye la restricción FOREIGN KEY, pero la primera es redundante. (Integridad de esquema SQL)
+_Ninguno — listo para revisión humana._
