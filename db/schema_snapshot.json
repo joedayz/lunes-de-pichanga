@@ -1,9 +1,9 @@
 {
-  "version": "20260506134958",
-  "timestamp": "2026-05-06T13:49:58.526Z",
+  "version": "20260506135443",
+  "timestamp": "2026-05-06T13:54:43.384Z",
   "entidades": [
     {
-      "nombre": "Socio",
+      "nombre": "Pichanga",
       "atributos": [
         {
           "nombre": "id",
@@ -12,81 +12,23 @@
           "primaryKey": true
         },
         {
-          "nombre": "nombre",
+          "nombre": "fecha",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "ubicacion",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "apellido",
+          "nombre": "hora_inicio",
           "tipo": "TEXT",
           "nullable": false
         },
         {
-          "nombre": "email",
+          "nombre": "hora_fin",
           "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "telefono",
-          "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "fecha_registro",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "activo",
-          "tipo": "BOOLEAN",
-          "nullable": false
-        },
-        {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "ONE_TO_MANY",
-          "entidadRelacionada": "Cuota",
-          "campoForeignKey": "socio_id"
-        }
-      ]
-    },
-    {
-      "nombre": "Cuota",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "socio_id",
-          "tipo": "UUID",
-          "nullable": false
-        },
-        {
-          "nombre": "monto",
-          "tipo": "REAL",
-          "nullable": false
-        },
-        {
-          "nombre": "fecha_vencimiento",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "fecha_pago",
-          "tipo": "TIMESTAMP",
           "nullable": true
         },
         {
@@ -107,14 +49,14 @@
       ],
       "relaciones": [
         {
-          "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Socio",
-          "campoForeignKey": "socio_id"
+          "tipo": "ONE_TO_MANY",
+          "entidadRelacionada": "AsistenciaPichanga",
+          "campoForeignKey": "pichanga_id"
         }
       ]
     },
     {
-      "nombre": "Usuario",
+      "nombre": "AsistenciaPichanga",
       "atributos": [
         {
           "nombre": "id",
@@ -123,22 +65,17 @@
           "primaryKey": true
         },
         {
-          "nombre": "email",
-          "tipo": "TEXT",
+          "nombre": "pichanga_id",
+          "tipo": "UUID",
           "nullable": false
         },
         {
-          "nombre": "password_hash",
-          "tipo": "TEXT",
+          "nombre": "socio_id",
+          "tipo": "UUID",
           "nullable": false
         },
         {
-          "nombre": "rol",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "activo",
+          "nombre": "asistio",
           "tipo": "BOOLEAN",
           "nullable": false
         },
@@ -153,7 +90,18 @@
           "nullable": false
         }
       ],
-      "relaciones": []
+      "relaciones": [
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Pichanga",
+          "campoForeignKey": "pichanga_id"
+        },
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Socio",
+          "campoForeignKey": "socio_id"
+        }
+      ]
     }
   ]
 }
