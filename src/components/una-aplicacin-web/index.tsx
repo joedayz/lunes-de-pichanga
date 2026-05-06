@@ -4,6 +4,7 @@ import DashboardPichanga from './DashboardPichanga.js';
 import SociosList from './SociosList.js';
 import DashboardPage from './DashboardPage.js';
 import SociosListPage from './SociosListPage.js';
+import ExpressServerSetup from './ExpressServerSetup.js';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <SociosList />
           <DashboardPage />
           <SociosListPage />
+          <ExpressServerSetup />
     </>
   );
 }

@@ -1,7 +1,166 @@
 {
-  "version": "20260506192321",
-  "timestamp": "2026-05-06T19:23:21.266Z",
+  "version": "20260506194149",
+  "timestamp": "2026-05-06T19:41:49.037Z",
   "entidades": [
+    {
+      "nombre": "Socio",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "nombre",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "telefono",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "estado",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "ONE_TO_MANY",
+          "entidadRelacionada": "Pago",
+          "campoForeignKey": "socio_id"
+        },
+        {
+          "tipo": "ONE_TO_MANY",
+          "entidadRelacionada": "Invitado",
+          "campoForeignKey": "socio_id"
+        }
+      ]
+    },
+    {
+      "nombre": "Pago",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "socio_id",
+          "tipo": "UUID",
+          "nullable": false
+        },
+        {
+          "nombre": "monto",
+          "tipo": "REAL",
+          "nullable": false
+        },
+        {
+          "nombre": "anio",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "mes",
+          "tipo": "INTEGER",
+          "nullable": true
+        },
+        {
+          "nombre": "estado",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Socio",
+          "campoForeignKey": "socio_id"
+        }
+      ]
+    },
+    {
+      "nombre": "Invitado",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "socio_id",
+          "tipo": "UUID",
+          "nullable": false
+        },
+        {
+          "nombre": "nombre",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": true
+        },
+        {
+          "nombre": "anio",
+          "tipo": "INTEGER",
+          "nullable": false
+        },
+        {
+          "nombre": "estado",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": [
+        {
+          "tipo": "MANY_TO_ONE",
+          "entidadRelacionada": "Socio",
+          "campoForeignKey": "socio_id"
+        }
+      ]
+    },
     {
       "nombre": "Dashboard",
       "atributos": [

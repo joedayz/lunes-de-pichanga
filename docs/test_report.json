@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T19:24:11.270Z",
+  "timestamp": "2026-05-06T19:42:52.504Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -9,19 +9,19 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "router-endpoints-basicos",
+      "nombre": "router-socios-unitario",
       "estado": "PASADO",
-      "duracionMs": 22
+      "duracionMs": 53
     },
     {
-      "nombre": "api-endpoints-integracion",
+      "nombre": "dashboard-endpoint-unitario",
+      "estado": "PASADO",
+      "duracionMs": 6
+    },
+    {
+      "nombre": "api-integration-test",
       "estado": "PASADO",
       "duracionMs": 28
-    },
-    {
-      "nombre": "query-params-anio",
-      "estado": "PASADO",
-      "duracionMs": 10
     }
   ],
   "intentosCorrección": 1
