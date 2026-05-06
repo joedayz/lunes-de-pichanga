@@ -60,7 +60,7 @@ export default function FormRegistroSocioYCuota({ baseUrl = 'http://localhost:30
   };
 
   return (
-    <form aria-label="FormRegistroSocioYCuota" onSubmit={handleSubmit} aria-label="Formulario de registro de socio" className="form-registro">
+    <form aria-label="Formulario de registro de socio" onSubmit={handleSubmit} className="form-registro">
       <h2>Registrar Nuevo Socio</h2>
 
       {error && <div role="alert" className="error-message">{error}</div>}

@@ -80,7 +80,7 @@ router.get("/api/reportes/resumen", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/api/socios/:socio-id/fondo", async (req: Request, res: Response) => {
+router.get("/api/socios/:socioId/fondo", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
