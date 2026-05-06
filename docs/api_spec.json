@@ -1,15 +1,15 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: corregir el error de Vite/Babel por import duplicado",
+    "title": "API: corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports",
     "version": "1.0.0"
   },
   "paths": {
     "/api/socios": {
       "get": {
-        "summary": "Obtener lista de todos los socios registrados (para dashboard admin)",
+        "summary": "Obtener lista de todos los socios registrados con paginación y filtros",
         "tags": [
-          "corregir el error de Vite/Babel por import duplicado"
+          "corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports"
         ],
         "parameters": [
           {
@@ -28,7 +28,25 @@
             "schema": {
               "type": "number"
             },
-            "description": "Cantidad de registros por página (default: 10)"
+            "description": "Registros por página (default: 10)"
+          },
+          {
+            "name": "activo",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filtrar por estado activo"
+          },
+          {
+            "name": "search",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Buscar por nombre, apellido o email"
           }
         ],
         "responses": {
@@ -38,18 +56,15 @@
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
-          },
           "500": {
             "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "summary": "Registrar un nuevo socio con su información y cuota inicial",
+        "summary": "Registrar un nuevo socio en el sistema",
         "tags": [
-          "corregir el error de Vite/Babel por import duplicado"
+          "corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports"
         ],
         "parameters": [],
         "responses": {
@@ -68,21 +83,30 @@
         }
       }
     },
-    "/api/socios/:id": {
+    "/api/socios/:socio-id/cuotas": {
       "get": {
-        "summary": "Obtener detalles de un socio específico",
+        "summary": "Obtener todas las cuotas de un socio específico con estado de pago",
         "tags": [
-          "corregir el error de Vite/Babel por import duplicado"
+          "corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "socio-id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
             "description": "ID del socio"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (pendiente, pagada, vencida)"
           }
         ],
         "responses": {
@@ -96,43 +120,32 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/cuotas": {
-      "get": {
-        "summary": "Obtener lista de cuotas pendientes y pagadas (para dashboard admin)",
+      },
+      "post": {
+        "summary": "Registrar una nueva cuota para un socio",
         "tags": [
-          "corregir el error de Vite/Babel por import duplicado"
+          "corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports"
         ],
         "parameters": [
           {
-            "name": "estado",
+            "name": "socio-id",
             "in": "path",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "string"
             },
-            "description": "Filtrar por estado: pendiente, pagada, vencida"
-          },
-          {
-            "name": "socio_id",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filtrar por ID de socio"
+            "description": "ID del socio"
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           },
           "400": {
             "description": "Bad Request"
           },
-          "401": {
-            "description": "Unauthorized"
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -140,15 +153,15 @@
         }
       }
     },
-    "/api/cuotas/:id": {
+    "/api/cuotas/:cuota-id/pagar": {
       "patch": {
-        "summary": "Actualizar estado de una cuota (marcar como pagada)",
+        "summary": "Registrar pago de una cuota específica",
         "tags": [
-          "corregir el error de Vite/Babel por import duplicado"
+          "corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "cuota-id",
             "in": "path",
             "required": true,
             "schema": {
@@ -175,17 +188,14 @@
     },
     "/api/dashboard/resumen": {
       "get": {
-        "summary": "Obtener resumen del dashboard admin (total socios, cuotas pendientes, ingresos)",
+        "summary": "Obtener resumen del dashboard con estadísticas de socios y cuotas",
         "tags": [
-          "corregir el error de Vite/Babel por import duplicado"
+          "corregir un error de build en Vite causado por redeclaración de símbolos y múltiples default exports"
         ],
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
