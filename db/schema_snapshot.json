@@ -1,9 +1,9 @@
 {
-  "version": "20260506175437",
-  "timestamp": "2026-05-06T17:54:37.310Z",
+  "version": "20260506190109",
+  "timestamp": "2026-05-06T19:01:09.924Z",
   "entidades": [
     {
-      "nombre": "Socio",
+      "nombre": "Grupo",
       "atributos": [
         {
           "nombre": "id",
@@ -17,55 +17,12 @@
           "nullable": false
         },
         {
-          "nombre": "email",
-          "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "telefono",
-          "tipo": "TEXT",
-          "nullable": true
-        },
-        {
-          "nombre": "año_afiliacion",
-          "tipo": "INTEGER",
+          "nombre": "recaudacion_total",
+          "tipo": "REAL",
           "nullable": false
         },
         {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "ONE_TO_MANY",
-          "entidadRelacionada": "Pago",
-          "campoForeignKey": "socio_id"
-        }
-      ]
-    },
-    {
-      "nombre": "Invitado",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "nombre",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "año",
+          "nombre": "anio_actual",
           "tipo": "INTEGER",
           "nullable": false
         },
@@ -81,59 +38,6 @@
         }
       ],
       "relaciones": []
-    },
-    {
-      "nombre": "Pago",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "socio_id",
-          "tipo": "UUID",
-          "nullable": false
-        },
-        {
-          "nombre": "año",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "mes",
-          "tipo": "INTEGER",
-          "nullable": false
-        },
-        {
-          "nombre": "monto",
-          "tipo": "REAL",
-          "nullable": false
-        },
-        {
-          "nombre": "fecha_pago",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Socio",
-          "campoForeignKey": "socio_id"
-        }
-      ]
     }
   ]
 }

@@ -1,25 +1,25 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API: una interfaz única minimalista",
+    "title": "API: que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año",
     "version": "1.0.0"
   },
   "paths": {
-    "/api/socios": {
+    "/api/grupos/:grupoId/recaudacion": {
       "get": {
-        "summary": "Listar socios filtrados por año. Retorna array raíz de socios.",
+        "summary": "Obtiene el total de recaudación del grupo para el año seleccionado. Usado para refrescar las tarjetas superiores sin F5.",
         "tags": [
-          "una interfaz única minimalista"
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
         "parameters": [
           {
-            "name": "año",
+            "name": "grupoId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             },
-            "description": "Año de afiliación para filtrar"
+            "description": "ID del grupo deportivo"
           }
         ],
         "responses": {
@@ -29,23 +29,8 @@
           "400": {
             "description": "Bad Request"
           },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Crear nuevo socio. Si no se proporciona año_afiliacion, usa el año actual.",
-        "tags": [
-          "una interfaz única minimalista"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -53,98 +38,23 @@
         }
       }
     },
-    "/api/invitados": {
-      "get": {
-        "summary": "Listar invitados filtrados por año. Retorna array raíz de invitados.",
+    "/api/grupos/:grupoId/pagos": {
+      "post": {
+        "summary": "Registra un nuevo pago en el sistema. Retorna el pago creado y el total de recaudación actualizado para el año.",
         "tags": [
-          "una interfaz única minimalista"
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
         "parameters": [
           {
-            "name": "año",
+            "name": "grupoId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             },
-            "description": "Año para filtrar invitados"
+            "description": "ID del grupo deportivo"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Crear nuevo invitado. Si no se proporciona año, usa el año actual.",
-        "tags": [
-          "una interfaz única minimalista"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/pagos": {
-      "get": {
-        "summary": "Listar pagos filtrados por año y opcionalmente por mes. Retorna array raíz de pagos.",
-        "tags": [
-          "una interfaz única minimalista"
-        ],
-        "parameters": [
-          {
-            "name": "año",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Año para filtrar pagos"
-          },
-          {
-            "name": "mes",
-            "in": "path",
-            "required": false,
-            "schema": {
-              "type": "number"
-            },
-            "description": "Mes (1-12) para filtrar pagos adicionales"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "summary": "Registrar nuevo pago para un socio.",
-        "tags": [
-          "una interfaz única minimalista"
-        ],
-        "parameters": [],
         "responses": {
           "201": {
             "description": "Created"
@@ -159,23 +69,21 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/dashboard": {
+      },
       "get": {
-        "summary": "Obtener resumen compacto del año: total socios, total invitados, recaudación total.",
+        "summary": "Lista todos los pagos del grupo filtrados por año. Soporta paginación y búsqueda.",
         "tags": [
-          "una interfaz única minimalista"
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
         ],
         "parameters": [
           {
-            "name": "año",
+            "name": "grupoId",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "number"
+              "type": "string"
             },
-            "description": "Año para el resumen del dashboard"
+            "description": "ID del grupo deportivo"
           }
         ],
         "responses": {
@@ -184,6 +92,124 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/grupos/:grupoId/resumen-anual": {
+      "get": {
+        "summary": "Obtiene el resumen de recaudación por año. Usado para mostrar las tarjetas superiores con totales por año.",
+        "tags": [
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+        ],
+        "parameters": [
+          {
+            "name": "grupoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del grupo deportivo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/grupos/:grupoId/pagos/:pagoId": {
+      "put": {
+        "summary": "Actualiza un pago existente y retorna la recaudación actualizada del año.",
+        "tags": [
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+        ],
+        "parameters": [
+          {
+            "name": "grupoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del grupo deportivo"
+          },
+          {
+            "name": "pagoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago a actualizar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Elimina un pago y retorna la recaudación actualizada del año.",
+        "tags": [
+          "que, al registrar un nuevo pago con éxito desde la pestaña Pagos, el total «Recaudación» de las tarjetas superiores se refresque en la misma sesión sin F5 ni cambiar manualmente el año"
+        ],
+        "parameters": [
+          {
+            "name": "grupoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del grupo deportivo"
+          },
+          {
+            "name": "pagoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del pago a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

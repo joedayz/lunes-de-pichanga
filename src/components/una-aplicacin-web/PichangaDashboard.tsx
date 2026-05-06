@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { asArray, dashboardShape } from './json-normalize.js';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
@@ -50,7 +51,7 @@ const PichangaDashboard: React.FC = () => {
     try {
       const res = await fetch(`${BASE_URL}/api/socios?año=${año}`);
       if (!res.ok) throw new Error('Error al cargar socios');
-      setSocios(await res.json());
+      setSocios(asArray<Socio>(await res.json()));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
@@ -64,7 +65,7 @@ const PichangaDashboard: React.FC = () => {
     try {
       const res = await fetch(`${BASE_URL}/api/invitados?año=${año}`);
       if (!res.ok) throw new Error('Error al cargar invitados');
-      setInvitados(await res.json());
+      setInvitados(asArray<Invitado>(await res.json()));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
@@ -78,7 +79,7 @@ const PichangaDashboard: React.FC = () => {
     try {
       const res = await fetch(`${BASE_URL}/api/pagos?año=${año}`);
       if (!res.ok) throw new Error('Error al cargar pagos');
-      setPagos(await res.json());
+      setPagos(asArray<Pago>(await res.json()));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
@@ -90,7 +91,7 @@ const PichangaDashboard: React.FC = () => {
     try {
       const res = await fetch(`${BASE_URL}/api/dashboard?año=${año}`);
       if (!res.ok) throw new Error('Error al cargar dashboard');
-      setDashboard(await res.json());
+      setDashboard(dashboardShape(await res.json()));
     } catch (err) {
       console.error(err);
     }

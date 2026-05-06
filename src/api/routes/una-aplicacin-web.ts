@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 const router = Router();
 
-router.get("/api/socios", async (req: Request, res: Response) => {
+router.get("/api/grupos/:grupoId/recaudacion", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
@@ -12,75 +12,17 @@ router.get("/api/socios", async (req: Request, res: Response) => {
   }
 });
 
-const postApi_sociosSchema = z.object({
-  nombre: z.string(),
-  email: z.string().optional(),
-  telefono: z.string().optional(),
-  "año_afiliacion": z.number().optional(),
-});
-
-router.post("/api/socios", async (req: Request, res: Response) => {
-  try {
-    const datos = postApi_sociosSchema.parse(req.body);
-    // TODO: implementar lógica de negocio
-    res.status(201).json({ datos, mensaje: 'OK' });
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      res.status(400).json({ error: 'Datos inválidos', detalles: err.errors });
-    } else {
-      res.status(500).json({ error: 'Error interno del servidor' });
-    }
-  }
-});
-
-router.get("/api/invitados", async (req: Request, res: Response) => {
-  try {
-    // TODO: implementar lógica de negocio
-    res.status(200).json({ mensaje: 'OK' });
-  } catch (_err) {
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-});
-
-const postApi_invitadosSchema = z.object({
-  nombre: z.string(),
-  "año": z.number().optional(),
-});
-
-router.post("/api/invitados", async (req: Request, res: Response) => {
-  try {
-    const datos = postApi_invitadosSchema.parse(req.body);
-    // TODO: implementar lógica de negocio
-    res.status(201).json({ datos, mensaje: 'OK' });
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      res.status(400).json({ error: 'Datos inválidos', detalles: err.errors });
-    } else {
-      res.status(500).json({ error: 'Error interno del servidor' });
-    }
-  }
-});
-
-router.get("/api/pagos", async (req: Request, res: Response) => {
-  try {
-    // TODO: implementar lógica de negocio
-    res.status(200).json({ mensaje: 'OK' });
-  } catch (_err) {
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-});
-
-const postApi_pagosSchema = z.object({
+const postApi_grupos_grupoId_pagosSchema = z.object({
   socio_id: z.string(),
-  "año": z.number(),
-  mes: z.number(),
   monto: z.number(),
+  concepto: z.string(),
   fecha_pago: z.string(),
+  anio: z.number().optional(),
 });
 
-router.post("/api/pagos", async (req: Request, res: Response) => {
+router.post("/api/grupos/:grupoId/pagos", async (req: Request, res: Response) => {
   try {
-    const datos = postApi_pagosSchema.parse(req.body);
+    const datos = postApi_grupos_grupoId_pagosSchema.parse(req.body);
     // TODO: implementar lógica de negocio
     res.status(201).json({ datos, mensaje: 'OK' });
   } catch (err) {
@@ -92,7 +34,45 @@ router.post("/api/pagos", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/api/dashboard", async (req: Request, res: Response) => {
+router.get("/api/grupos/:grupoId/pagos", async (req: Request, res: Response) => {
+  try {
+    // TODO: implementar lógica de negocio
+    res.status(200).json({ mensaje: 'OK' });
+  } catch (_err) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+router.get("/api/grupos/:grupoId/resumen-anual", async (req: Request, res: Response) => {
+  try {
+    // TODO: implementar lógica de negocio
+    res.status(200).json({ mensaje: 'OK' });
+  } catch (_err) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+const putApi_grupos_grupoId_pagos_pagoIdSchema = z.object({
+  monto: z.number().optional(),
+  concepto: z.string().optional(),
+  fecha_pago: z.string().optional(),
+});
+
+router.put("/api/grupos/:grupoId/pagos/:pagoId", async (req: Request, res: Response) => {
+  try {
+    const datos = putApi_grupos_grupoId_pagos_pagoIdSchema.parse(req.body);
+    // TODO: implementar lógica de negocio
+    res.status(200).json({ datos, mensaje: 'OK' });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      res.status(400).json({ error: 'Datos inválidos', detalles: err.errors });
+    } else {
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  }
+});
+
+router.delete("/api/grupos/:grupoId/pagos/:pagoId", async (req: Request, res: Response) => {
   try {
     // TODO: implementar lógica de negocio
     res.status(200).json({ mensaje: 'OK' });
