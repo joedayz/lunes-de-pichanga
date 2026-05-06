@@ -11,10 +11,41 @@
         "tags": [
           "corregir el build del frontend en Vite"
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado (activo, inactivo, suspendido)"
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Número de página para paginación"
+          },
+          {
+            "name": "limit",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Cantidad de registros por página"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -22,7 +53,7 @@
         }
       },
       "post": {
-        "summary": "Registrar un nuevo socio en el sistema",
+        "summary": "Registrar un nuevo socio y crear su cuota inicial",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
@@ -43,30 +74,7 @@
         }
       }
     },
-    "/api/cuotas": {
-      "post": {
-        "summary": "Registrar una nueva cuota para un socio",
-        "tags": [
-          "corregir el build del frontend en Vite"
-        ],
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/socios/:socio-id/cuotas": {
+    "/api/socios/:id/cuotas": {
       "get": {
         "summary": "Obtener todas las cuotas de un socio específico",
         "tags": [
@@ -74,13 +82,22 @@
         ],
         "parameters": [
           {
-            "name": "socio-id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string"
             },
             "description": "ID del socio"
+          },
+          {
+            "name": "estado",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filtrar por estado de cuota (pendiente, pagada, vencida)"
           }
         ],
         "responses": {
@@ -96,7 +113,7 @@
         }
       }
     },
-    "/api/cuotas/:cuota-id/pagar": {
+    "/api/cuotas/:id/pagar": {
       "patch": {
         "summary": "Registrar el pago de una cuota",
         "tags": [
@@ -104,7 +121,7 @@
         ],
         "parameters": [
           {
-            "name": "cuota-id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -131,11 +148,38 @@
     },
     "/api/dashboard/resumen": {
       "get": {
-        "summary": "Obtener resumen del dashboard administrativo (socios activos, cuotas pendientes, próximas pichangas)",
+        "summary": "Obtener resumen del dashboard administrativo (total socios, cuotas pendientes, ingresos)",
         "tags": [
           "corregir el build del frontend en Vite"
         ],
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/dashboard/cuotas-vencidas": {
+      "get": {
+        "summary": "Obtener lista de cuotas vencidas para seguimiento administrativo",
+        "tags": [
+          "corregir el build del frontend en Vite"
+        ],
+        "parameters": [
+          {
+            "name": "dias_atraso",
+            "in": "path",
+            "required": false,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Filtrar cuotas con X días de atraso mínimo"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

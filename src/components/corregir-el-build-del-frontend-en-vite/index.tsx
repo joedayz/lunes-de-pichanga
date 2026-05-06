@@ -1,151 +1,314 @@
 // === DashboardAdmin ===
 import React, { useEffect, useState } from 'react';
 
-interface DashboardData {
-  sociosActivos: number;
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+
+interface ResumenDashboard {
+  totalSocios: number;
   cuotasPendientes: number;
-  proximasPichangas: string[];
+  ingresosMes: number;
+  cuotasVencidas: number;
 }
 
-interface DashboardAdminProps {
-  baseUrl?: string;
+interface CuotaVencida {
+  id: string;
+  socioNombre: string;
+  monto: number;
+  fechaVencimiento: string;
 }
 
-export default function DashboardAdmin({ baseUrl = 'http://localhost:3000' }: DashboardAdminProps) {
-  const [data, setData] = useState<DashboardData | null>(null);
+export default function DashboardAdmin() {
+  const [resumen, setResumen] = useState<ResumenDashboard | null>(null);
+  const [vencidas, setVencidas] = useState<CuotaVencida[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchDashboard = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`${baseUrl}/api/dashboard/resumen`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const json = await res.json();
-        setData(json);
+        setLoading(true);
+        const [resRes, vencRes] = await Promise.all([
+          fetch(`${BASE_URL}/api/dashboard/resumen`),
+          fetch(`${BASE_URL}/api/dashboard/cuotas-vencidas`)
+        ]);
+
+        if (!resRes.ok || !vencRes.ok) {
+          throw new Error('Error al cargar dashboard');
+        }
+
+        const resData = await resRes.json();
+        const vencData = await vencRes.json();
+
+        setResumen(resData);
+        setVencidas(vencData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
         setLoading(false);
       }
     };
-    fetchDashboard();
-  }, [baseUrl]);
 
-  if (loading) return <div aria-live="polite">Cargando dashboard...</div>;
+    fetchData();
+  }, []);
+
+  if (loading) return <div aria-label="Cargando dashboard">Cargando...</div>;
   if (error) return <div role="alert">Error: {error}</div>;
 
   return (
-    <section aria-label="Dashboard administrativo">
-      <h1>Dashboard - Lunes de Pichanga</h1>
-      <div className="grid">
-        <article>
-          <h2>Socios Activos</h2>
-          <p className="metric">{data?.sociosActivos ?? 0}</p>
-        </article>
-        <article>
-          <h2>Cuotas Pendientes</h2>
-          <p className="metric">{data?.cuotasPendientes ?? 0}</p>
-        </article>
-        <article>
-          <h2>Próximas Pichangas</h2>
-          <ul>
-            {data?.proximasPichangas?.map((p, i) => (
-              <li key={i}>{p}</li>
-            )) || <li>Sin pichangas programadas</li>}
-          </ul>
-        </article>
-      </div>
-    </section>
+    <div className="dashboard-admin">
+      <h1>Dashboard Administrativo</h1>
+      {resumen && (
+        <div className="resumen-cards">
+          <div className="card">
+            <h2>Total Socios</h2>
+            <p className="metric">{resumen.totalSocios}</p>
+          </div>
+          <div className="card">
+            <h2>Cuotas Pendientes</h2>
+            <p className="metric">{resumen.cuotasPendientes}</p>
+          </div>
+          <div className="card">
+            <h2>Ingresos Mes</h2>
+            <p className="metric">${Number(resumen.ingresosMes ?? 0).toFixed(2)}</p>
+          </div>
+          <div className="card alert">
+            <h2>Cuotas Vencidas</h2>
+            <p className="metric">{resumen.cuotasVencidas}</p>
+          </div>
+        </div>
+      )}
+      {vencidas.length > 0 && (
+        <div className="cuotas-vencidas">
+          <h2>Detalle de Cuotas Vencidas</h2>
+          <table aria-label="Cuotas vencidas">
+            <thead>
+              <tr>
+                <th>Socio</th>
+                <th>Monto</th>
+                <th>Fecha Vencimiento</th>
+              </tr>
+            </thead>
+            <tbody>
+              {vencidas.map((cuota) => (
+                <tr key={cuota.id}>
+                  <td>{cuota.socioNombre}</td>
+                  <td>${Number(cuota.monto ?? 0).toFixed(2)}</td>
+                  <td>{new Date(cuota.fechaVencimiento).toLocaleDateString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
   );
 }
 
 // === FormRegistroSocioYCuota ===
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-interface FormRegistroProps {
-  baseUrl?: string;
-  onSuccess?: () => void;
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+
+interface Socio {
+  id: string;
+  nombre: string;
+  email: string;
+  estado: string;
 }
 
-export default function FormRegistroSocioYCuota({ baseUrl = 'http://localhost:3000', onSuccess }: FormRegistroProps) {
-  const [tab, setTab] = useState<'socio' | 'cuota'>('socio');
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [formData, setFormData] = useState({ nombre: '', email: '', socioId: '', monto: '' });
+interface Cuota {
+  id: string;
+  monto: number;
+  estado: string;
+  fechaVencimiento: string;
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+interface FormData {
+  nombre: string;
+  email: string;
+  telefono: string;
+}
+
+export default function FormRegistroSocioYCuota() {
+  const [socios, setSocios] = useState<Socio[]>([]);
+  const [selectedSocio, setSelectedSocio] = useState<string>('');
+  const [cuotas, setCuotas] = useState<Cuota[]>([]);
+  const [formData, setFormData] = useState<FormData>({
+    nombre: '',
+    email: '',
+    telefono: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchSocios();
+  }, []);
+
+  const fetchSocios = async () => {
+    try {
+      const res = await fetch(`${BASE_URL}/api/socios`);
+      if (!res.ok) throw new Error('Error al cargar socios');
+      const data = await res.json();
+      setSocios(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error desconocido');
+    }
+  };
+
+  const fetchCuotas = async (socioId: string) => {
+    try {
+      const res = await fetch(`${BASE_URL}/api/socios/${socioId}/cuotas`);
+      if (!res.ok) throw new Error('Error al cargar cuotas');
+      const data = await res.json();
+      setCuotas(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error desconocido');
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleRegistroSocio = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
+    setSuccess(null);
+
     try {
-      const res = await fetch(`${baseUrl}/api/socios`, {
+      const res = await fetch(`${BASE_URL}/api/socios`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre: formData.nombre, email: formData.email }),
+        body: JSON.stringify(formData)
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setMessage({ type: 'success', text: 'Socio registrado exitosamente' });
-      setFormData({ ...formData, nombre: '', email: '' });
-      onSuccess?.();
+
+      if (!res.ok) throw new Error('Error al registrar socio');
+      setSuccess('Socio registrado exitosamente');
+      setFormData({ nombre: '', email: '', telefono: '' });
+      fetchSocios();
     } catch (err) {
-      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Error al registrar' });
+      setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleRegistroCuota = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handlePagarCuota = async (cuotaId: string) => {
     setLoading(true);
+    setError(null);
+
     try {
-      const res = await fetch(`${baseUrl}/api/cuotas`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ socioId: formData.socioId, monto: Number(formData.monto) }),
+      const res = await fetch(`${BASE_URL}/api/cuotas/${cuotaId}/pagar`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' }
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setMessage({ type: 'success', text: 'Cuota registrada exitosamente' });
-      setFormData({ ...formData, socioId: '', monto: '' });
-      onSuccess?.();
+
+      if (!res.ok) throw new Error('Error al pagar cuota');
+      setSuccess('Cuota pagada exitosamente');
+      if (selectedSocio) fetchCuotas(selectedSocio);
     } catch (err) {
-      setMessage({ type: 'error', text: err instanceof Error ? err.message : 'Error al registrar cuota' });
+      setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSelectSocio = (socioId: string) => {
+    setSelectedSocio(socioId);
+    if (socioId) fetchCuotas(socioId);
   };
 
   return (
-    <section aria-label="Formulario de registro">
-      <div role="tablist" className="tabs">
-        <button role="tab" aria-selected={tab === 'socio'} onClick={() => setTab('socio')}>Nuevo Socio</button>
-        <button role="tab" aria-selected={tab === 'cuota'} onClick={() => setTab('cuota')}>Nueva Cuota</button>
+    <div className="form-registro">
+      <h1>Registro de Socio y Gestión de Cuotas</h1>
+
+      {error && <div role="alert" className="error">{error}</div>}
+      {success && <div role="status" className="success">{success}</div>}
+
+      <form aria-label="FormRegistroSocioYCuota" onSubmit={handleRegistroSocio} aria-label="Formulario de registro de socio">
+        <h2>Registrar Nuevo Socio</h2>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre"
+          value={formData.nombre}
+          onChange={handleInputChange}
+          required
+          aria-label="Nombre del socio"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleInputChange}
+          required
+          aria-label="Email del socio"
+        />
+        <input
+          type="tel"
+          name="telefono"
+          placeholder="Teléfono"
+          value={formData.telefono}
+          onChange={handleInputChange}
+          aria-label="Teléfono del socio"
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? 'Registrando...' : 'Registrar Socio'}
+        </button>
+      </form>
+
+      <div className="cuotas-section">
+        <h2>Gestionar Cuotas</h2>
+        <select
+          value={selectedSocio}
+          onChange={(e) => handleSelectSocio(e.target.value)}
+          aria-label="Seleccionar socio"
+        >
+          <option value="">Seleccionar socio...</option>
+          {socios.map((socio) => (
+            <option key={socio.id} value={socio.id}>
+              {socio.nombre}
+            </option>
+          ))}
+        </select>
+
+        {cuotas.length > 0 && (
+          <table aria-label="Cuotas del socio">
+            <thead>
+              <tr>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Vencimiento</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cuotas.map((cuota) => (
+                <tr key={cuota.id}>
+                  <td>${Number(cuota.monto ?? 0).toFixed(2)}</td>
+                  <td>{cuota.estado}</td>
+                  <td>{new Date(cuota.fechaVencimiento).toLocaleDateString()}</td>
+                  <td>
+                    {cuota.estado === 'pendiente' && (
+                      <button
+                        onClick={() => handlePagarCuota(cuota.id)}
+                        disabled={loading}
+                      >
+                        Pagar
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
-
-      {message && (
-        <div role="alert" className={`message ${message.type}`}>
-          {message.text}
-        </div>
-      )}
-
-      {tab === 'socio' && (
-        <form aria-label="FormRegistroSocioYCuota" onSubmit={handleRegistroSocio} aria-label="Registro de socio">
-          <input aria-label="campo de entrada" type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
-          <input aria-label="campo de entrada" type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-          <button type="submit" disabled={loading}>{loading ? 'Registrando...' : 'Registrar Socio'}</button>
-        </form>
-      )}
-
-      {tab === 'cuota' && (
-        <form aria-label="FormRegistroSocioYCuota" onSubmit={handleRegistroCuota} aria-label="Registro de cuota">
-          <input aria-label="campo de entrada" type="text" name="socioId" placeholder="ID del Socio" value={formData.socioId} onChange={handleChange} required />
-          <input aria-label="campo de entrada" type="number" name="monto" placeholder="Monto" step="0.01" value={formData.monto} onChange={handleChange} required />
-          <button type="submit" disabled={loading}>{loading ? 'Registrando...' : 'Registrar Cuota'}</button>
-        </form>
-      )}
-    </section>
+    </div>
   );
 }

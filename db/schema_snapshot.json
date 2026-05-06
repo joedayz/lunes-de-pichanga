@@ -1,6 +1,6 @@
 {
-  "version": "20260506141420",
-  "timestamp": "2026-05-06T14:14:20.975Z",
+  "version": "20260506142138",
+  "timestamp": "2026-05-06T14:21:38.225Z",
   "entidades": [
     {
       "nombre": "Socio",
@@ -114,6 +114,48 @@
       ]
     },
     {
+      "nombre": "Usuario",
+      "atributos": [
+        {
+          "nombre": "id",
+          "tipo": "UUID",
+          "nullable": false,
+          "primaryKey": true
+        },
+        {
+          "nombre": "email",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "password_hash",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "rol",
+          "tipo": "TEXT",
+          "nullable": false
+        },
+        {
+          "nombre": "activo",
+          "tipo": "BOOLEAN",
+          "nullable": false
+        },
+        {
+          "nombre": "created_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        },
+        {
+          "nombre": "updated_at",
+          "tipo": "TIMESTAMP",
+          "nullable": false
+        }
+      ],
+      "relaciones": []
+    },
+    {
       "nombre": "Pichanga",
       "atributos": [
         {
@@ -133,12 +175,7 @@
           "nullable": false
         },
         {
-          "nombre": "hora_inicio",
-          "tipo": "TEXT",
-          "nullable": false
-        },
-        {
-          "nombre": "hora_fin",
+          "nombre": "descripcion",
           "tipo": "TEXT",
           "nullable": true
         },
@@ -158,61 +195,7 @@
           "nullable": false
         }
       ],
-      "relaciones": [
-        {
-          "tipo": "ONE_TO_MANY",
-          "entidadRelacionada": "AsistenciaPichanga",
-          "campoForeignKey": "pichanga_id"
-        }
-      ]
-    },
-    {
-      "nombre": "AsistenciaPichanga",
-      "atributos": [
-        {
-          "nombre": "id",
-          "tipo": "UUID",
-          "nullable": false,
-          "primaryKey": true
-        },
-        {
-          "nombre": "pichanga_id",
-          "tipo": "UUID",
-          "nullable": false
-        },
-        {
-          "nombre": "socio_id",
-          "tipo": "UUID",
-          "nullable": false
-        },
-        {
-          "nombre": "asistio",
-          "tipo": "BOOLEAN",
-          "nullable": false
-        },
-        {
-          "nombre": "created_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        },
-        {
-          "nombre": "updated_at",
-          "tipo": "TIMESTAMP",
-          "nullable": false
-        }
-      ],
-      "relaciones": [
-        {
-          "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Pichanga",
-          "campoForeignKey": "pichanga_id"
-        },
-        {
-          "tipo": "MANY_TO_ONE",
-          "entidadRelacionada": "Socio",
-          "campoForeignKey": "socio_id"
-        }
-      ]
+      "relaciones": []
     }
   ]
 }

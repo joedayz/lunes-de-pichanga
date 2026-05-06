@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-06T14:14:51.895Z",
+  "timestamp": "2026-05-06T14:22:18.642Z",
   "totalTests": 3,
   "pasados": 3,
   "fallidos": 0,
@@ -9,19 +9,19 @@
   "rondasGeneracionCobertura": 0,
   "resultados": [
     {
-      "nombre": "una-aplicacin-web-index-imports",
+      "nombre": "una-aplicacin-web-index-imports-unicos",
       "estado": "PASADO",
-      "duracionMs": 21
+      "duracionMs": 48
     },
     {
-      "nombre": "dashboard-admin-component",
+      "nombre": "dashboard-admin-component-unitario",
       "estado": "PASADO",
-      "duracionMs": 33
+      "duracionMs": 24
     },
     {
-      "nombre": "backend-socios-api-integration",
+      "nombre": "api-socios-integracion",
       "estado": "PASADO",
-      "duracionMs": 51
+      "duracionMs": 46
     }
   ],
   "intentosCorrección": 1
