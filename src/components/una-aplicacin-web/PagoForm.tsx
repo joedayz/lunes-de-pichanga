@@ -11,12 +11,11 @@ interface Socio {
 export default function PagoForm() {
   const [socios, setSocios] = useState<Socio[]>([]);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
-  const [formData, setFormData] = useState({ socioId: '', monto: '', anio: selectedYear });
+  const [formData, setFormData] = useState({ socioId: '', monto: '', estado: 'pendiente' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  // Cargar socios cuando cambia el año
   useEffect(() => {
     const fetchSocios = async () => {
       try {
@@ -36,21 +35,16 @@ export default function PagoForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (name === 'year') {
-      setSelectedYear(Number(value));
-      setFormData((prev) => ({ ...prev, anio: Number(value) }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(false);
+    setSuccess(null);
 
     if (!formData.socioId || !formData.monto) {
-      setError('Completa todos los campos');
+      setError('Por favor completa todos los campos');
       return;
     }
 
@@ -62,13 +56,13 @@ export default function PagoForm() {
         body: JSON.stringify({
           socioId: formData.socioId,
           monto: Number(formData.monto),
-          anio: formData.anio
+          anio: selectedYear,
+          estado: formData.estado
         })
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setSuccess(true);
-      setFormData({ socioId: '', monto: '', anio: selectedYear });
-      setTimeout(() => setSuccess(false), 3000);
+      setSuccess('Pago registrado exitosamente');
+      setFormData({ socioId: '', monto: '', estado: 'pendiente' });
     } catch (err) {
       setError(`Error registrando pago: ${err instanceof Error ? err.message : 'desconocido'}`);
     } finally {
@@ -77,28 +71,27 @@ export default function PagoForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Registrar Pago</h2>
+    <div className="p-6 bg-white rounded-lg shadow max-w-md">
+      <h2 className="text-2xl font-bold mb-6">Registrar Pago</h2>
       
-      {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
-      {success && <div className="bg-green-100 text-green-700 p-3 rounded mb-4">Pago registrado exitosamente</div>}
-      
+      {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{error}</div>}
+      {success && <div className="mb-4 p-3 bg-green-100 text-green-700 rounded">{success}</div>}
+
       <form aria-label="PagoForm" onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="year" className="block text-sm font-medium mb-1">
             Año
           </label>
-          <input
+          <input aria-label="campo de entrada"
             id="year"
             type="number"
-            name="year"
             value={selectedYear}
-            onChange={handleChange}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
             className="w-full px-3 py-2 border rounded"
             aria-label="Año del pago"
           />
         </div>
-        
+
         <div>
           <label htmlFor="socioId" className="block text-sm font-medium mb-1">
             Socio
@@ -110,6 +103,7 @@ export default function PagoForm() {
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
             aria-label="Seleccionar socio"
+            disabled={loading}
           >
             <option value="">-- Selecciona un socio --</option>
             {socios.map((socio) => (
@@ -119,7 +113,7 @@ export default function PagoForm() {
             ))}
           </select>
         </div>
-        
+
         <div>
           <label htmlFor="monto" className="block text-sm font-medium mb-1">
             Monto ($)
@@ -134,14 +128,31 @@ export default function PagoForm() {
             min="0"
             className="w-full px-3 py-2 border rounded"
             aria-label="Monto del pago"
-            placeholder="0.00"
           />
         </div>
-        
+
+        <div>
+          <label htmlFor="estado" className="block text-sm font-medium mb-1">
+            Estado
+          </label>
+          <select
+            id="estado"
+            name="estado"
+            value={formData.estado}
+            onChange={handleChange}
+            className="w-full px-3 py-2 border rounded"
+            aria-label="Estado del pago"
+          >
+            <option value="pendiente">Pendiente</option>
+            <option value="pagado">Pagado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 disabled:opacity-50"
+          className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
           aria-label="Enviar formulario de pago"
         >
           {loading ? 'Registrando...' : 'Registrar Pago'}
