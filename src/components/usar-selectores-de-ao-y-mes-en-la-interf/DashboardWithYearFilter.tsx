@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { jsonArray } from './normalize-api-response.js';
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
@@ -45,7 +46,7 @@ const DashboardWithYearFilter: React.FC = () => {
         const res = await fetch(`${BASE_URL}/api/anos-disponibles`);
         if (!res.ok) throw new Error('Error cargando años');
         const data = await res.json();
-        setAvailableYears(Array.isArray(data) ? data : []);
+        setAvailableYears(jsonArray<number>(data));
       } catch (err) {
         console.error(err);
       }
@@ -70,10 +71,17 @@ const DashboardWithYearFilter: React.FC = () => {
           throw new Error('Error cargando datos del dashboard');
         }
 
-        setSocios(await sociosRes.json());
-        setInvitados(await invitadosRes.json());
-        setResumen(await resumenRes.json());
-        setCuotas(await cuotasRes.json());
+        setSocios(jsonArray<Socio>(await sociosRes.json()));
+        setInvitados(jsonArray<Invitado>(await invitadosRes.json()));
+        const resumenJson = (await resumenRes.json()) as unknown;
+        setResumen(
+          resumenJson &&
+            typeof resumenJson === 'object' &&
+            'totalSocios' in (resumenJson as object)
+            ? (resumenJson as Resumen)
+            : null,
+        );
+        setCuotas(jsonArray<Cuota>(await cuotasRes.json()));
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error desconocido');
       } finally {
